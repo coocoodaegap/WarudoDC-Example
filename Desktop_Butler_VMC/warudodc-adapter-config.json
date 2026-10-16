@@ -1,0 +1,1350 @@
+{
+  "format": "warudodc.adapter-config.experimental",
+  "version": 1,
+  "hooks": [
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "be055d8ee83c0cd63090a50c97f2ce76",
+      "name": "新 LLM 钩子",
+      "enabled": true,
+      "event_key": "interaction.contact_nose.touch",
+      "prompt_template": "(用户戳了一下你的鼻子。)"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_nose.stroke.cancel",
+      "policy_overrides": {},
+      "id": "9455d56004849b757e4256773b6cc6d4",
+      "name": "新 LLM 钩子",
+      "enabled": true,
+      "event_key": "interaction.contact_nose.stroke",
+      "prompt_template": "(用户按着你的鼻子。)"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "e9fb24cddea6595ff7dd23c71a9a37b6",
+      "name": "新 LLM 钩子",
+      "enabled": true,
+      "event_key": "interaction.contact_nose.stroke.cancel",
+      "prompt_template": "(用户按了一会你的鼻子，松开了。)"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "0f6446a3628259768b32ab1783018d71",
+      "name": "额头 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_forehead.touch",
+      "prompt_template": "（用户轻触了一下你的额头。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_forehead.stroke.cancel",
+      "policy_overrides": {},
+      "id": "f9d5a45e1b8952bebe6c94022ac82eec",
+      "name": "额头 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_forehead.stroke",
+      "prompt_template": "（用户正在持续抚摸你的额头。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "fb3d74fc83ee5527b12534e4c0416d29",
+      "name": "额头 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_forehead.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的额头，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "95afa51951305b94a21123369ea8564e",
+      "name": "胸部 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_breast.touch",
+      "prompt_template": "（用户轻触了一下你的胸部。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_breast.stroke.cancel",
+      "policy_overrides": {},
+      "id": "99b030cd10f25a48b0494c366f5b71b6",
+      "name": "胸部 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_breast.stroke",
+      "prompt_template": "（用户正在持续抚摸你的胸部。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "abc593a331d75914b10c2b23c0e42ac3",
+      "name": "胸部 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_breast.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的胸部，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "cd72e80f6ba95c8a897c3191d5366e74",
+      "name": "腹部 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_belly.touch",
+      "prompt_template": "（用户轻触了一下你的腹部，好像想扒你的衣服。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_belly.stroke.cancel",
+      "policy_overrides": {},
+      "id": "ba815358050652bb8884b50918b9852e",
+      "name": "腹部 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_belly.stroke",
+      "prompt_template": "（用户正在持续抚摸你的腹部。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "b6fbefd265ed587a9a45226d95a968ff",
+      "name": "腹部 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_belly.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的腹部，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "1cda7f8bf8715572a9db53cb0b756234",
+      "name": "大腿 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_thigh.touch",
+      "prompt_template": "（用户轻触了一下你的大腿。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_thigh.stroke.cancel",
+      "policy_overrides": {},
+      "id": "8ef67dc355a45746a4c2f0256241d85f",
+      "name": "大腿 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_thigh.stroke",
+      "prompt_template": "（用户正在持续抚摸你的大腿。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "d453ae02be0858d79ba84761f9ffbc24",
+      "name": "大腿 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_thigh.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的大腿，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "6618173a070555009439728d5ca18fd0",
+      "name": "小腿 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_leg.touch",
+      "prompt_template": "（用户轻触了一下你的小腿。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_leg.stroke.cancel",
+      "policy_overrides": {},
+      "id": "b8c9b9e9403f5333ac64cda5314b1010",
+      "name": "小腿 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_leg.stroke",
+      "prompt_template": "（用户正在持续抚摸你的小腿。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "9226e7e2a98155af8c08a1071e25a2f6",
+      "name": "小腿 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_leg.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的小腿，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "aeb280ba0ac352ee8e2bc55cb5171ae3",
+      "name": "臀部 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_butt.touch",
+      "prompt_template": "（用户轻触了一下你的臀部。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_butt.stroke.cancel",
+      "policy_overrides": {},
+      "id": "b5e33d3929b45f799560d8d60cd540b0",
+      "name": "臀部 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_butt.stroke",
+      "prompt_template": "（用户正在持续抚摸你的臀部。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "3ecd0f046425559ea5fc2b64fc2cf633",
+      "name": "臀部 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_butt.stroke.cancel",
+      "prompt_template": "（用户摸了一会你的臀部，松开了。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "6f2a5e45aaf45669ac0d5cf1a969454a",
+      "name": "背部拖拽 · 持续一会儿",
+      "enabled": true,
+      "event_key": "interaction.back_drag.phase_2",
+      "prompt_template": "（用户正从你的背部拖拽你，这次交互已达到 {{duration_ms}} 毫秒的持续阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "051011a2bde35379ae1ed09b7434c46f",
+      "name": "背部拖拽 · 持续较久",
+      "enabled": true,
+      "event_key": "interaction.back_drag.phase_3",
+      "prompt_template": "（用户还没有松开你的背部，拖拽已持续较久，达到 {{duration_ms}} 毫秒的阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "e5efcbfc9b31511cb9223be39c2b375e",
+      "name": "背部拖拽 · 长时间持续",
+      "enabled": true,
+      "event_key": "interaction.back_drag.phase_4",
+      "prompt_template": "（用户依然没有结束背部拖拽，这次交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "eb39c22ffafe567d9ca9890149bdab17",
+      "name": "光环旋转 · 持续一会儿",
+      "enabled": true,
+      "event_key": "interaction.halo_rotate.phase_2",
+      "prompt_template": "（用户抓住你的光环进行拖动，让你转动朝向；交互已达到 {{duration_ms}} 毫秒的持续阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "f2881a2e687e5f5681c38b349f1bbfce",
+      "name": "光环旋转 · 持续较久",
+      "enabled": true,
+      "event_key": "interaction.halo_rotate.phase_3",
+      "prompt_template": "（用户仍在拖动你的光环，让你转动朝向；这次交互持续较久，已达到 {{duration_ms}} 毫秒的阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "27e0a510c0af5cb8b5e2505d90c0198c",
+      "name": "光环旋转 · 长时间持续",
+      "enabled": true,
+      "event_key": "interaction.halo_rotate.phase_4",
+      "prompt_template": "（用户还没有松开你的光环，旋转交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "8df1c4e5c2f5572abee208703ece6298",
+      "name": "牵手 · 持续一会儿",
+      "enabled": true,
+      "event_key": "interaction.hand_drag.phase_2",
+      "prompt_template": "（用户自然地牵着你的手，已经牵了一小会儿；这次牵手达到 {{duration_ms}} 毫秒的持续阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "12180da575e25851b4cfb181a18d4612",
+      "name": "牵手 · 持续较久",
+      "enabled": true,
+      "event_key": "interaction.hand_drag.phase_3",
+      "prompt_template": "（用户仍然牵着你的手，还没有松开；你们已经牵手一段时间，达到 {{duration_ms}} 毫秒的持续阈值。）"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "id": "806fc924d7945d5788988a1fad7fa253",
+      "name": "牵手 · 长时间持续",
+      "enabled": true,
+      "event_key": "interaction.hand_drag.phase_4",
+      "prompt_template": "（用户一直自然地牵着你的手，没有松开；这次牵手已经持续很久，达到 {{duration_ms}} 毫秒的持续阈值。）"
+    }
+  ],
+  "calls": [
+    {
+      "id": "b22a4265ee3e816d375b90058f32a1d3",
+      "name": "移动至目的地",
+      "enabled": true,
+      "call_name": "autonomy_move_to",
+      "api_key": "autonomy.move_to",
+      "description": "请求角色自主移动到目标世界坐标；最终是否执行由主场景 Autonomy Controller 决定。参考范围：水平方向 x ∈ [-1, 1]",
+      "parameter_descriptions": {
+        "target": ""
+      },
+      "schema": {
+        "request_fields": [
+          {
+            "key": "target",
+            "kind": "vector3"
+          }
+        ]
+      },
+      "result_api_key": "autonomy.move_to.result",
+      "result_timeout_ms": 30000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "status",
+            "kind": "string"
+          },
+          {
+            "key": "position",
+            "kind": "vector3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "6c72db1c29ad7e857546918c2e3430df",
+      "name": "移动指定距离",
+      "enabled": true,
+      "call_name": "autonomy_move_by",
+      "api_key": "autonomy.move_by",
+      "description": "请求角色自主移动；最终是否执行由主场景 Autonomy Controller 决定。参考范围：水平方向 x ∈ [-1, 1]",
+      "parameter_descriptions": {
+        "delta": ""
+      },
+      "schema": {
+        "request_fields": [
+          {
+            "key": "delta",
+            "kind": "vector3"
+          }
+        ]
+      },
+      "result_api_key": "autonomy.move_by.result",
+      "result_timeout_ms": 30000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "position",
+            "kind": "vector3"
+          },
+          {
+            "key": "status",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "2cbc20dcb57750a9969a3cae21938b94",
+      "name": "转向指定朝向",
+      "enabled": true,
+      "call_name": "autonomy_rotate_to",
+      "api_key": "autonomy.rotate_to",
+      "description": "需要让角色面向指定的世界水平角度时使用。yaw 为世界 Y 轴角度（度），范围 [0,360]；不是相对角度，不移动位置。仅按明确意图选择，不要凭空把某个角度当作面向用户。实际执行受蓝图的交互与自主行动守卫控制。等待独立结果后，只有 status=completed 才可声称完成；超时或未知不能视作成功，也不要自动重复执行。",
+      "parameter_descriptions": {
+        "yaw": "世界水平朝向（度），限制 [0,360]。"
+      },
+      "schema": {
+        "request_fields": [
+          {
+            "key": "yaw",
+            "kind": "float"
+          }
+        ]
+      },
+      "result_api_key": "autonomy.rotate_to.result",
+      "result_timeout_ms": 30000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "rotation",
+            "kind": "vector3"
+          },
+          {
+            "key": "status",
+            "kind": "string"
+          }
+        ]
+      }
+    },
+    {
+      "id": "58de4fae293052bbb7e1fa8321375707",
+      "name": "相对当前朝向转动",
+      "enabled": true,
+      "call_name": "autonomy_rotate_by",
+      "api_key": "autonomy.rotate_by",
+      "description": "需要让角色在当前位置相对当前水平朝向转动时使用。delta_yaw 为绕世界 Y 轴的角度增量（度），范围 [-180,180]；不是绝对朝向，也不平移角色，不支持绕多圈。实际执行受蓝图的交互与自主行动守卫控制。等待独立结果后，只有 status=completed 才可声称完成；超时或未知不能视作成功，也不要自动重复执行。",
+      "parameter_descriptions": {
+        "delta_yaw": "相对当前水平朝向的增量（度），限制 [-180,180]，走最短路径。"
+      },
+      "schema": {
+        "request_fields": [
+          {
+            "key": "delta_yaw",
+            "kind": "float"
+          }
+        ]
+      },
+      "result_api_key": "autonomy.rotate_by.result",
+      "result_timeout_ms": 30000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "rotation",
+            "kind": "vector3"
+          },
+          {
+            "key": "status",
+            "kind": "string"
+          }
+        ]
+      }
+    }
+  ],
+  "screenplay": {
+    "tones": [
+      {
+        "tone_key": "neutral",
+        "display_name": "中性",
+        "description": "平稳、自然，不刻意强化情绪。",
+        "enabled": true,
+        "is_default": true,
+        "supports_intensity": true,
+        "default_intensity": 0.5
+      },
+      {
+        "tone_key": "happy",
+        "display_name": "愉快",
+        "description": "轻快、积极，表达明显但不过度夸张的愉悦。",
+        "enabled": true,
+        "is_default": false,
+        "supports_intensity": true,
+        "default_intensity": 0.7
+      },
+      {
+        "tone_key": "sad",
+        "display_name": "悲伤",
+        "description": "低落、克制，表达悲伤或失落。",
+        "enabled": true,
+        "is_default": false,
+        "supports_intensity": true,
+        "default_intensity": 0.6
+      },
+      {
+        "tone_key": "angry",
+        "display_name": "生气",
+        "description": "坚定、有张力，表达不满或愤怒但避免失控。",
+        "enabled": true,
+        "is_default": false,
+        "supports_intensity": true,
+        "default_intensity": 0.7
+      }
+    ],
+    "actions": [
+      {
+        "id": "38aee0c914a5d985d6bd25ee6d161111",
+        "name": "挥动手臂",
+        "enabled": true,
+        "api_key": "performance.wave_once",
+        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。",
+        "field_descriptions": {
+          "message": ""
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "message",
+              "kind": "string"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "c38473f592feecba798eded5fcc77e4a",
+        "name": "回归正常动作",
+        "enabled": true,
+        "api_key": "idle.return_normal_pose",
+        "director_description": "当片段中的临时动作或姿态需要在结束、取消或被新片段取代后恢复时使用；优先放入 cleanup_cues，不作为新的叙事动作。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_completed"
+        ]
+      }
+    ],
+    "director": {
+      "enabled": true,
+      "prompt_template": "你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+    },
+    "first_segment": {
+      "enabled": true,
+      "injection_mode": "hybrid",
+      "presets": [
+        {
+          "id": "first.neutral",
+          "name": "中性开场",
+          "enabled": true,
+          "is_default": true,
+          "marker": "🎭😐",
+          "description": "平稳、自然地开始回复。",
+          "tone_key": "neutral",
+          "intensity": 0.5,
+          "cues": [],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.happy",
+          "name": "愉快开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭✨",
+          "description": "以轻快、积极的状态开始回复。",
+          "tone_key": "happy",
+          "intensity": 0.7,
+          "cues": [],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.sad",
+          "name": "悲伤开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😢",
+          "description": "以低落、克制的状态开始回复。",
+          "tone_key": "sad",
+          "intensity": 0.6,
+          "cues": [],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.angry",
+          "name": "生气开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭💢",
+          "description": "以坚定、有张力的状态开始回复。",
+          "tone_key": "angry",
+          "intensity": 0.7,
+          "cues": [],
+          "cleanup_cues": []
+        }
+      ]
+    }
+  },
+  "api": {
+    "format": "warudodc.api-config.experimental",
+    "version": 2,
+    "events": [
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.move_by",
+        "enabled": true,
+        "description": "按世界坐标相对当前位置移动 delta，沿用自主行动守卫与软边界。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "delta",
+            "kind": "vector3",
+            "description": "世界坐标位移（米），不是角色局部前后左右。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.move_to",
+        "enabled": true,
+        "description": "请求角色自主移动到目标世界坐标；最终是否执行由主场景 Autonomy Controller 决定。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "target",
+            "kind": "vector3",
+            "description": "期望到达的世界坐标；主场景会将其限制在桌面软边界内。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.rotate_by",
+        "enabled": true,
+        "description": "水平自主转向，遵守本地交互策略，实际执行由 Locomotion Turn 负责。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "delta_yaw",
+            "kind": "float",
+            "description": "相对当前水平朝向的增量（度），限制 [-180,180]，走最短路径。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.rotate_to",
+        "enabled": true,
+        "description": "水平自主转向，遵守本地交互策略，实际执行由 Locomotion Turn 负责。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "yaw",
+            "kind": "float",
+            "description": "世界水平朝向（度），限制 [0,360]。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "idle.return_normal_pose",
+        "enabled": true,
+        "description": "让 Idle Controller 按当前 Emotion 重新选择基础待机动画；仅在基础动画所有权为空时生效，适合作为 Director cleanup_cues。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.wave_once",
+        "enabled": true,
+        "description": "单次限时挥手；本地空闲且无交互时播放，约 2.5 秒后释放动画所有权并回归当前基础姿态。message 为可选说明，不作为动作完成回执。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "message",
+            "kind": "string",
+            "description": "Director 为该表现提示附带的可读说明；示例链不据此分支。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "autonomy.move_by.result",
+        "enabled": true,
+        "description": "实际到达后返回；reply_to 关联 autonomy.move_by，拒绝或中止不伪报成功。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "position",
+            "kind": "vector3",
+            "description": "实际完成世界坐标。"
+          },
+          {
+            "key": "status",
+            "kind": "string",
+            "description": "完成为 completed。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "autonomy.move_to.result",
+        "enabled": true,
+        "description": "角色确实到达本次自主移动目标后返回；reply_to 关联原 autonomy.move_to 事件。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "position",
+            "kind": "vector3",
+            "description": "完成时角色节点的世界坐标。"
+          },
+          {
+            "key": "status",
+            "kind": "string",
+            "description": "业务终态；首版成功路径固定为 completed。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "autonomy.rotate_by.result",
+        "enabled": true,
+        "description": "转向实际完成后返回；reply_to 关联 autonomy.rotate_by。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "rotation",
+            "kind": "vector3",
+            "description": "实际完成的世界欧拉角（度）。"
+          },
+          {
+            "key": "status",
+            "kind": "string",
+            "description": "完成为 completed。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "autonomy.rotate_to.result",
+        "enabled": true,
+        "description": "转向实际完成后返回；reply_to 关联 autonomy.rotate_to。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "rotation",
+            "kind": "vector3",
+            "description": "实际完成的世界欧拉角（度）。"
+          },
+          {
+            "key": "status",
+            "kind": "string",
+            "description": "完成为 completed。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.back_drag.phase_2",
+        "enabled": true,
+        "description": "Back Drag 进入 Phase 2；默认阈值约 3000 ms。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.back_drag.phase_3",
+        "enabled": true,
+        "description": "Back Drag 进入 Phase 3；默认阈值约 15000 ms。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.back_drag.phase_4",
+        "enabled": true,
+        "description": "Back Drag 进入 Phase 4；默认阈值约 30000 ms。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_belly.stroke",
+        "enabled": true,
+        "description": "角色腹部接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_belly.stroke.cancel",
+        "enabled": true,
+        "description": "角色腹部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_belly.touch",
+        "enabled": true,
+        "description": "角色腹部接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_breast.stroke",
+        "enabled": true,
+        "description": "角色胸部接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_breast.stroke.cancel",
+        "enabled": true,
+        "description": "角色胸部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_breast.touch",
+        "enabled": true,
+        "description": "角色胸部接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_butt.stroke",
+        "enabled": true,
+        "description": "角色臀部接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_butt.stroke.cancel",
+        "enabled": true,
+        "description": "角色臀部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_butt.touch",
+        "enabled": true,
+        "description": "角色臀部接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_forehead.stroke",
+        "enabled": true,
+        "description": "角色额头接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_forehead.stroke.cancel",
+        "enabled": true,
+        "description": "角色额头抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_forehead.touch",
+        "enabled": true,
+        "description": "角色额头接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_leg.stroke",
+        "enabled": true,
+        "description": "角色小腿接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_leg.stroke.cancel",
+        "enabled": true,
+        "description": "角色小腿抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_leg.touch",
+        "enabled": true,
+        "description": "角色小腿接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_nose.stroke",
+        "enabled": true,
+        "description": "角色鼻部接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_nose.stroke.cancel",
+        "enabled": true,
+        "description": "角色鼻部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_nose.touch",
+        "enabled": true,
+        "description": "角色鼻部接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_thigh.stroke",
+        "enabled": true,
+        "description": "角色大腿接触持续进入 Phase 3，结算为一次抚摸。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_thigh.stroke.cancel",
+        "enabled": true,
+        "description": "角色大腿抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_thigh.touch",
+        "enabled": true,
+        "description": "角色大腿接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.halo_rotate.phase_2",
+        "enabled": true,
+        "description": "Halo Rotate 进入 Phase 2；持续交互阈值为 3000 ms，不表示旋转角度或累计圈数。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.halo_rotate.phase_3",
+        "enabled": true,
+        "description": "Halo Rotate 进入 Phase 3；持续交互阈值为 15000 ms，不表示旋转角度或累计圈数。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.halo_rotate.phase_4",
+        "enabled": true,
+        "description": "Halo Rotate 进入 Phase 4；持续交互阈值为 30000 ms，不表示旋转角度或累计圈数。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.hand_drag.phase_2",
+        "enabled": true,
+        "description": "Hand Drag（正常牵手） 进入 Phase 2；持续交互阈值为 3000 ms，仅表达持续交互，不代表角度、圈数或拉扯力度。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.hand_drag.phase_3",
+        "enabled": true,
+        "description": "Hand Drag（正常牵手） 进入 Phase 3；持续交互阈值为 15000 ms，仅表达持续交互，不代表角度、圈数或拉扯力度。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.hand_drag.phase_4",
+        "enabled": true,
+        "description": "Hand Drag（正常牵手） 进入 Phase 4；持续交互阈值为 30000 ms，仅表达持续交互，不代表角度、圈数或拉扯力度。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "duration_ms",
+            "kind": "integer",
+            "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      }
+    ]
+  }
+}
