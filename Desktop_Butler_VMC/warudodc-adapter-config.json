@@ -661,6 +661,62 @@
         "allowed_triggers": [
           "media_completed"
         ]
+      },
+      {
+        "id": "e675dd42cab357929268fca0c569fe08",
+        "name": "惊讶",
+        "enabled": true,
+        "api_key": "expression.surprised",
+        "director_description": "短暂睁大眼睛、抬眉。用于意外消息、出乎意料的转折或惊喜；普通强调不要滥用。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "dd50717a7a845431bfa2e1a5fd8a49b9",
+        "name": "疑惑",
+        "enabled": true,
+        "api_key": "expression.confused",
+        "director_description": "短暂露出困惑的眉眼。用于没听懂、信息矛盾、需要追问或不确定的片段。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "1f7729dc97885c8f894a88bd3b2345b1",
+        "name": "无语",
+        "enabled": true,
+        "api_key": "expression.speechless",
+        "director_description": "短暂露出克制的无语眉眼。用于无奈、冷场或轻微吐槽；不代表愤怒，也不用于严肃悲伤。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "50bc019114395689b811df49b91e03e4",
+        "name": "害羞",
+        "enabled": true,
+        "api_key": "expression.embarrassed",
+        "director_description": "短暂露出柔和的害羞眉眼。用于受到夸奖、亲昵或略尴尬的片段，不用于普通礼貌回答。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
       }
     ],
     "director": {
@@ -717,6 +773,98 @@
           "tone_key": "angry",
           "intensity": 0.7,
           "cues": [],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.surprised",
+          "name": "惊讶开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😮",
+          "description": "开场即对意外消息或出乎意料的转折表示惊讶，短暂睁大眼睛抬眉；普通强调不选。",
+          "tone_key": "neutral",
+          "intensity": 0.65,
+          "cues": [
+            {
+              "action_id": "e675dd42cab357929268fca0c569fe08",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.confused",
+          "name": "疑惑开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🤔",
+          "description": "开场即表示不理解、不确定或准备追问，短暂露出疑惑表情。",
+          "tone_key": "neutral",
+          "intensity": 0.5,
+          "cues": [
+            {
+              "action_id": "dd50717a7a845431bfa2e1a5fd8a49b9",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.speechless",
+          "name": "无语开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😑",
+          "description": "开场即表示克制的无奈、冷场或轻微吐槽，短暂露出无语表情；不是愤怒或悲伤。",
+          "tone_key": "neutral",
+          "intensity": 0.4,
+          "cues": [
+            {
+              "action_id": "1f7729dc97885c8f894a88bd3b2345b1",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.embarrassed",
+          "name": "害羞开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😳",
+          "description": "开场即因夸奖、亲昵或轻微尴尬而害羞，语气柔和略带愉快，短暂露出害羞表情。",
+          "tone_key": "happy",
+          "intensity": 0.55,
+          "cues": [
+            {
+              "action_id": "50bc019114395689b811df49b91e03e4",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.wave",
+          "name": "愉快挥手开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭👋",
+          "description": "愉快地打招呼、告别或主动示意时，开场挥手一次；普通回答不必挥手。",
+          "tone_key": "happy",
+          "intensity": 0.75,
+          "cues": [
+            {
+              "action_id": "38aee0c914a5d985d6bd25ee6d161111",
+              "trigger": "media_started",
+              "arguments": {
+                "message": ""
+              }
+            }
+          ],
           "cleanup_cues": []
         }
       ]
@@ -781,6 +929,38 @@
             "description": "世界水平朝向（度），限制 [0,360]。"
           }
         ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.confused",
+        "enabled": true,
+        "description": "短暂显示疑惑表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.embarrassed",
+        "enabled": true,
+        "description": "短暂显示害羞表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.speechless",
+        "enabled": true,
+        "description": "短暂显示无语表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.surprised",
+        "enabled": true,
+        "description": "短暂显示惊讶表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
       },
       {
         "route": "adapter_to_link",
