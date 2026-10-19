@@ -12,7 +12,7 @@
       "cancel_event_key": "",
       "policy_overrides": {},
       "id": "be055d8ee83c0cd63090a50c97f2ce76",
-      "name": "新 LLM 钩子",
+      "name": "鼻子 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_nose.touch",
       "prompt_template": "(用户戳了一下你的鼻子。)"
@@ -27,7 +27,7 @@
       "cancel_event_key": "interaction.contact_nose.stroke.cancel",
       "policy_overrides": {},
       "id": "9455d56004849b757e4256773b6cc6d4",
-      "name": "新 LLM 钩子",
+      "name": "鼻子 · 持续触碰",
       "enabled": true,
       "event_key": "interaction.contact_nose.stroke",
       "prompt_template": "(用户按着你的鼻子。)"
@@ -42,7 +42,7 @@
       "cancel_event_key": "",
       "policy_overrides": {},
       "id": "e9fb24cddea6595ff7dd23c71a9a37b6",
-      "name": "新 LLM 钩子",
+      "name": "鼻子 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_nose.stroke.cancel",
       "prompt_template": "(用户按了一会你的鼻子，松开了。)"
@@ -585,6 +585,142 @@
           }
         ]
       }
+    },
+    {
+      "id": "a2545450619e56ccbce0ada56a90875c",
+      "name": "切换为待命模式",
+      "enabled": true,
+      "call_name": "autonomy_standby",
+      "api_key": "autonomy.mode.standby",
+      "description": "请求角色沿本地返回流程回到待命模式。只有业务结果status=Succeeded且mode=0才表示完成；返回可能需要一段时间。Rejected表示本地占用/策略/已有过渡，不要重复轰炸或宣称已经完成。",
+      "parameter_descriptions": {},
+      "schema": {
+        "request_fields": []
+      },
+      "result_api_key": "autonomy.state.result",
+      "result_timeout_ms": 120000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "status",
+            "kind": "string"
+          },
+          {
+            "key": "detail",
+            "kind": "string"
+          },
+          {
+            "key": "mode",
+            "kind": "integer"
+          },
+          {
+            "key": "thinking",
+            "kind": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "id": "4d2bba1411915399b5a192615eb1ee80",
+      "name": "切换为自由模式",
+      "enabled": true,
+      "call_name": "autonomy_free",
+      "api_key": "autonomy.mode.free",
+      "description": "请求角色进入自由模式，允许后续自主移动，但不会自动发起移动。读取业务结果status与实际mode；返回待命途中可能拒绝，不要自行假定已切换。",
+      "parameter_descriptions": {},
+      "schema": {
+        "request_fields": []
+      },
+      "result_api_key": "autonomy.state.result",
+      "result_timeout_ms": 10000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "status",
+            "kind": "string"
+          },
+          {
+            "key": "detail",
+            "kind": "string"
+          },
+          {
+            "key": "mode",
+            "kind": "integer"
+          },
+          {
+            "key": "thinking",
+            "kind": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "id": "cbaf3a659a0757ef9b8785bafef31372",
+      "name": "进入思考状态",
+      "enabled": true,
+      "call_name": "autonomy_thinking_start",
+      "api_key": "performance.thinking.start",
+      "description": "在即将查资料或执行较耗时工具之前，明确请求思考表情和姿态。此工具立即返回本地操作结果，不等待思考结束。持续时间由场景控制，0表示保持；不需要思考时调用autonomy_thinking_end。不能借此输出内部推理，也不能使尚未收到首个模型输出的客户端提前显示等待。占用时可能拒绝。",
+      "parameter_descriptions": {},
+      "schema": {
+        "request_fields": []
+      },
+      "result_api_key": "autonomy.state.result",
+      "result_timeout_ms": 10000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "status",
+            "kind": "string"
+          },
+          {
+            "key": "detail",
+            "kind": "string"
+          },
+          {
+            "key": "mode",
+            "kind": "integer"
+          },
+          {
+            "key": "thinking",
+            "kind": "boolean"
+          }
+        ]
+      }
+    },
+    {
+      "id": "bfee82deff195499935d661fff34720b",
+      "name": "结束思考状态",
+      "enabled": true,
+      "call_name": "autonomy_thinking_end",
+      "api_key": "performance.thinking.end",
+      "description": "结束当前仍属于思考来源的表情和姿态，保留其他动作和表情。适合耗时工具完成或不再思考时使用；已结束时可重复调用。读取业务结果，控制器不可用可能返回Rejected。",
+      "parameter_descriptions": {},
+      "schema": {
+        "request_fields": []
+      },
+      "result_api_key": "autonomy.state.result",
+      "result_timeout_ms": 10000,
+      "result_schema": {
+        "request_fields": [
+          {
+            "key": "status",
+            "kind": "string"
+          },
+          {
+            "key": "detail",
+            "kind": "string"
+          },
+          {
+            "key": "mode",
+            "kind": "integer"
+          },
+          {
+            "key": "thinking",
+            "kind": "boolean"
+          }
+        ]
+      }
     }
   ],
   "screenplay": {
@@ -667,7 +803,7 @@
         "name": "惊讶",
         "enabled": true,
         "api_key": "expression.surprised",
-        "director_description": "短暂睁大眼睛、抬眉。用于意外消息、出乎意料的转折或惊喜；普通强调不要滥用。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "director_description": "意料之外、惊喜或出乎意料的转折；不必然害怕，普通强调不要滥用。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -681,7 +817,7 @@
         "name": "疑惑",
         "enabled": true,
         "api_key": "expression.confused",
-        "director_description": "短暂露出困惑的眉眼。用于没听懂、信息矛盾、需要追问或不确定的片段。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "director_description": "没理解、信息矛盾、需要解释或追问；不是已经理解但不相信。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -695,7 +831,7 @@
         "name": "无语",
         "enabled": true,
         "api_key": "expression.speechless",
-        "director_description": "短暂露出克制的无语眉眼。用于无奈、冷场或轻微吐槽；不代表愤怒，也不用于严肃悲伤。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "director_description": "克制的吐槽、无奈或难以评价；不同于愤怒、嫌弃或严肃悲伤。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -706,16 +842,254 @@
       },
       {
         "id": "50bc019114395689b811df49b91e03e4",
-        "name": "害羞",
+        "name": "尴尬",
         "enabled": true,
         "api_key": "expression.embarrassed",
-        "director_description": "短暂露出柔和的害羞眉眼。用于受到夸奖、亲昵或略尴尬的片段，不用于普通礼貌回答。由蓝图自动恢复，不需要清理动作；相邻片段不要机械重复，交互表情优先。",
+        "director_description": "出糗、被拆穿或社交窘迫；正向亲昵和夸奖后的羞涩优先使用害羞。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
+        ]
+      },
+      {
+        "id": "e4f49c41172d51b699d051be49eb3c81",
+        "name": "期待",
+        "enabled": true,
+        "api_key": "expression.expectant",
+        "director_description": "期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "0b531411d22c543a92fafa74524af764",
+        "name": "得意",
+        "enabled": true,
+        "api_key": "expression.smug",
+        "director_description": "被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "cd3b35d82b2a5603990f72edec5d373a",
+        "name": "怀疑",
+        "enabled": true,
+        "api_key": "expression.skeptical",
+        "director_description": "已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "f02cbeffe64355379472329cf32b35a9",
+        "name": "不满",
+        "enabled": true,
+        "api_key": "expression.displeased",
+        "director_description": "抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "6a2bcb6808235920881df7a4b5050217",
+        "name": "嫌弃",
+        "enabled": true,
+        "api_key": "expression.disgusted",
+        "director_description": "对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "98f8c71114885e4fbe772ce5f6c64eb4",
+        "name": "担忧",
+        "enabled": true,
+        "api_key": "expression.worried",
+        "director_description": "担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9561a1fc04115cd6aef6899fda0511ba",
+        "name": "害怕",
+        "enabled": true,
+        "api_key": "expression.fearful",
+        "director_description": "受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "b229557ce39d52349e88a1f191e0ae71",
+        "name": "委屈",
+        "enabled": true,
+        "api_key": "expression.aggrieved",
+        "director_description": "被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "b0cae53e85f751c7a9051b00e8323bb2",
+        "name": "害羞",
+        "enabled": true,
+        "api_key": "expression.shy",
+        "director_description": "被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "d16eda31910a51e7a1e1c15dc3dc6af9",
+        "name": "温柔",
+        "enabled": true,
+        "api_key": "expression.tender",
+        "director_description": "安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "e2e1738e8b285e009bfb1a94f58fced7",
+        "name": "释然",
+        "enabled": true,
+        "api_key": "expression.relieved",
+        "director_description": "放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "587b52ff98c2513ea92ab4dda011be73",
+        "name": "俏皮",
+        "enabled": true,
+        "api_key": "expression.playful",
+        "director_description": "调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "10da83f223b45491b6d448fb188819e1",
+        "name": "疲惫",
+        "enabled": true,
+        "api_key": "expression.tired",
+        "director_description": "对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9a3170ab878a568f87ba25aeff8abfd4",
+        "name": "无聊",
+        "enabled": true,
+        "api_key": "expression.bored",
+        "director_description": "兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9b1f6bf623a351bf8a6a133a0eca9846",
+        "name": "思考",
+        "enabled": true,
+        "api_key": "expression.thinking",
+        "director_description": "斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "0bc0750aad4d5f59a5e7892c2f070716",
+        "name": "进入思考状态",
+        "enabled": true,
+        "api_key": "performance.thinking.start",
+        "director_description": "请求思考表情和姿态，本地占用时会拒绝；ThinkingDurationSeconds=0时持续保持，正数限时。需要结束时可选performance.thinking.end作为cleanup；不要相邻每段重复。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "83772b8d3f1855a1b400c396149b2ef2",
+        "name": "结束思考状态",
+        "enabled": true,
+        "api_key": "performance.thinking.end",
+        "director_description": "仅释放思考来源表情及思考姿态，保留其他表现；可作为cleanup，不是重置所有动作。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_completed"
         ]
       }
     ],
@@ -831,11 +1205,11 @@
         },
         {
           "id": "first.presentation.embarrassed",
-          "name": "害羞开场",
+          "name": "尴尬开场",
           "enabled": true,
           "is_default": false,
           "marker": "🎭😳",
-          "description": "开场即因夸奖、亲昵或轻微尴尬而害羞，语气柔和略带愉快，短暂露出害羞表情。",
+          "description": "开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。",
           "tone_key": "happy",
           "intensity": 0.55,
           "cues": [
@@ -866,6 +1240,286 @@
             }
           ],
           "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.expectant",
+          "name": "期待开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🤩",
+          "description": "开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。",
+          "tone_key": "happy",
+          "intensity": 0.7,
+          "cues": [
+            {
+              "action_id": "e4f49c41172d51b699d051be49eb3c81",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.smug",
+          "name": "得意开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😏",
+          "description": "开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。",
+          "tone_key": "happy",
+          "intensity": 0.65,
+          "cues": [
+            {
+              "action_id": "0b531411d22c543a92fafa74524af764",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.skeptical",
+          "name": "怀疑开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🤨",
+          "description": "开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。",
+          "tone_key": "neutral",
+          "intensity": 0.55,
+          "cues": [
+            {
+              "action_id": "cd3b35d82b2a5603990f72edec5d373a",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.displeased",
+          "name": "不满开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😒",
+          "description": "开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。",
+          "tone_key": "angry",
+          "intensity": 0.55,
+          "cues": [
+            {
+              "action_id": "f02cbeffe64355379472329cf32b35a9",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.disgusted",
+          "name": "嫌弃开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🤢",
+          "description": "开场即表现嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。",
+          "tone_key": "neutral",
+          "intensity": 0.65,
+          "cues": [
+            {
+              "action_id": "6a2bcb6808235920881df7a4b5050217",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.worried",
+          "name": "担忧开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😟",
+          "description": "开场即表现担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。",
+          "tone_key": "sad",
+          "intensity": 0.55,
+          "cues": [
+            {
+              "action_id": "98f8c71114885e4fbe772ce5f6c64eb4",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.fearful",
+          "name": "害怕开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😨",
+          "description": "开场即表现害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。",
+          "tone_key": "neutral",
+          "intensity": 0.75,
+          "cues": [
+            {
+              "action_id": "9561a1fc04115cd6aef6899fda0511ba",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.aggrieved",
+          "name": "委屈开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🥺",
+          "description": "开场即表现委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。",
+          "tone_key": "sad",
+          "intensity": 0.65,
+          "cues": [
+            {
+              "action_id": "b229557ce39d52349e88a1f191e0ae71",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.shy",
+          "name": "害羞开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🙈",
+          "description": "开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。",
+          "tone_key": "happy",
+          "intensity": 0.55,
+          "cues": [
+            {
+              "action_id": "b0cae53e85f751c7a9051b00e8323bb2",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.tender",
+          "name": "温柔开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🥰",
+          "description": "开场即表现温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。",
+          "tone_key": "happy",
+          "intensity": 0.5,
+          "cues": [
+            {
+              "action_id": "d16eda31910a51e7a1e1c15dc3dc6af9",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.relieved",
+          "name": "释然开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😌",
+          "description": "开场即表现释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。",
+          "tone_key": "neutral",
+          "intensity": 0.4,
+          "cues": [
+            {
+              "action_id": "e2e1738e8b285e009bfb1a94f58fced7",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.playful",
+          "name": "俏皮开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😜",
+          "description": "开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。",
+          "tone_key": "happy",
+          "intensity": 0.7,
+          "cues": [
+            {
+              "action_id": "587b52ff98c2513ea92ab4dda011be73",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.tired",
+          "name": "疲惫开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭😪",
+          "description": "开场即表现疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。",
+          "tone_key": "neutral",
+          "intensity": 0.35,
+          "cues": [
+            {
+              "action_id": "10da83f223b45491b6d448fb188819e1",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.bored",
+          "name": "无聊开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🥱",
+          "description": "开场即表现无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。",
+          "tone_key": "neutral",
+          "intensity": 0.35,
+          "cues": [
+            {
+              "action_id": "9a3170ab878a568f87ba25aeff8abfd4",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.presentation.thinking",
+          "name": "思考开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭💭",
+          "description": "开场即表现思考：斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。",
+          "tone_key": "neutral",
+          "intensity": 0.5,
+          "cues": [
+            {
+              "action_id": "9b1f6bf623a351bf8a6a133a0eca9846",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "0bc0750aad4d5f59a5e7892c2f070716",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": [
+            {
+              "action_id": "83772b8d3f1855a1b400c396149b2ef2",
+              "arguments": {}
+            }
+          ]
         }
       ]
     }
@@ -874,6 +1528,22 @@
     "format": "warudodc.api-config.experimental",
     "version": 2,
     "events": [
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.mode.free",
+        "enabled": true,
+        "description": "请求进入自由模式，不自动移动角色；现有返回待命过渡期间拒绝。业务结果经autonomy.state.result返回。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "autonomy.mode.standby",
+        "enabled": true,
+        "description": "请求沿既有返回待命流程回到待命；实际完成后经autonomy.state.result回执。重复在途请求拒绝，ACK不表示模式已改变。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
       {
         "route": "adapter_to_link",
         "key": "autonomy.move_by",
@@ -932,9 +1602,41 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "expression.aggrieved",
+        "enabled": true,
+        "description": "请求显示委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.bored",
+        "enabled": true,
+        "description": "请求显示无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
         "key": "expression.confused",
         "enabled": true,
-        "description": "短暂显示疑惑表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "description": "请求显示疑惑表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.disgusted",
+        "enabled": true,
+        "description": "请求显示嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.displeased",
+        "enabled": true,
+        "description": "请求显示不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
@@ -942,7 +1644,63 @@
         "route": "adapter_to_link",
         "key": "expression.embarrassed",
         "enabled": true,
-        "description": "短暂显示害羞表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "description": "请求显示尴尬：出糗、被拆穿或社交窘迫；正向亲昵和夸奖后的羞涩使用expression.shy。仅提交REQUESTED，按当前场景规则合成并自动恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.expectant",
+        "enabled": true,
+        "description": "请求显示期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.fearful",
+        "enabled": true,
+        "description": "请求显示害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.playful",
+        "enabled": true,
+        "description": "请求显示俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.relieved",
+        "enabled": true,
+        "description": "请求显示释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.shy",
+        "enabled": true,
+        "description": "请求显示害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.skeptical",
+        "enabled": true,
+        "description": "请求显示怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.smug",
+        "enabled": true,
+        "description": "请求显示得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
@@ -950,7 +1708,7 @@
         "route": "adapter_to_link",
         "key": "expression.speechless",
         "enabled": true,
-        "description": "短暂显示无语表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "description": "请求显示无语表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
@@ -958,7 +1716,39 @@
         "route": "adapter_to_link",
         "key": "expression.surprised",
         "enabled": true,
-        "description": "短暂显示惊讶表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "description": "请求显示惊讶表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.tender",
+        "enabled": true,
+        "description": "请求显示温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.thinking",
+        "enabled": true,
+        "description": "请求思考表情；场景DurationSeconds=0持续到替换/释放，正数限时；不代表模型内部推理。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.tired",
+        "enabled": true,
+        "description": "请求显示疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "expression.worried",
+        "enabled": true,
+        "description": "请求显示担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
@@ -967,6 +1757,22 @@
         "key": "idle.return_normal_pose",
         "enabled": true,
         "description": "让 Idle Controller 按当前 Emotion 重新选择基础待机动画；仅在基础动画所有权为空时生效，适合作为 Director cleanup_cues。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.thinking.end",
+        "enabled": true,
+        "description": "结束当前来源为思考的表情和思考姿态，保留其他来源；经autonomy.state.result报告实际状态。可作为Director cleanup。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.thinking.start",
+        "enabled": true,
+        "description": "请求进入思考状态：在本地许可后提交思考表情和姿态；ThinkingDurationSeconds=0持续到结束/替代，正数限时。立即经autonomy.state.result报告本地受理结果，不等待思考结束。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
@@ -1057,6 +1863,35 @@
             "key": "status",
             "kind": "string",
             "description": "完成为 completed。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "autonomy.state.result",
+        "enabled": true,
+        "description": "行动状态工具的关联业务结果：status为Succeeded或Rejected，mode为实际模式0待命/1自由，thinking表示仍持有思考表情或姿态；关联事件ID指向原工具事件。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "detail",
+            "kind": "string",
+            "description": "操作结果或拒绝原因"
+          },
+          {
+            "key": "mode",
+            "kind": "integer",
+            "description": "实际行动模式：0待命，1自由"
+          },
+          {
+            "key": "status",
+            "kind": "string",
+            "description": "Succeeded或Rejected，不是传输ACK"
+          },
+          {
+            "key": "thinking",
+            "kind": "boolean",
+            "description": "是否仍持有思考表情或姿态"
           }
         ]
       },
