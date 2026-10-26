@@ -11,11 +11,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "be055d8ee83c0cd63090a50c97f2ce76",
       "name": "鼻子 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_nose.touch",
-      "prompt_template": "(用户戳了一下你的鼻子。)"
+      "prompt_template": "(用户戳了一下你的鼻子。)\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -26,11 +30,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_nose.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "9455d56004849b757e4256773b6cc6d4",
       "name": "鼻子 · 持续触碰",
       "enabled": true,
       "event_key": "interaction.contact_nose.stroke",
-      "prompt_template": "(用户按着你的鼻子。)"
+      "prompt_template": "(用户按着你的鼻子。)\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -41,11 +49,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "e9fb24cddea6595ff7dd23c71a9a37b6",
       "name": "鼻子 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_nose.stroke.cancel",
-      "prompt_template": "(用户按了一会你的鼻子，松开了。)"
+      "prompt_template": "(用户按了一会你的鼻子，松开了。)\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -56,11 +68,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "0f6446a3628259768b32ab1783018d71",
       "name": "额头 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_forehead.touch",
-      "prompt_template": "（用户轻触了一下你的额头。）"
+      "prompt_template": "（用户轻触了一下你的额头。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -71,11 +87,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_forehead.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "f9d5a45e1b8952bebe6c94022ac82eec",
       "name": "额头 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_forehead.stroke",
-      "prompt_template": "（用户正在持续抚摸你的额头。）"
+      "prompt_template": "（用户正在持续抚摸你的额头。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -86,11 +106,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "fb3d74fc83ee5527b12534e4c0416d29",
       "name": "额头 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_forehead.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的额头，松开了。）"
+      "prompt_template": "（用户摸了一会你的额头，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -101,11 +125,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "95afa51951305b94a21123369ea8564e",
       "name": "胸部 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_breast.touch",
-      "prompt_template": "（用户轻触了一下你的胸部。）"
+      "prompt_template": "（用户轻触了一下你的胸部。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -116,11 +144,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_breast.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "99b030cd10f25a48b0494c366f5b71b6",
       "name": "胸部 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_breast.stroke",
-      "prompt_template": "（用户正在持续抚摸你的胸部。）"
+      "prompt_template": "（用户正在持续抚摸你的胸部。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -131,11 +163,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "abc593a331d75914b10c2b23c0e42ac3",
       "name": "胸部 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_breast.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的胸部，松开了。）"
+      "prompt_template": "（用户摸了一会你的胸部，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -146,11 +182,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "cd72e80f6ba95c8a897c3191d5366e74",
       "name": "腹部 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_belly.touch",
-      "prompt_template": "（用户轻触了一下你的腹部，好像想扒你的衣服。）"
+      "prompt_template": "（用户轻触了一下你的腹部，好像想扒你的衣服。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -161,11 +201,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_belly.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "ba815358050652bb8884b50918b9852e",
       "name": "腹部 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_belly.stroke",
-      "prompt_template": "（用户正在持续抚摸你的腹部。）"
+      "prompt_template": "（用户正在持续抚摸你的腹部。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -176,11 +220,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "b6fbefd265ed587a9a45226d95a968ff",
       "name": "腹部 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_belly.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的腹部，松开了。）"
+      "prompt_template": "（用户摸了一会你的腹部，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -191,11 +239,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "1cda7f8bf8715572a9db53cb0b756234",
       "name": "大腿 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_thigh.touch",
-      "prompt_template": "（用户轻触了一下你的大腿。）"
+      "prompt_template": "（用户轻触了一下你的大腿。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -206,11 +258,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_thigh.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "8ef67dc355a45746a4c2f0256241d85f",
       "name": "大腿 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_thigh.stroke",
-      "prompt_template": "（用户正在持续抚摸你的大腿。）"
+      "prompt_template": "（用户正在持续抚摸你的大腿。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -221,11 +277,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "d453ae02be0858d79ba84761f9ffbc24",
       "name": "大腿 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_thigh.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的大腿，松开了。）"
+      "prompt_template": "（用户摸了一会你的大腿，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -236,11 +296,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "6618173a070555009439728d5ca18fd0",
       "name": "小腿 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_leg.touch",
-      "prompt_template": "（用户轻触了一下你的小腿。）"
+      "prompt_template": "（用户轻触了一下你的小腿。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -251,11 +315,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_leg.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "b8c9b9e9403f5333ac64cda5314b1010",
       "name": "小腿 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_leg.stroke",
-      "prompt_template": "（用户正在持续抚摸你的小腿。）"
+      "prompt_template": "（用户正在持续抚摸你的小腿。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -266,11 +334,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "9226e7e2a98155af8c08a1071e25a2f6",
       "name": "小腿 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_leg.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的小腿，松开了。）"
+      "prompt_template": "（用户摸了一会你的小腿，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -281,11 +353,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "aeb280ba0ac352ee8e2bc55cb5171ae3",
       "name": "臀部 · 触碰",
       "enabled": true,
       "event_key": "interaction.contact_butt.touch",
-      "prompt_template": "（用户轻触了一下你的臀部。）"
+      "prompt_template": "（用户轻触了一下你的臀部。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -296,11 +372,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "interaction.contact_butt.stroke.cancel",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "b5e33d3929b45f799560d8d60cd540b0",
       "name": "臀部 · 持续抚摸",
       "enabled": true,
       "event_key": "interaction.contact_butt.stroke",
-      "prompt_template": "（用户正在持续抚摸你的臀部。）"
+      "prompt_template": "（用户正在持续抚摸你的臀部。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -311,11 +391,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "3ecd0f046425559ea5fc2b64fc2cf633",
       "name": "臀部 · 松开",
       "enabled": true,
       "event_key": "interaction.contact_butt.stroke.cancel",
-      "prompt_template": "（用户摸了一会你的臀部，松开了。）"
+      "prompt_template": "（用户摸了一会你的臀部，松开了。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -326,11 +410,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "6f2a5e45aaf45669ac0d5cf1a969454a",
       "name": "背部拖拽 · 持续一会儿",
       "enabled": true,
       "event_key": "interaction.back_drag.phase_2",
-      "prompt_template": "（用户正从你的背部拖拽你，这次交互已达到 {{duration_ms}} 毫秒的持续阈值。）"
+      "prompt_template": "（用户正从你的背部拖拽你，这次交互已达到 {{duration_ms}} 毫秒的持续阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -341,11 +429,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "051011a2bde35379ae1ed09b7434c46f",
       "name": "背部拖拽 · 持续较久",
       "enabled": true,
       "event_key": "interaction.back_drag.phase_3",
-      "prompt_template": "（用户还没有松开你的背部，拖拽已持续较久，达到 {{duration_ms}} 毫秒的阈值。）"
+      "prompt_template": "（用户还没有松开你的背部，拖拽已持续较久，达到 {{duration_ms}} 毫秒的阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -356,11 +448,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "e5efcbfc9b31511cb9223be39c2b375e",
       "name": "背部拖拽 · 长时间持续",
       "enabled": true,
       "event_key": "interaction.back_drag.phase_4",
-      "prompt_template": "（用户依然没有结束背部拖拽，这次交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）"
+      "prompt_template": "（用户依然没有结束背部拖拽，这次交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -371,11 +467,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "eb39c22ffafe567d9ca9890149bdab17",
       "name": "光环旋转 · 持续一会儿",
       "enabled": true,
       "event_key": "interaction.halo_rotate.phase_2",
-      "prompt_template": "（用户抓住你的光环进行拖动，让你转动朝向；交互已达到 {{duration_ms}} 毫秒的持续阈值。）"
+      "prompt_template": "（用户抓住你的光环进行拖动，让你转动朝向；交互已达到 {{duration_ms}} 毫秒的持续阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -386,11 +486,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "f2881a2e687e5f5681c38b349f1bbfce",
       "name": "光环旋转 · 持续较久",
       "enabled": true,
       "event_key": "interaction.halo_rotate.phase_3",
-      "prompt_template": "（用户仍在拖动你的光环，让你转动朝向；这次交互持续较久，已达到 {{duration_ms}} 毫秒的阈值。）"
+      "prompt_template": "（用户仍在拖动你的光环，让你转动朝向；这次交互持续较久，已达到 {{duration_ms}} 毫秒的阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -401,11 +505,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "27e0a510c0af5cb8b5e2505d90c0198c",
       "name": "光环旋转 · 长时间持续",
       "enabled": true,
       "event_key": "interaction.halo_rotate.phase_4",
-      "prompt_template": "（用户还没有松开你的光环，旋转交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）"
+      "prompt_template": "（用户还没有松开你的光环，旋转交互已经持续很久，达到 {{duration_ms}} 毫秒的阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -416,11 +524,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "8df1c4e5c2f5572abee208703ece6298",
       "name": "牵手 · 持续一会儿",
       "enabled": true,
       "event_key": "interaction.hand_drag.phase_2",
-      "prompt_template": "（用户自然地牵着你的手，已经牵了一小会儿；这次牵手达到 {{duration_ms}} 毫秒的持续阈值。）"
+      "prompt_template": "（用户自然地牵着你的手，已经牵了一小会儿；这次牵手达到 {{duration_ms}} 毫秒的持续阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -431,11 +543,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "12180da575e25851b4cfb181a18d4612",
       "name": "牵手 · 持续较久",
       "enabled": true,
       "event_key": "interaction.hand_drag.phase_3",
-      "prompt_template": "（用户仍然牵着你的手，还没有松开；你们已经牵手一段时间，达到 {{duration_ms}} 毫秒的持续阈值。）"
+      "prompt_template": "（用户仍然牵着你的手，还没有松开；你们已经牵手一段时间，达到 {{duration_ms}} 毫秒的持续阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     },
     {
       "dialogue_target": "current",
@@ -446,11 +562,15 @@
       "expiry_action": "discard",
       "cancel_event_key": "",
       "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
       "id": "806fc924d7945d5788988a1fad7fa253",
       "name": "牵手 · 长时间持续",
       "enabled": true,
       "event_key": "interaction.hand_drag.phase_4",
-      "prompt_template": "（用户一直自然地牵着你的手，没有松开；这次牵手已经持续很久，达到 {{duration_ms}} 毫秒的持续阈值。）"
+      "prompt_template": "（用户一直自然地牵着你的手，没有松开；这次牵手已经持续很久，达到 {{duration_ms}} 毫秒的持续阈值。）\n\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     }
   ],
   "calls": [
@@ -803,7 +923,7 @@
         "name": "惊讶",
         "enabled": true,
         "api_key": "expression.surprised",
-        "director_description": "意料之外、惊喜或出乎意料的转折；不必然害怕，普通强调不要滥用。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉毛明显抬起、双眼睁大；用于意外、惊喜或突然的转折。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -817,7 +937,7 @@
         "name": "疑惑",
         "enabled": true,
         "api_key": "expression.confused",
-        "director_description": "没理解、信息矛盾、需要解释或追问；不是已经理解但不相信。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉头一高一低，眼神变成困惑的漫画式样，嘴呈小三角；用于没听懂或需要解释。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -831,7 +951,7 @@
         "name": "无语",
         "enabled": true,
         "api_key": "expression.speechless",
-        "director_description": "克制的吐槽、无奈或难以评价；不同于愤怒、嫌弃或严肃悲伤。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "平眉、半睁眼，显得淡漠又无奈；用于克制的吐槽或一时不知如何评价。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -845,7 +965,7 @@
         "name": "尴尬",
         "enabled": true,
         "api_key": "expression.embarrassed",
-        "director_description": "出糗、被拆穿或社交窘迫；正向亲昵和夸奖后的羞涩优先使用害羞。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉尾略垂、眼神略弯并泛起红晕；用于出糗、被拆穿或社交窘迫。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -859,7 +979,7 @@
         "name": "期待",
         "enabled": true,
         "api_key": "expression.expectant",
-        "director_description": "期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉眼扬起、眼睛亮晶晶，小嘴微张；用于兴奋地期待答案、礼物或下一步互动。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -873,7 +993,7 @@
         "name": "得意",
         "enabled": true,
         "api_key": "expression.smug",
-        "director_description": "被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉毛扬起、眼睛略眯，嘴呈猫式微笑；用于小小炫耀或受到夸奖后的得意。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -887,7 +1007,7 @@
         "name": "怀疑",
         "enabled": true,
         "api_key": "expression.skeptical",
-        "director_description": "已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "略皱眉、略眯眼，嘴呈小三角；用于听懂了却不太相信、质疑真实性或动机。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -901,7 +1021,7 @@
         "name": "不满",
         "enabled": true,
         "api_key": "expression.displeased",
-        "director_description": "抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉头压低、眼睛略眯，抿嘴鼓气般闹别扭；用于抗议、责怪或表达不满。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -915,7 +1035,7 @@
         "name": "嫌弃",
         "enabled": true,
         "api_key": "expression.disgusted",
-        "director_description": "对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "皱眉眯眼，面部带压暗的阴影；用于嫌弃、排斥某个对象或行为。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -929,7 +1049,7 @@
         "name": "担忧",
         "enabled": true,
         "api_key": "expression.worried",
-        "director_description": "担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉尾下垂、双眼略睁大；用于关切对方、犹豫或预感不妙。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -943,7 +1063,7 @@
         "name": "害怕",
         "enabled": true,
         "api_key": "expression.fearful",
-        "director_description": "受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉毛高挑又下垂，眼睛明显睁大、嘴角下弯；用于直接受惊或害怕。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -957,7 +1077,7 @@
         "name": "委屈",
         "enabled": true,
         "api_key": "expression.aggrieved",
-        "director_description": "被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉尾低垂、眼神带委屈，小嘴向下撇；用于被误解、冷落或想得到安慰。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -971,7 +1091,7 @@
         "name": "害羞",
         "enabled": true,
         "api_key": "expression.shy",
-        "director_description": "被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉眼柔和，眼睛微弯并显露羞涩；用于亲近或夸奖后的正向害羞。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -985,7 +1105,7 @@
         "name": "温柔",
         "enabled": true,
         "api_key": "expression.tender",
-        "director_description": "安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉眼轻柔、眼睛微弯，嘴角带温和笑意；用于安慰、关爱或亲昵回应。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -999,7 +1119,7 @@
         "name": "释然",
         "enabled": true,
         "api_key": "expression.relieved",
-        "director_description": "放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉头舒展、眼睛半睁，显得放松；用于解除担忧、确认安全或松一口气。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1013,7 +1133,7 @@
         "name": "俏皮",
         "enabled": true,
         "api_key": "expression.playful",
-        "director_description": "调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉毛轻扬，双眼明显弯成笑眼；用于善意逗弄、调侃或小小使坏。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1027,7 +1147,7 @@
         "name": "疲惫",
         "enabled": true,
         "api_key": "expression.tired",
-        "director_description": "对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉尾略垂、眼皮明显低垂；用于困倦、疲劳或勉强打起精神。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1041,7 +1161,7 @@
         "name": "无聊",
         "enabled": true,
         "api_key": "expression.bored",
-        "director_description": "兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "平眉、半睁眼并略微眯起，显得兴致缺缺；用于敷衍或等待得无聊。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1055,7 +1175,7 @@
         "name": "思考",
         "enabled": true,
         "api_key": "expression.thinking",
-        "director_description": "斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。 表情由场景REQUESTED来源管理：DurationSeconds=0保持到替换/释放，正数按秒到期；无需每个片段机械重复，不代表角色基础Emotion或模型内部推理。",
+        "director_description": "眉头轻微一高一低、眼睛略收拢，显得在斟酌；用于回忆或权衡。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1095,7 +1215,7 @@
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -1524,6 +1644,22 @@
       ]
     }
   },
+  "rules": [
+    {
+      "key": "runtime.feelings",
+      "name": "本地交互感受释义",
+      "enabled": true,
+      "target": "system",
+      "content": "用户输入中的[本地交互感受]是交互事件发出时的本地参考，不是行动指令或角色情绪。可用为false时忽略三个数值；负荷0～1表示该部位累积刺激，适应0～1表示对同类刺激的适应程度，不是好感度；舒适-1～1，负值偏不适、正值偏舒适。结合交互内容与上下文理解，不要把数值直接当作必须表现的情绪。"
+    },
+    {
+      "key": "runtime.activity",
+      "name": "本地活动状态释义",
+      "enabled": true,
+      "target": "system",
+      "content": "用户输入中的[本地活动状态]是事件发出时的参考，不是行动指令或角色情绪。精力0～100；状态unavailable表示数据不可用并忽略精力值，normal表示未处于低精力，low表示按本地阈值与恢复滞回判定的低精力，不自动拒绝用户指令。模式standby为待命：可交互、可接受并执行明确命令，自主活动倾向低；free为自由：不接受触碰交互、仍可接受并执行命令，自主活动倾向较高；unknown不推断。最终意愿和回复由AstrBot结合语境决定，本地蓝图负责执行权限与表现。"
+    }
+  ],
   "api": {
     "format": "warudodc.api-config.experimental",
     "version": 2,
@@ -1903,9 +2039,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -1922,9 +2093,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -1941,9 +2147,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -1960,6 +2201,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -1973,6 +2249,41 @@
         "description": "角色腹部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -1988,6 +2299,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2001,6 +2347,41 @@
         "description": "角色胸部接触持续进入 Phase 3，结算为一次抚摸。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2016,6 +2397,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2029,6 +2445,41 @@
         "description": "角色胸部接触在 Phase 2 结束，结算为一次触碰。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2044,6 +2495,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2057,6 +2543,41 @@
         "description": "角色臀部抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2072,6 +2593,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2085,6 +2641,41 @@
         "description": "角色额头接触持续进入 Phase 3，结算为一次抚摸。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2100,6 +2691,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2113,6 +2739,41 @@
         "description": "角色额头接触在 Phase 2 结束，结算为一次触碰。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2128,6 +2789,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2141,6 +2837,41 @@
         "description": "角色小腿抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2156,6 +2887,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2169,6 +2935,41 @@
         "description": "角色鼻部接触持续进入 Phase 3，结算为一次抚摸。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2184,6 +2985,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2197,6 +3033,41 @@
         "description": "角色鼻部接触在 Phase 2 结束，结算为一次触碰。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2212,6 +3083,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2225,6 +3131,41 @@
         "description": "角色大腿抚摸在 Phase 3 结束时发出取消事件；关联事件 ID 指向本次 stroke，仅尝试取消仍未结算的钩子。",
         "ack_timeout_ms": 30000,
         "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
           {
             "key": "interaction_serial",
             "kind": "integer",
@@ -2240,6 +3181,41 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
             "key": "interaction_serial",
             "kind": "integer",
             "description": "本次交互代次；用于诊断和去重。"
@@ -2254,9 +3230,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -2273,9 +3284,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -2292,9 +3338,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -2311,9 +3392,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -2330,9 +3446,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
@@ -2349,9 +3500,44 @@
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
             "key": "duration_ms",
             "kind": "integer",
             "description": "该阶段的实际持续时间阈值（毫秒）。"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
           },
           {
             "key": "interaction_serial",
