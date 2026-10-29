@@ -1211,6 +1211,34 @@
         "allowed_triggers": [
           "media_completed"
         ]
+      },
+      {
+        "id": "9ba75e8d2e225206b4cd605055cf4329",
+        "name": "叉腰",
+        "enabled": true,
+        "api_key": "performance.hands_on_hips.start",
+        "director_description": "单手叉腰并持续保持，呈现自信、得意、轻微不满或认真强调的姿态；并非只限愤怒。适合这些语境，普通叙述无需添加。姿态不自动改变表情，不要相邻片段反复开始；需要恢复时选择“结束叉腰”。交互或其他肢体动作可以打断，已被打断的姿态不会自动恢复。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "2363421b22425f1ab29208522b4affa6",
+        "name": "结束叉腰",
+        "enabled": true,
+        "api_key": "performance.hands_on_hips.end",
+        "director_description": "只结束当前仍属于叉腰的姿态，交还基础待机；不停止思考、挥手或移动。语境不再需要叉腰时使用，也可选入cleanup_cues；不必机械地每个片段都清理，允许跨片段保持。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_completed"
+        ]
       }
     ],
     "director": {
@@ -1893,6 +1921,22 @@
         "key": "idle.return_normal_pose",
         "enabled": true,
         "description": "让 Idle Controller 按当前 Emotion 重新选择基础待机动画；仅在基础动画所有权为空时生效，适合作为 Director cleanup_cues。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.hands_on_hips.end",
+        "enabled": true,
+        "description": "只结束当前属于叉腰的肢体表现；不清除思考、挥手、移动或其他来源的表现。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.hands_on_hips.start",
+        "enabled": true,
+        "description": "尝试进入持续叉腰姿态；仅无交互且肢体通道空闲或由Performance管理时接受。保持到明确结束、其他表现替换、交互打断或场景重载；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
