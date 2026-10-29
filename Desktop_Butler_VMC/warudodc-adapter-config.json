@@ -778,12 +778,19 @@
       "id": "cbaf3a659a0757ef9b8785bafef31372",
       "name": "进入思考状态",
       "enabled": true,
-      "call_name": "autonomy_thinking_start",
-      "api_key": "performance.thinking.start",
-      "description": "在即将查资料或执行较耗时工具之前，明确请求思考表情和姿态。此工具立即返回本地操作结果，不等待思考结束。持续时间由场景控制，0表示保持；不需要思考时调用autonomy_thinking_end。不能借此输出内部推理，也不能使尚未收到首个模型输出的客户端提前显示等待。占用时可能拒绝。",
-      "parameter_descriptions": {},
+      "call_name": "performance_thinking",
+      "api_key": "performance.thinking",
+      "description": "在即将查资料或执行较耗时工具之前，明确请求思考表情和姿态。此工具立即返回本地操作结果，不等待思考结束。持续时间由场景控制，0表示保持；不需要思考时调用performance_return_idle恢复普通待机。不能借此输出内部推理，也不能使尚未收到首个模型输出的客户端提前显示等待。占用时可能拒绝。 需指定variant，0沿用原动作；其他差分按参数说明选择。",
+      "parameter_descriptions": {
+        "variant": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。"
+      },
       "schema": {
-        "request_fields": []
+        "request_fields": [
+          {
+            "key": "variant",
+            "kind": "integer"
+          }
+        ]
       },
       "result_api_key": "autonomy.state.result",
       "result_timeout_ms": 10000,
@@ -810,14 +817,21 @@
     },
     {
       "id": "bfee82deff195499935d661fff34720b",
-      "name": "结束思考状态",
+      "name": "回归平时待命动作",
       "enabled": true,
-      "call_name": "autonomy_thinking_end",
-      "api_key": "performance.thinking.end",
-      "description": "结束当前仍属于思考来源的表情和姿态，保留其他动作和表情。适合耗时工具完成或不再思考时使用；已结束时可重复调用。读取业务结果，控制器不可用可能返回Rejected。",
-      "parameter_descriptions": {},
+      "call_name": "performance_return_idle",
+      "api_key": "idle.return_normal_pose",
+      "description": "明确结束当前普通肢体表现（如思考或叉腰）并回到基础待机，不切换待命／自由模式。不打断移动、背部拖拽等受保护状态；读取autonomy.state.result的本地结果。思考姿态附带表情随所属表现结束，其他表情保持；不是动画完成回执。 variant=-1沿用所选站姿，普通结束动作优先用-1；只有明确换待机站姿时选择0双手前放／1双手后放／2侧站抱臂／3单手撑腰。受理后该选择保持为后续待机基础。",
+      "parameter_descriptions": {
+        "variant": "待机姿势差分：-1=沿用当前所选；0=双手前放，1=双手后放，2=侧站抱臂，3=单手撑腰。0..3仅在本地受理后更新所选姿势，之后回归待机继续使用；不自动随机切换。"
+      },
       "schema": {
-        "request_fields": []
+        "request_fields": [
+          {
+            "key": "variant",
+            "kind": "integer"
+          }
+        ]
       },
       "result_api_key": "autonomy.state.result",
       "result_timeout_ms": 10000,
@@ -888,15 +902,15 @@
         "name": "挥动手臂",
         "enabled": true,
         "api_key": "performance.wave_once",
-        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。",
+        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；沿用本地有限时长，不附带表情。",
         "field_descriptions": {
-          "message": ""
+          "variant": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。"
         },
         "schema": {
           "request_fields": [
             {
-              "key": "message",
-              "kind": "string"
+              "key": "variant",
+              "kind": "integer"
             }
           ]
         },
@@ -906,15 +920,24 @@
       },
       {
         "id": "c38473f592feecba798eded5fcc77e4a",
-        "name": "回归正常动作",
+        "name": "回归平时待命动作",
         "enabled": true,
         "api_key": "idle.return_normal_pose",
-        "director_description": "当片段中的临时动作或姿态需要在结束、取消或被新片段取代后恢复时使用；优先放入 cleanup_cues，不作为新的叙事动作。",
-        "field_descriptions": {},
+        "director_description": "结束当前普通肢体表现并回到所选待机站姿，或明确换一种待机站姿。variant=-1保留当前站姿，普通收尾／cleanup优先用-1；0双手前放（温和），1双手后放（放松自然），2侧站抱臂（从容或有距离感），3单手撑腰（稳定、自信的站姿）；站姿不等于固定情绪。选择0..3后该站姿继续作为待机基础，不必每段重发。不切活动模式、不打断移动或背部拖拽，不清理独立表情；仍按执行时当前普通表现处理，不是旧来源的专属撤销。",
+        "field_descriptions": {
+          "variant": "待机姿势差分：-1=沿用当前所选；0=双手前放，1=双手后放，2=侧站抱臂，3=单手撑腰。0..3仅在本地受理后更新所选姿势，之后回归待机继续使用；不自动随机切换。"
+        },
         "schema": {
-          "request_fields": []
+          "request_fields": [
+            {
+              "key": "variant",
+              "kind": "integer"
+            }
+          ]
         },
         "allowed_triggers": [
+          "immediate",
+          "media_started",
           "media_completed"
         ]
       },
@@ -1188,36 +1211,29 @@
         "id": "0bc0750aad4d5f59a5e7892c2f070716",
         "name": "进入思考状态",
         "enabled": true,
-        "api_key": "performance.thinking.start",
-        "director_description": "请求思考表情和姿态，本地占用时会拒绝；ThinkingDurationSeconds=0时持续保持，正数限时。需要结束时可选performance.thinking.end作为cleanup；不要相邻每段重复。",
-        "field_descriptions": {},
+        "api_key": "performance.thinking",
+        "director_description": "请求思考表情和姿态，本地占用可能拒绝；场景保持时长0时持续，正数限时。需要结束时统一选择“回归平时待命动作”；不要相邻每段重复。 姿势差分必须指定variant：0原思考姿势、1双腿交叉；两者均保留原思考表情组合，不表示模型内部推理。",
+        "field_descriptions": {
+          "variant": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。"
+        },
         "schema": {
-          "request_fields": []
+          "request_fields": [
+            {
+              "key": "variant",
+              "kind": "integer"
+            }
+          ]
         },
         "allowed_triggers": [
           "media_started"
-        ]
-      },
-      {
-        "id": "83772b8d3f1855a1b400c396149b2ef2",
-        "name": "结束思考状态",
-        "enabled": true,
-        "api_key": "performance.thinking.end",
-        "director_description": "仅释放思考来源表情及思考姿态，保留其他表现；可作为cleanup，不是重置所有动作。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_completed"
         ]
       },
       {
         "id": "9ba75e8d2e225206b4cd605055cf4329",
-        "name": "叉腰",
+        "name": "双手叉腰",
         "enabled": true,
-        "api_key": "performance.hands_on_hips.start",
-        "director_description": "单手叉腰并持续保持，呈现自信、得意、轻微不满或认真强调的姿态；并非只限愤怒。适合这些语境，普通叙述无需添加。姿态不自动改变表情，不要相邻片段反复开始；需要恢复时选择“结束叉腰”。交互或其他肢体动作可以打断，已被打断的姿态不会自动恢复。",
+        "api_key": "performance.hands_on_hips",
+        "director_description": "身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由expression.*按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1227,23 +1243,205 @@
         ]
       },
       {
-        "id": "2363421b22425f1ab29208522b4affa6",
-        "name": "结束叉腰",
+        "id": "bb737298fc3953ca8c69f21273edadb7",
+        "name": "邀请拥抱",
         "enabled": true,
-        "api_key": "performance.hands_on_hips.end",
-        "director_description": "只结束当前仍属于叉腰的姿态，交还基础待机；不停止思考、挥手或移动。语境不再需要叉腰时使用，也可选入cleanup_cues；不必机械地每个片段都清理，允许跨片段保持。",
+        "api_key": "performance.invite_hug",
+        "director_description": "张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
-          "media_completed"
+          "media_started"
+        ]
+      },
+      {
+        "id": "3400ee25ab245eb2b755259313aed682",
+        "name": "耸肩",
+        "enabled": true,
+        "api_key": "performance.shrug",
+        "director_description": "耸肩摊手，表示不知道、无所谓或无奈。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "18be1640d2fc5b4396a01ab537963688",
+        "name": "赌气抗议",
+        "enabled": true,
+        "api_key": "performance.protest",
+        "director_description": "双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9d62c63313b85f4dba966e64328ddf53",
+        "name": "认真表态",
+        "enabled": true,
+        "api_key": "performance.hand_on_chest",
+        "director_description": "右手放在胸口，适合认真保证、承诺或坚定表态。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "a6ad1755e97056558e04adff513b8707",
+        "name": "担心关切",
+        "enabled": true,
+        "api_key": "performance.concern",
+        "director_description": "右手放在身前，身体略显关切，适合担心、询问或安慰。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "5f833a2840e057fdb8563a4317ce2a0d",
+        "name": "卖萌",
+        "enabled": true,
+        "api_key": "performance.cute",
+        "director_description": "以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。",
+        "field_descriptions": {
+          "variant": "姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。"
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "variant",
+              "kind": "integer"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "04eb74932191512191442705568b0fda",
+        "name": "拒绝",
+        "enabled": true,
+        "api_key": "performance.refuse",
+        "director_description": "身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。",
+        "field_descriptions": {
+          "variant": "姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。"
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "variant",
+              "kind": "integer"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "3229c9b1bb8758c9a4871ffaa9001111",
+        "name": "展示力量",
+        "enabled": true,
+        "api_key": "performance.flex",
+        "director_description": "展示肌肉，以肢体表达炫耀力量、得意或搞怪。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "54556ae883145526b336e65271a4761b",
+        "name": "垂头丧气",
+        "enabled": true,
+        "api_key": "performance.slouch",
+        "director_description": "垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "b3a735d21c99568dae9e91425cd70178",
+        "name": "扶脸懊恼",
+        "enabled": true,
+        "api_key": "performance.facepalm",
+        "director_description": "右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9c8ef824f736525c91d4dfd87afb158c",
+        "name": "扶后脑勺",
+        "enabled": true,
+        "api_key": "performance.hand_behind_head",
+        "director_description": "右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "89162ec793c857a39cd54d6aa0e865a7",
+        "name": "拘谨",
+        "enabled": true,
+        "api_key": "performance.reserved",
+        "director_description": "双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "428eb7c4b1c657c69a31d9225d28c858",
+        "name": "展示背部",
+        "enabled": true,
+        "api_key": "performance.show_back",
+        "director_description": "侧身展示背部与臀部的摆姿态，适合明确的外观展示；不声称移动或转向命令已经完成。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
         ]
       }
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0双手前放、1双手后放、2侧站抱臂、3单手撑腰。普通收尾／cleanup使用-1；只有明确换站姿时指定0..3，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant 的行为必须按字段说明选择 0 或 1，不臆造其他差分。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -1383,7 +1581,7 @@
               "action_id": "38aee0c914a5d985d6bd25ee6d161111",
               "trigger": "media_started",
               "arguments": {
-                "message": ""
+                "variant": 0
               }
             }
           ],
@@ -1659,13 +1857,17 @@
             {
               "action_id": "0bc0750aad4d5f59a5e7892c2f070716",
               "trigger": "media_started",
-              "arguments": {}
+              "arguments": {
+                "variant": 0
+              }
             }
           ],
           "cleanup_cues": [
             {
-              "action_id": "83772b8d3f1855a1b400c396149b2ef2",
-              "arguments": {}
+              "action_id": "c38473f592feecba798eded5fcc77e4a",
+              "arguments": {
+                "variant": -1
+              }
             }
           ]
         }
@@ -1920,53 +2122,165 @@
         "route": "adapter_to_link",
         "key": "idle.return_normal_pose",
         "enabled": true,
-        "description": "让 Idle Controller 按当前 Emotion 重新选择基础待机动画；仅在基础动画所有权为空时生效，适合作为 Director cleanup_cues。",
+        "description": "回归平时待命动作并按variant选择站姿；结束当前普通肢体表现，不切换活动模式，不打断移动或背部拖拽。非法差分／受保护占用拒绝时不改变所选站姿。经autonomy.state.result报告本地处理，不代表动画完成。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "variant",
+            "kind": "integer",
+            "description": "待机姿势差分：-1=沿用当前所选；0=双手前放，1=双手后放，2=侧站抱臂，3=单手撑腰。0..3仅在本地受理后更新所选姿势，之后回归待机继续使用；不自动随机切换。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.concern",
+        "enabled": true,
+        "description": "尝试进入担心关切姿态；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
       {
         "route": "adapter_to_link",
-        "key": "performance.hands_on_hips.end",
+        "key": "performance.cute",
         "enabled": true,
-        "description": "只结束当前属于叉腰的肢体表现；不清除思考、挥手、移动或其他来源的表现。",
+        "description": "尝试进入卖萌姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "variant",
+            "kind": "integer",
+            "description": "姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.facepalm",
+        "enabled": true,
+        "description": "尝试进入扶脸懊恼姿态；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
       {
         "route": "adapter_to_link",
-        "key": "performance.hands_on_hips.start",
+        "key": "performance.flex",
         "enabled": true,
-        "description": "尝试进入持续叉腰姿态；仅无交互且肢体通道空闲或由Performance管理时接受。保持到明确结束、其他表现替换、交互打断或场景重载；不自动改变表情。",
+        "description": "尝试进入展示力量姿态；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
       {
         "route": "adapter_to_link",
-        "key": "performance.thinking.end",
+        "key": "performance.hand_behind_head",
         "enabled": true,
-        "description": "结束当前来源为思考的表情和思考姿态，保留其他来源；经autonomy.state.result报告实际状态。可作为Director cleanup。",
+        "description": "尝试进入扶后脑勺姿态；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
       },
       {
         "route": "adapter_to_link",
-        "key": "performance.thinking.start",
+        "key": "performance.hand_on_chest",
         "enabled": true,
-        "description": "请求进入思考状态：在本地许可后提交思考表情和姿态；ThinkingDurationSeconds=0持续到结束/替代，正数限时。立即经autonomy.state.result报告本地受理结果，不等待思考结束。",
+        "description": "尝试进入认真表态姿态；不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.hands_on_hips",
+        "enabled": true,
+        "description": "请求身体明显前倾的双手叉腰姿态，作为刻意强调、抗议或质问的肢体表现；不自动改变表情。普通单手撑腰站姿使用idle.return_normal_pose的variant=3。保持到明确回归待机、获准替换或场景清理。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.invite_hug",
+        "enabled": true,
+        "description": "尝试进入邀请拥抱姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.protest",
+        "enabled": true,
+        "description": "尝试进入赌气抗议姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.refuse",
+        "enabled": true,
+        "description": "尝试进入拒绝姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "variant",
+            "kind": "integer",
+            "description": "姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.reserved",
+        "enabled": true,
+        "description": "尝试进入拘谨姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.show_back",
+        "enabled": true,
+        "description": "尝试进入展示背部姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.shrug",
+        "enabled": true,
+        "description": "尝试进入耸肩姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.slouch",
+        "enabled": true,
+        "description": "尝试进入垂头丧气姿态；不自动改变表情。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.thinking",
+        "enabled": true,
+        "description": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "variant",
+            "kind": "integer",
+            "description": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。"
+          }
+        ]
       },
       {
         "route": "adapter_to_link",
         "key": "performance.wave_once",
         "enabled": true,
-        "description": "单次限时挥手；本地空闲且无交互时播放，约 2.5 秒后释放动画所有权并回归当前基础姿态。message 为可选说明，不作为动作完成回执。",
+        "description": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": [
           {
-            "key": "message",
-            "kind": "string",
-            "description": "Director 为该表现提示附带的可读说明；示例链不据此分支。"
+            "key": "variant",
+            "kind": "integer",
+            "description": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。"
           }
         ]
       },
