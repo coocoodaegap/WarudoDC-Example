@@ -818,7 +818,7 @@
     {
       "id": "bfee82deff195499935d661fff34720b",
       "name": "回归平时待命动作",
-      "enabled": true,
+      "enabled": false,
       "call_name": "performance_return_idle",
       "api_key": "idle.return_normal_pose",
       "description": "用途：结束当前普通肢体表现，回归所选待命站姿；也可明确选择新的待命站姿。不切换待命／自由模式，不打断移动或背部拖拽，不清除独立表情；思考动作自带的表情随所属表现结束。\n姿势选择：\n- -1：沿用当前选择，仅结束动作时优先使用。\n- 0·一般：自然、中性，适合日常聊天或没有明显表现意图时。\n- 1·双手前放：端正、礼貌，适合待命、倾听和认真回应。\n- 2·双手后放：拘谨、含蓄，可表达羞涩期待，也可表达低落克制。\n- 3·单手撑腰：放松、自信或俏皮，适合熟稔聊天与打趣，不等同于生气。\n- 4·侧站抱臂：保留、怀疑、不满或自我保护，不必是强烈愤怒。\n选择0..4后会保持为后续待机基础；结合语境选择，不因每段语调略变而频繁切换。\n结果：返回本地受理结果，不代表动画过渡已经结束。",
@@ -1440,11 +1440,137 @@
         "allowed_triggers": [
           "media_started"
         ]
+      },
+      {
+        "id": "57eec08bed335dbf8d2b8976593ac994",
+        "name": "说话 · 解释型说明",
+        "enabled": true,
+        "api_key": "speak.explaining",
+        "director_description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "c3f5f9ad31395eb182ee4e71c68c2a30",
+        "name": "说话 · 激动地说",
+        "enabled": true,
+        "api_key": "speak.excited",
+        "director_description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "f6a273bf52c65641a91787a170442a81",
+        "name": "说话 · 冷静分析",
+        "enabled": true,
+        "api_key": "speak.calm",
+        "director_description": "以克制、沉稳的手势分析或说明，适合认真讨论。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "2f07b26071a852679a4855f9a016dc55",
+        "name": "说话 · 指向并强调",
+        "enabled": true,
+        "api_key": "speak.scolding",
+        "director_description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "75d7e3b9ab9d5f629a328c3119ea5e58",
+        "name": "说话 · 轻松指向",
+        "enabled": true,
+        "api_key": "speak.pointing",
+        "director_description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "9470975ab96d5f6cb72d80bccf682313",
+        "name": "说话 · 丰富手势交谈",
+        "enabled": true,
+        "api_key": "speak.chatty",
+        "director_description": "说话时手部动作丰富，适合较活泼的叙述和聊天。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "27d940ef894553b2869930f422c07579",
+        "name": "说话 · 抱臂赌气地说",
+        "enabled": true,
+        "api_key": "speak.pouting",
+        "director_description": "抱臂并带有赌气、抗议或不满的身体态度说话。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "faf248b8c2be52e99ed58136f05c68df",
+        "name": "说话 · 抱臂冷静地说",
+        "enabled": true,
+        "api_key": "speak.composed",
+        "director_description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
+      },
+      {
+        "id": "d747f1662c1e59f99650b5c4660f2ad7",
+        "name": "说话 · 害羞地说",
+        "enabled": true,
+        "api_key": "speak.shy",
+        "director_description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "media_started"
+        ]
       }
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant 的行为必须按字段说明选择 0 或 1，不臆造其他差分。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant 的行为必须按字段说明选择 0 或 1，不臆造其他差分。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -1463,15 +1589,57 @@
           "cleanup_cues": []
         },
         {
+          "id": "first.speak.explaining",
+          "name": "讲解开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭📖",
+          "description": "开场即以解释型手势介绍、说明或梳理一件事，适合有一定长度的讲解；不用于普通短答或仅表示没听懂。",
+          "tone_key": "neutral",
+          "intensity": 0.5,
+          "cues": [
+            {
+              "action_id": "57eec08bed335dbf8d2b8976593ac994",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
+          "id": "first.speak.calm",
+          "name": "分析开场",
+          "enabled": true,
+          "is_default": false,
+          "marker": "🎭🧐",
+          "description": "开场即以冷静、克制的手势认真分析、权衡或提出判断；不同于困惑追问，也不必带有不信任。",
+          "tone_key": "neutral",
+          "intensity": 0.5,
+          "cues": [
+            {
+              "action_id": "f6a273bf52c65641a91787a170442a81",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
+          "cleanup_cues": []
+        },
+        {
           "id": "first.happy",
-          "name": "愉快开场",
+          "name": "愉快交谈开场",
           "enabled": true,
           "is_default": false,
           "marker": "🎭✨",
-          "description": "以轻快、积极的状态开始回复。",
+          "description": "以轻快、积极的状态开始回复。\n肢体表现：以丰富手势活泼地交谈，适合分享和叙述；普通简短肯定不必选择。",
           "tone_key": "happy",
           "intensity": 0.7,
-          "cues": [],
+          "cues": [
+            {
+              "action_id": "9470975ab96d5f6cb72d80bccf682313",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
           "cleanup_cues": []
         },
         {
@@ -1488,14 +1656,20 @@
         },
         {
           "id": "first.angry",
-          "name": "生气开场",
+          "name": "生气强调开场",
           "enabled": true,
           "is_default": false,
           "marker": "🎭💢",
-          "description": "以坚定、有张力的状态开始回复。",
+          "description": "以坚定、有张力的状态开始回复。\n肢体表现：手指朝向对方，适合明确责备、告诫或强调边界；不因语气略显生气就选择。",
           "tone_key": "angry",
           "intensity": 0.7,
-          "cues": [],
+          "cues": [
+            {
+              "action_id": "2f07b26071a852679a4855f9a016dc55",
+              "trigger": "media_started",
+              "arguments": {}
+            }
+          ],
           "cleanup_cues": []
         },
         {
@@ -1558,12 +1732,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭😳",
-          "description": "开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。",
+          "description": "开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。\n肢体表现：以不好意思、拘谨的说话姿态面对出糗或社交窘迫，仍保留尴尬表情。",
           "tone_key": "happy",
           "intensity": 0.55,
           "cues": [
             {
               "action_id": "50bc019114395689b811df49b91e03e4",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1592,16 +1771,21 @@
         },
         {
           "id": "first.presentation.expectant",
-          "name": "期待开场",
+          "name": "热切期待开场",
           "enabled": true,
           "is_default": false,
           "marker": "🎭🤩",
-          "description": "开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。",
+          "description": "开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。\n肢体表现：以激动的肢体姿态谈论期待的事情，适合热切分享；仅安静等待时不选。",
           "tone_key": "happy",
           "intensity": 0.7,
           "cues": [
             {
               "action_id": "e4f49c41172d51b699d051be49eb3c81",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "c3f5f9ad31395eb182ee4e71c68c2a30",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1614,12 +1798,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭😏",
-          "description": "开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。",
+          "description": "开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。\n肢体表现：以轻松指向的手势自信地打趣或小小炫耀，不是责备对方。",
           "tone_key": "happy",
           "intensity": 0.65,
           "cues": [
             {
               "action_id": "0b531411d22c543a92fafa74524af764",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "75d7e3b9ab9d5f629a328c3119ea5e58",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1632,12 +1821,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭🤨",
-          "description": "开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。",
+          "description": "开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。\n肢体表现：抱臂、冷静地质疑或保留意见，带一点距离感；不是没听懂。",
           "tone_key": "neutral",
           "intensity": 0.55,
           "cues": [
             {
               "action_id": "cd3b35d82b2a5603990f72edec5d373a",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "faf248b8c2be52e99ed58136f05c68df",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1650,12 +1844,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭😒",
-          "description": "开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。",
+          "description": "开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。\n肢体表现：抱臂赌气地抗议、闹别扭或表达不愿接受；不是强烈威胁或恐惧。",
           "tone_key": "angry",
           "intensity": 0.55,
           "cues": [
             {
               "action_id": "f02cbeffe64355379472329cf32b35a9",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "27d940ef894553b2869930f422c07579",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1740,12 +1939,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭🙈",
-          "description": "开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。",
+          "description": "开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。\n肢体表现：以拘谨、含蓄的说话姿态回应亲近或夸奖。",
           "tone_key": "happy",
           "intensity": 0.55,
           "cues": [
             {
               "action_id": "b0cae53e85f751c7a9051b00e8323bb2",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -1794,12 +1998,17 @@
           "enabled": true,
           "is_default": false,
           "marker": "🎭😜",
-          "description": "开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。",
+          "description": "开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。\n肢体表现：以轻松指向的手势善意逗弄或调侃，不是告诫或指责。",
           "tone_key": "happy",
           "intensity": 0.7,
           "cues": [
             {
               "action_id": "587b52ff98c2513ea92ab4dda011be73",
+              "trigger": "media_started",
+              "arguments": {}
+            },
+            {
+              "action_id": "75d7e3b9ab9d5f629a328c3119ea5e58",
               "trigger": "media_started",
               "arguments": {}
             }
@@ -2286,6 +2495,78 @@
             "description": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。"
           }
         ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.calm",
+        "enabled": true,
+        "description": "以克制、沉稳的手势分析或说明，适合认真讨论。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.chatty",
+        "enabled": true,
+        "description": "说话时手部动作丰富，适合较活泼的叙述和聊天。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.composed",
+        "enabled": true,
+        "description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.excited",
+        "enabled": true,
+        "description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.explaining",
+        "enabled": true,
+        "description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.pointing",
+        "enabled": true,
+        "description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.pouting",
+        "enabled": true,
+        "description": "抱臂并带有赌气、抗议或不满的身体态度说话。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.scolding",
+        "enabled": true,
+        "description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "speak.shy",
+        "enabled": true,
+        "description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。同风格跨片段保持；正常结束统一回归待机，打断时不补播收尾。",
+        "ack_timeout_ms": 30000,
+        "fields": []
       },
       {
         "route": "link_to_adapter",
