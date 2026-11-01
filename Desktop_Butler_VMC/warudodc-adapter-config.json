@@ -571,6 +571,63 @@
       "enabled": true,
       "event_key": "interaction.hand_drag.phase_4",
       "prompt_template": "（用户一直自然地牵着你的手，没有松开；这次牵手已经持续很久，达到 {{duration_ms}} 毫秒的持续阈值。）\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
+      "id": "73b7ae031cdb5769bb73dadb16a8ee08",
+      "name": "头顶 · 触碰",
+      "enabled": true,
+      "event_key": "interaction.contact_head_top.touch",
+      "prompt_template": "（用户轻触了一下你的头顶，不是额头。）\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "interaction.contact_head_top.stroke.cancel",
+      "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
+      "id": "d55876545d855e418c2cc0e48ffe38ff",
+      "name": "头顶 · 持续抚摸",
+      "enabled": true,
+      "event_key": "interaction.contact_head_top.stroke",
+      "prompt_template": "（用户正在温柔抚摸你的头顶，不是额头。）\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
+    },
+    {
+      "dialogue_target": "current",
+      "trigger_mode": "after_wait",
+      "merge_mode": "append",
+      "cooldown_seconds": 0,
+      "max_residence_seconds": 30,
+      "expiry_action": "discard",
+      "cancel_event_key": "",
+      "policy_overrides": {},
+      "rule_refs": [
+        "runtime.feelings",
+        "runtime.activity"
+      ],
+      "id": "c05eda076865571f935dd18244b39c8a",
+      "name": "头顶 · 松开",
+      "enabled": true,
+      "event_key": "interaction.contact_head_top.stroke.cancel",
+      "prompt_template": "（用户结束了对你头顶的持续抚摸。）\n[本地交互感受] 可用={{feeling_available}}；负荷={{feeling_load:.2f}}；适应={{feeling_adaptation:.2f}}；舒适={{feeling_comfort:.2f}}。\n[本地活动状态] 精力={{energy:.1f}}；状态={{energy_state}}；模式={{activity_mode}}。"
     }
   ],
   "calls": [
@@ -3379,6 +3436,153 @@
         "key": "interaction.contact_forehead.touch",
         "enabled": true,
         "description": "角色额头接触在 Phase 2 结束，结算为一次触碰。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_head_top.stroke",
+        "enabled": true,
+        "description": "用户持续温柔抚摸角色头顶达到2秒；是摸头顶，不是摸额头。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_head_top.stroke.cancel",
+        "enabled": true,
+        "description": "用户结束持续的头顶抚摸；600毫秒起为长触，reply_to仅关联本次已发出的持续抚摸事件。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "activity_mode",
+            "kind": "string",
+            "description": "standby/free/unknown"
+          },
+          {
+            "key": "energy",
+            "kind": "float",
+            "description": "0~100"
+          },
+          {
+            "key": "energy_state",
+            "kind": "string",
+            "description": "unavailable/normal/low"
+          },
+          {
+            "key": "feeling_adaptation",
+            "kind": "float",
+            "description": "发送时对同类刺激的适应程度，0..1；不是好感度。"
+          },
+          {
+            "key": "feeling_available",
+            "kind": "boolean",
+            "description": "本次事件发送时该部位的感受数据是否可用；false时忽略三个感受数值。"
+          },
+          {
+            "key": "feeling_comfort",
+            "kind": "float",
+            "description": "发送时的暂定本地舒适倾向，-1..1；不等于角色Emotion。"
+          },
+          {
+            "key": "feeling_load",
+            "kind": "float",
+            "description": "发送时该部位的累积刺激负荷，0..1；不是情绪或强制表现指令。"
+          },
+          {
+            "key": "interaction_serial",
+            "kind": "integer",
+            "description": "本次交互代次；用于诊断和去重。"
+          }
+        ]
+      },
+      {
+        "route": "link_to_adapter",
+        "key": "interaction.contact_head_top.touch",
+        "enabled": true,
+        "description": "用户轻触角色头顶一下后松开（不足600毫秒）；是头发上方的头顶部位，不是额头。",
         "ack_timeout_ms": 30000,
         "fields": [
           {
