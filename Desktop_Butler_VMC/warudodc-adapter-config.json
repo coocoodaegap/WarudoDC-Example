@@ -973,17 +973,22 @@
     "actions": [
       {
         "id": "38aee0c914a5d985d6bd25ee6d161111",
-        "name": "挥动手臂",
+        "name": "挥手",
         "enabled": true,
-        "api_key": "performance.wave_once",
-        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；沿用本地有限时长，不附带表情。",
+        "api_key": "performance.wave",
+        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；按count指定次数，以各样式单次挥手估算时长×次数计时，不附带表情。 count必填；通常填0沿用本地默认次数，需要时明确指定1–20轮。不对每轮重复发起行为。\n搭配参考：轻松招呼可配expression.tender，兴奋示意可配expression.expectant；礼貌告别也可保持已有表情。",
         "field_descriptions": {
-          "variant": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。"
+          "variant": "挥手差分：0举臂、1双手、2单手；仅接受0、1、2。不自动改变表情。",
+          "count": "挥手次数：1–20；0使用Wave的DefaultWaveCount（默认3）。字段必填。按各样式单次挥手估算时长计时：双手按素材长度/3换算，其他按一个素材周期。含淡入，帧边界与淡出存在误差；单手原速较快。"
         },
         "schema": {
           "request_fields": [
             {
               "key": "variant",
+              "kind": "integer"
+            },
+            {
+              "key": "count",
               "kind": "integer"
             }
           ]
@@ -1307,7 +1312,7 @@
         "name": "双手叉腰",
         "enabled": true,
         "api_key": "performance.hands_on_hips",
-        "director_description": "身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由expression.*按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。",
+        "director_description": "身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由expression.*按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。\n搭配参考：认真抗议可配expression.displeased，熟稔打趣可配expression.playful；不因叉腰就强制生气。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1321,7 +1326,7 @@
         "name": "邀请拥抱",
         "enabled": true,
         "api_key": "performance.invite_hug",
-        "director_description": "张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。",
+        "director_description": "张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。\n搭配参考：亲昵邀请可配expression.tender，求安慰可配expression.aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1335,7 +1340,7 @@
         "name": "耸肩",
         "enabled": true,
         "api_key": "performance.shrug",
-        "director_description": "耸肩摊手，表示不知道、无所谓或无奈。",
+        "director_description": "耸肩摊手，表示不知道、无所谓或无奈。\n搭配参考：无奈可配expression.speechless，不解可配expression.confused。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1349,7 +1354,7 @@
         "name": "赌气抗议",
         "enabled": true,
         "api_key": "performance.protest",
-        "director_description": "双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。",
+        "director_description": "双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。\n搭配参考：赌气可配expression.displeased，委屈抗议可配expression.aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1363,7 +1368,7 @@
         "name": "认真表态",
         "enabled": true,
         "api_key": "performance.hand_on_chest",
-        "director_description": "右手放在胸口，适合认真保证、承诺或坚定表态。",
+        "director_description": "右手放在胸口，适合认真保证、承诺或坚定表态。\n搭配参考：安慰或真诚承诺可配expression.tender；郑重表态也可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1377,7 +1382,7 @@
         "name": "担心关切",
         "enabled": true,
         "api_key": "performance.concern",
-        "director_description": "右手放在身前，身体略显关切，适合担心、询问或安慰。",
+        "director_description": "右手放在身前，身体略显关切，适合担心、询问或安慰。\n搭配参考：担心可配expression.worried，确认安全后的安慰可配expression.tender。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1391,7 +1396,7 @@
         "name": "卖萌",
         "enabled": true,
         "api_key": "performance.cute",
-        "director_description": "以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。",
+        "director_description": "以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。\n搭配参考：撒娇可配expression.shy，善意逗弄可配expression.playful。",
         "field_descriptions": {
           "variant": "姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。"
         },
@@ -1412,7 +1417,7 @@
         "name": "拒绝",
         "enabled": true,
         "api_key": "performance.refuse",
-        "director_description": "身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。",
+        "director_description": "身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。\n搭配参考：明确抗议可配expression.displeased，害羞婉拒可配expression.shy；按拒绝缘由选择。",
         "field_descriptions": {
           "variant": "姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。"
         },
@@ -1433,7 +1438,7 @@
         "name": "展示力量",
         "enabled": true,
         "api_key": "performance.flex",
-        "director_description": "展示肌肉，以肢体表达炫耀力量、得意或搞怪。",
+        "director_description": "展示肌肉，以肢体表达炫耀力量、得意或搞怪。\n搭配参考：炫耀可配expression.smug，搞怪可配expression.playful。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1447,7 +1452,7 @@
         "name": "垂头丧气",
         "enabled": true,
         "api_key": "performance.slouch",
-        "director_description": "垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。",
+        "director_description": "垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。\n搭配参考：失望可配expression.aggrieved，困乏可配expression.tired；不把失落一律当作疲劳。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1461,7 +1466,7 @@
         "name": "扶脸懊恼",
         "enabled": true,
         "api_key": "performance.facepalm",
-        "director_description": "右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。",
+        "director_description": "右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。\n搭配参考：吐槽可配expression.speechless，出糗可配expression.embarrassed。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1475,7 +1480,7 @@
         "name": "扶后脑勺",
         "enabled": true,
         "api_key": "performance.hand_behind_head",
-        "director_description": "右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。",
+        "director_description": "右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。\n搭配参考：不好意思可配expression.embarrassed，不解可配expression.confused。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1489,7 +1494,7 @@
         "name": "拘谨",
         "enabled": true,
         "api_key": "performance.reserved",
-        "director_description": "双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。",
+        "director_description": "双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。\n搭配参考：正向羞怯可配expression.shy，不安可配expression.worried。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1503,7 +1508,7 @@
         "name": "说话 · 解释型说明",
         "enabled": true,
         "api_key": "speak.explaining",
-        "director_description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。",
+        "director_description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。\n搭配参考：耐心说明可配expression.tender，疑问分析可配expression.thinking；普通讲解可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1517,7 +1522,7 @@
         "name": "说话 · 激动地说",
         "enabled": true,
         "api_key": "speak.excited",
-        "director_description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。",
+        "director_description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。\n搭配参考：热切分享可配expression.expectant，带点炫耀可配expression.smug。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1531,7 +1536,7 @@
         "name": "说话 · 冷静分析",
         "enabled": true,
         "api_key": "speak.calm",
-        "director_description": "以克制、沉稳的手势分析或说明，适合认真讨论。",
+        "director_description": "以克制、沉稳的手势分析或说明，适合认真讨论。\n搭配参考：权衡可配expression.thinking，关切讨论可配expression.worried；平稳陈述可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1545,7 +1550,7 @@
         "name": "说话 · 指向并强调",
         "enabled": true,
         "api_key": "speak.scolding",
-        "director_description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。",
+        "director_description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。\n搭配参考：责怪可配expression.displeased，质疑可配expression.skeptical。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1559,7 +1564,7 @@
         "name": "说话 · 轻松指向",
         "enabled": true,
         "api_key": "speak.pointing",
-        "director_description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。",
+        "director_description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。\n搭配参考：善意打趣可配expression.playful，轻松得意可配expression.smug。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1573,7 +1578,7 @@
         "name": "说话 · 丰富手势交谈",
         "enabled": true,
         "api_key": "speak.chatty",
-        "director_description": "说话时手部动作丰富，适合较活泼的叙述和聊天。",
+        "director_description": "说话时手部动作丰富，适合较活泼的叙述和聊天。\n搭配参考：亲切聊天可配expression.tender，热切叙述可配expression.expectant。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1587,7 +1592,7 @@
         "name": "说话 · 抱臂赌气地说",
         "enabled": true,
         "api_key": "speak.pouting",
-        "director_description": "抱臂并带有赌气、抗议或不满的身体态度说话。",
+        "director_description": "抱臂并带有赌气、抗议或不满的身体态度说话。\n搭配参考：闹别扭可配expression.displeased，受委屈可配expression.aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1601,7 +1606,7 @@
         "name": "说话 · 抱臂冷静地说",
         "enabled": true,
         "api_key": "speak.composed",
-        "director_description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。",
+        "director_description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。\n搭配参考：保留意见可配expression.skeptical，冷静思量可配expression.thinking。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1615,7 +1620,7 @@
         "name": "说话 · 害羞地说",
         "enabled": true,
         "api_key": "speak.shy",
-        "director_description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。",
+        "director_description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。\n搭配参考：正向含蓄可配expression.shy，社交出糗可配expression.embarrassed。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1623,11 +1628,128 @@
         "allowed_triggers": [
           "media_started"
         ]
+      },
+      {
+        "id": "e91b35e03675553ab6203389385375e3",
+        "name": "点头",
+        "enabled": true,
+        "api_key": "performance.nod",
+        "director_description": "点头表达确认、认可或理解。count必填：1为轻点一次，2为较积极的连续两次；仅接受1或2。一次调用播放对应完整素材，不通过反复请求拼次数。原生附加动作，与Idle/Speak及表情并存；自然结束，不放入cleanup_cues。同片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：安慰式认同可配expression.tender，松口气后的确认可配expression.relieved；普通确认不必新增表情。",
+        "field_descriptions": {
+          "count": "点头次数，仅接受1或2；1为轻点一次，2为较积极的连续两次。字段必填，手动入口初值1；不通过重复播放拼接次数。"
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "count",
+              "kind": "integer"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
+      },
+      {
+        "id": "cf0a8e1be6e05af0854b49dc23033641",
+        "name": "摇头",
+        "enabled": true,
+        "api_key": "performance.shake_head",
+        "director_description": "摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，可与当前Idle/Speak及表情并存。一次调用播完整素材，自动自然结束，不放入cleanup_cues。每片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：无奈否认可配expression.speechless，抗议可配expression.displeased；普通纠正不必新增表情。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
+      },
+      {
+        "id": "96b84dab07305811933187332cf162f6",
+        "name": "惊讶身体反应",
+        "enabled": true,
+        "api_key": "performance.surprise",
+        "director_description": "身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：意外可配expression.surprised，明确受惊害怕才选expression.fearful。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
+      },
+      {
+        "id": "c1a0efc9b8a25580861bb6cdf99f9969",
+        "name": "摇摆身体",
+        "enabled": true,
+        "api_key": "performance.swing_body",
+        "director_description": "身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：轻松撒娇可配expression.shy，俏皮逗弄可配expression.playful。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
+      },
+      {
+        "id": "614c5220cd4a5ce099d4114abe93ff9b",
+        "name": "笑（四种组合）",
+        "enabled": true,
+        "api_key": "performance.laugh",
+        "director_description": "结合语境选择笑的表情和肢体动作：variant=0低头羞涩笑（害羞、被夸或含蓄地笑），1仰头大笑（开怀、有趣、明显的喜悦），2低头坏笑（低头调皮、打趣或暗自得意），3仰头坏笑（较张扬地调皮或得意）。这是笑容与原生附加动作的整体请求，无需额外请求相同笑容。一次完整素材自然结束，不放入cleanup_cues，不需要结束请求。仅在确实适合笑时选择；同片段不与其他原生附加动作堆叠，不在相邻片段反复笑。共享附加槽忙或保护占用时可能拒绝；角色Emotion仍由主对话决定，本行为不改其Emotion。",
+        "field_descriptions": {
+          "variant": "笑的组合：0=低头羞涩笑；1=仰头大笑；2=低头坏笑；3=仰头坏笑。必填Integer，仅接受0–3。无需另发笑容请求或结束请求。"
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "variant",
+              "kind": "integer"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
+      },
+      {
+        "id": "1f556c06179a5cd493947dda570e5b42",
+        "name": "大小姐笑",
+        "enabled": true,
+        "api_key": "performance.ojou_laugh",
+        "director_description": "切换为大小姐式持续站姿，适合高傲、自信、得意地调侃或“哦呵呵”式笑。laugh_once=false仅进入/保持肢体站姿，完全不请求或刷新表情；true临时切专属笑容并仰头笑一次，头部动作结束只释放本次仍持有的笑容，肢体站姿继续保持。重复请求不重播已持有的底姿。它是完整身体姿态，不是普通laugh的附加差分。不要仅因片段音频结束就自动恢复站姿；明确需要恢复时使用idle.return_normal_pose或其他身体姿势接管。无需额外请求同一笑容，表情不改变Character Emotion。附加槽忙时带true的本次请求可能被拒绝，不排队。移动、拖拽及交互保护保持，不可强制越过本地权限。",
+        "field_descriptions": {
+          "laugh_once": "是否抬头笑一次：true临时请求专属笑容并播放一次附加抬头笑，结束只释放本次仍持有的表情，肢体姿态继续；false只进入／保持肢体姿态，不碰当前表情。必填Boolean。"
+        },
+        "schema": {
+          "request_fields": [
+            {
+              "key": "laugh_once",
+              "kind": "boolean"
+            }
+          ]
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
       }
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant 的行为必须按字段说明选择 0 或 1，不臆造其他差分。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【当前场景肢体与表情搭配】\n- 行为目录不是单选菜单。肢体与表情分别判断：当前片段需要身体表现、也需要新的面部表现时，可在cues中组合一个肢体行为与一个expression.*；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换表情，也不因语调改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表情与动作，优先在双方允许的media_started时机先列表情、再列动作。只输出目录中的action_id与完整参数，不把推荐名称或API Key当成action_id。\n- 自带表情的performance.thinking、performance.laugh，以及laugh_once=true的performance.ojou_laugh，只选组合行为，不再同片段另选expression.*争抢同一层。ojou_laugh(false)仅切身体姿态，可独立搭配表情。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak和原生附加动作仍遵守各自互斥／保护规则；允许配表情不等于允许堆叠多个互斥肢体动作。不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带variant、count或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -1820,7 +1942,8 @@
               "action_id": "38aee0c914a5d985d6bd25ee6d161111",
               "trigger": "media_started",
               "arguments": {
-                "variant": 0
+                "variant": 0,
+                "count": 0
               }
             }
           ],
@@ -2473,6 +2596,48 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "performance.laugh",
+        "enabled": true,
+        "description": "笑的表情与动作组合；variant：0低头羞涩笑、1仰头大笑、2低头坏笑、3仰头坏笑。一次原生附加动作，自然结束；只释放本次仍持有的笑容，不清理后来接管的表情。共享附加槽忙或受保护状态时拒绝，不提供即时物理取消。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "variant",
+            "kind": "integer",
+            "description": "笑的组合：0=低头羞涩笑；1=仰头大笑；2=低头坏笑；3=仰头坏笑。必填Integer，仅接受0–3。无需另发笑容请求或结束请求。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.nod",
+        "enabled": true,
+        "description": "点头确认、认可或示意理解；count仅接受1或2，使用对应的完整素材。原生附加短动作，不替换身体底姿；叠加槽忙或受保护占用时可能拒绝，已开始后自然结束。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "count",
+            "kind": "integer",
+            "description": "点头次数，仅接受1或2；1为轻点一次，2为较积极的连续两次。字段必填，手动入口初值1；不通过重复播放拼接次数。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.ojou_laugh",
+        "enabled": true,
+        "description": "进入／保持大小姐笑的持续待机姿态，不自动结束。laugh_once=true临时切换专属表情并抬头笑一次，笑完释放本次仍持有的表情；false只保持肢体姿态，不请求或刷新表情。重复不重播底姿，恢复姿态用idle.return_normal_pose或其他身体动作接管。附加槽忙时带true的本次请求拒绝，不排队。",
+        "ack_timeout_ms": 30000,
+        "fields": [
+          {
+            "key": "laugh_once",
+            "kind": "boolean",
+            "description": "是否抬头笑一次：true临时请求专属笑容并播放一次附加抬头笑，结束只释放本次仍持有的表情，肢体姿态继续；false只进入／保持肢体姿态，不碰当前表情。必填Boolean。"
+          }
+        ]
+      },
+      {
+        "route": "adapter_to_link",
         "key": "performance.protest",
         "enabled": true,
         "description": "尝试进入赌气抗议姿态；不自动改变表情。",
@@ -2503,6 +2668,14 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "performance.shake_head",
+        "enabled": true,
+        "description": "摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，不替换身体底姿；叠加槽忙或受保护占用时可能拒绝，已开始后自然结束，不立即取消。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
         "key": "performance.show_back",
         "enabled": true,
         "description": "尝试进入展示背部姿态；不自动改变表情。",
@@ -2527,6 +2700,22 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "performance.surprise",
+        "enabled": true,
+        "description": "身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加短动作，完整素材一次自然结束；共享附加槽忙或受保护状态时可能拒绝，不立即取消。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.swing_body",
+        "enabled": true,
+        "description": "身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加短动作，完整素材一次自然结束；共享附加槽忙或受保护状态时可能拒绝，不立即取消。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
         "key": "performance.thinking",
         "enabled": true,
         "description": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。",
@@ -2541,15 +2730,20 @@
       },
       {
         "route": "adapter_to_link",
-        "key": "performance.wave_once",
+        "key": "performance.wave",
         "enabled": true,
-        "description": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。",
+        "description": "有限次数挥手；variant：0举臂、1双手、2单手。count：1–20指定次数，0使用蓝图默认3次。按各样式单次挥手估算时长×次数计时，双手素材含约3次摆手；包含淡入，不是逐轮完成确认。不自动改变表情。",
         "ack_timeout_ms": 30000,
         "fields": [
           {
+            "key": "count",
+            "kind": "integer",
+            "description": "挥手次数：1–20；0使用Wave的DefaultWaveCount（默认3）。字段必填。按各样式单次挥手估算时长计时：双手按素材长度/3换算，其他按一个素材周期。含淡入，帧边界与淡出存在误差；单手原速较快。"
+          },
+          {
             "key": "variant",
             "kind": "integer",
-            "description": "姿势差分：0=举臂挥动（原动作），1=双手挥动，2=单手挥动；仅接受0、1、2。保持原有限时挥手，不自动改变表情。"
+            "description": "挥手差分：0举臂、1双手、2单手；仅接受0、1、2。不自动改变表情。"
           }
         ]
       },
