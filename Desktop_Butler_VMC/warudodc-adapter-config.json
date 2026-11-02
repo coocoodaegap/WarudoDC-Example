@@ -1745,11 +1745,72 @@
           "media_started",
           "media_completed"
         ]
+      },
+      {
+        "id": "6f427181ae5557c6829841b1f8032bb4",
+        "name": "歪头",
+        "enabled": true,
+        "api_key": "performance.tilt_neck",
+        "director_description": "持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配expression.confused或expression.shy，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started"
+        ]
+      },
+      {
+        "id": "05cea9f0235853e0b4ed0336d2e3f5e6",
+        "name": "低头望向一边",
+        "enabled": true,
+        "api_key": "performance.look_away",
+        "director_description": "持续低头望向一边，适合害羞回避、尴尬或低落克制。可配expression.shy、expression.embarrassed或expression.aggrieved，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started"
+        ]
+      },
+      {
+        "id": "78ecff1a856e5ae197e9250e4f52f082",
+        "name": "持续颤抖",
+        "enabled": true,
+        "api_key": "performance.tremble",
+        "director_description": "持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配expression.fearful或expression.worried，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started"
+        ]
+      },
+      {
+        "id": "0e04917ff7d05bb8af17f2280e5253f2",
+        "name": "结束持续附加",
+        "enabled": true,
+        "api_key": "performance.sustained.clear",
+        "director_description": "明确结束执行时当前持续附加，不结束身体姿势或Speak、不清表情。不是按原请求身份的专属撤销。确需在片段末尾结束辅助表现时可作为cleanup_cues；若要跨片段保持或已经编排新持续附加，不要机械清理。",
+        "field_descriptions": {},
+        "schema": {
+          "request_fields": []
+        },
+        "allowed_triggers": [
+          "immediate",
+          "media_started",
+          "media_completed"
+        ]
       }
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【当前场景肢体与表情搭配】\n- 行为目录不是单选菜单。肢体与表情分别判断：当前片段需要身体表现、也需要新的面部表现时，可在cues中组合一个肢体行为与一个expression.*；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换表情，也不因语调改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表情与动作，优先在双方允许的media_started时机先列表情、再列动作。只输出目录中的action_id与完整参数，不把推荐名称或API Key当成action_id。\n- 自带表情的performance.thinking、performance.laugh，以及laugh_once=true的performance.ojou_laugh，只选组合行为，不再同片段另选expression.*争抢同一层。ojou_laugh(false)仅切身体姿态，可独立搭配表情。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak和原生附加动作仍遵守各自互斥／保护规则；允许配表情不等于允许堆叠多个互斥肢体动作。不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带variant、count或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【持续附加表现】\n- 歪头、低头望向一边、持续颤抖是同一个持续附加槽，不替换身体底姿或Speak，不自动切表情；同类互换，重复同项不刷新。已有同项可跨片段保持，不必逐段重发。\n- 同一片段不要同时编排多个持续附加，也不要把持续附加与点头、摇头、惊讶身体反应、摇摆身体、Laugh或大小姐抬头笑堆叠；短附加成功获准会结束当前持续附加。已结束不会自动恢复。\n- 交互、保护移动或拖拽会撤销持续附加；本地是否准入由Controller决定，前文编排不等于已执行。虽然可与普通姿势／Speak混合，组合仍需符合语义，避免颤抖配兴奋手势等不自然搭配。\n- performance.sustained.clear只结束执行时当前持续附加，不停身体／Speak、不清表情，不是原请求专属撤销。只在确需结束辅助表现时选用，可用于cleanup_cues；若片段结束后还要保持或已有新附加接管，就不要机械加入清理。\n\n【当前场景肢体与表情搭配】\n- 行为目录不是单选菜单。肢体与表情分别判断：当前片段需要身体表现、也需要新的面部表现时，可在cues中组合一个肢体行为与一个expression.*；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换表情，也不因语调改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表情与动作，优先在双方允许的media_started时机先列表情、再列动作。只输出目录中的action_id与完整参数，不把推荐名称或API Key当成action_id。\n- 自带表情的performance.thinking、performance.laugh，以及laugh_once=true的performance.ojou_laugh，只选组合行为，不再同片段另选expression.*争抢同一层。ojou_laugh(false)仅切身体姿态，可独立搭配表情。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak和原生附加动作仍遵守各自互斥／保护规则；允许配表情不等于允许堆叠多个互斥肢体动作。不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带variant、count或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -2610,6 +2671,14 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "performance.look_away",
+        "enabled": true,
+        "description": "持续低头望向一边，适合害羞回避、尴尬或低落克制。可配expression.shy、expression.embarrassed或expression.aggrieved，不自动切表情。 同类持续附加互相替换，重复同项不刷新；短附加获准及交互／保护移动接管后结束。保持到替换或performance.sustained.clear。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
         "key": "performance.nod",
         "enabled": true,
         "description": "点头确认、认可或示意理解；count仅接受1或2，使用对应的完整素材。原生附加短动作，不替换身体底姿；叠加槽忙或受保护占用时可能拒绝，已开始后自然结束。",
@@ -2708,6 +2777,14 @@
       },
       {
         "route": "adapter_to_link",
+        "key": "performance.sustained.clear",
+        "enabled": true,
+        "description": "清除执行时当前的持续附加，不停止身体／Speak、不清表情；不是旧请求的专属撤销。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
         "key": "performance.swing_body",
         "enabled": true,
         "description": "身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加短动作，完整素材一次自然结束；共享附加槽忙或受保护状态时可能拒绝，不立即取消。",
@@ -2727,6 +2804,22 @@
             "description": "姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。"
           }
         ]
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.tilt_neck",
+        "enabled": true,
+        "description": "持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配expression.confused或expression.shy，不自动切表情。 同类持续附加互相替换，重复同项不刷新；短附加获准及交互／保护移动接管后结束。保持到替换或performance.sustained.clear。",
+        "ack_timeout_ms": 30000,
+        "fields": []
+      },
+      {
+        "route": "adapter_to_link",
+        "key": "performance.tremble",
+        "enabled": true,
+        "description": "持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配expression.fearful或expression.worried，不自动切表情。 同类持续附加互相替换，重复同项不刷新；短附加获准及交互／保护移动接管后结束。保持到替换或performance.sustained.clear。",
+        "ack_timeout_ms": 30000,
+        "fields": []
       },
       {
         "route": "adapter_to_link",
