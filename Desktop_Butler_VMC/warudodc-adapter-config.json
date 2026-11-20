@@ -932,184 +932,575 @@
     }
   ],
   "screenplay": {
-    "tones": [
+    "emotions": [
       {
-        "kind": "base",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "neutral",
-          "voice_name": "Ram_平稳",
-          "style_instruction": ""
-        },
-        "tone_key": "neutral",
+        "key": "neutral",
         "display_name": "中性",
         "description": "平稳、自然，不刻意强化情绪。",
         "enabled": true,
         "is_default": true,
         "supports_intensity": true,
-        "default_intensity": 0.5
+        "default_intensity": 0.5,
+        "emotion_route": "neutral",
+        "voice_key": "voice_1"
       },
       {
-        "kind": "base",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "neutral",
-          "voice_name": "Ram_平稳",
-          "style_instruction": ""
-        },
-        "tone_key": "happy",
+        "key": "happy",
         "display_name": "愉快",
         "description": "轻快、积极，表达明显但不过度夸张的愉悦。",
         "enabled": true,
         "is_default": false,
         "supports_intensity": true,
-        "default_intensity": 0.7
+        "default_intensity": 0.7,
+        "emotion_route": "neutral",
+        "voice_key": "voice_1"
       },
       {
-        "kind": "base",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "sad",
-          "voice_name": "Ram_小声",
-          "style_instruction": ""
-        },
-        "tone_key": "sad",
+        "key": "sad",
         "display_name": "悲伤",
         "description": "低落、克制，表达悲伤或失落。",
         "enabled": true,
         "is_default": false,
         "supports_intensity": true,
-        "default_intensity": 0.6
+        "default_intensity": 0.6,
+        "emotion_route": "sad",
+        "voice_key": "voice_2"
       },
       {
-        "kind": "base",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "angry",
-          "voice_name": "Ram_紧绷",
-          "style_instruction": ""
-        },
-        "tone_key": "angry",
+        "key": "angry",
         "display_name": "生气",
         "description": "坚定、有张力，表达不满或愤怒但避免失控。",
         "enabled": true,
         "is_default": false,
         "supports_intensity": true,
-        "default_intensity": 0.7
-      },
+        "default_intensity": 0.7,
+        "emotion_route": "angry",
+        "voice_key": "voice_3"
+      }
+    ],
+    "manners": [
       {
-        "kind": "composite",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "neutral",
-          "voice_name": "Ram_贴声",
-          "style_instruction": "压低音量、气声、贴近耳边，语速放慢，句尾轻收。"
-        },
-        "tone_key": "whisper_shy",
+        "key": "whisper_shy",
         "display_name": "轻声细语",
+        "description": "害羞、压低声音、吞吞吐吐，或不想被别人听清时使用。",
         "enabled": true,
-        "base_tone_key": "happy",
-        "priority": 0.0,
-        "behavior_sources": [
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [
           {
             "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
             "trigger": "media_started",
             "arguments": {}
           }
-        ]
+        ],
+        "style_instruction": "压低音量、气声、贴近耳边，语速放慢，句尾轻收。",
+        "emotion_route": "neutral",
+        "voice_key": "voice_4",
+        "priority": 0.0
       },
       {
-        "kind": "composite",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "happy",
-          "voice_name": "Ram_大声",
-          "style_instruction": "音量抬高、有投射感，语调上扬，节奏稍快，尾音有弹性。"
-        },
-        "tone_key": "excited_loud",
+        "key": "excited_loud",
         "display_name": "兴奋高声",
+        "description": "兴奋、开心到提高音量、语速变快时使用。",
         "enabled": true,
-        "base_tone_key": "happy",
-        "priority": 0.0,
-        "behavior_sources": [
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [
           {
             "action_id": "c3f5f9ad31395eb182ee4e71c68c2a30",
             "trigger": "media_started",
             "arguments": {}
           }
-        ]
+        ],
+        "style_instruction": "音量抬高、有投射感，语调上扬，节奏稍快，尾音有弹性。",
+        "emotion_route": "happy",
+        "voice_key": "voice_5",
+        "priority": 0.0
       },
       {
-        "kind": "composite",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "neutral",
-          "voice_name": "Ram_小声",
-          "style_instruction": "带鼻音、嘟囔感、音量偏低、语速略快，尾音拖一点。"
-        },
-        "tone_key": "pouty_grumble",
+        "key": "pouty_grumble",
         "display_name": "嘟嘴抱怨",
+        "description": "闹别扭、不情愿、小声嘟囔抗议时使用。",
         "enabled": true,
-        "base_tone_key": "angry",
-        "priority": 0.0,
-        "behavior_sources": [
+        "tone_keys": [
+          "angry"
+        ],
+        "behaviors": [
           {
             "action_id": "27d940ef894553b2869930f422c07579",
             "trigger": "media_started",
             "arguments": {}
           }
-        ]
+        ],
+        "style_instruction": "带鼻音、嘟囔感、音量偏低、语速略快，尾音拖一点。",
+        "emotion_route": "neutral",
+        "voice_key": "voice_2",
+        "priority": 0.0
       },
       {
-        "kind": "composite",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "angry",
-          "voice_name": "Ram_紧绷",
-          "style_instruction": "声带压紧、咬字用力、句子短促，情绪饱满但不破音。"
-        },
-        "tone_key": "tense_scold",
+        "key": "tense_scold",
         "display_name": "紧绷斥责",
+        "description": "绷紧情绪、压低声音认真训斥或较真时使用。",
         "enabled": true,
-        "base_tone_key": "angry",
-        "priority": 0.0,
-        "behavior_sources": [
+        "tone_keys": [
+          "angry"
+        ],
+        "behaviors": [
           {
             "action_id": "2f07b26071a852679a4855f9a016dc55",
             "trigger": "media_started",
             "arguments": {}
           }
-        ]
+        ],
+        "style_instruction": "声带压紧、咬字用力、句子短促，情绪饱满但不破音。",
+        "emotion_route": "angry",
+        "voice_key": "voice_3",
+        "priority": 0.0
       },
       {
-        "kind": "composite",
-        "provider": {
-          "mode": "mimo",
-          "emotion_route": "neutral",
-          "voice_name": "Ram_平稳",
-          "style_instruction": "平稳、清晰、克制，节奏均匀，句间留一点停顿。"
-        },
-        "tone_key": "composed_calm",
+        "key": "composed_calm",
         "display_name": "平静陈述",
+        "description": "需要平稳、克制、条理清楚地把话说完时使用。",
         "enabled": true,
-        "base_tone_key": "neutral",
-        "priority": 0.0,
-        "behavior_sources": [
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [
           {
             "action_id": "faf248b8c2be52e99ed58136f05c68df",
             "trigger": "media_started",
             "arguments": {}
           }
-        ]
+        ],
+        "style_instruction": "平稳、清晰、克制，节奏均匀，句间留一点停顿。",
+        "emotion_route": "neutral",
+        "voice_key": "voice_1",
+        "priority": 0.0
+      },
+      {
+        "key": "surprised",
+        "display_name": "惊讶",
+        "description": "眉毛明显抬起、双眼睁大；用于意外、惊喜或突然的转折。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语气短促上扬，带一点没预料到的停顿，句尾轻挑。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "confused",
+        "display_name": "疑惑",
+        "description": "眉头一高一低，眼神变成困惑的漫画式样，嘴呈小三角；用于没听懂或需要解释。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语调上扬、语速放慢，尾音带问号感，像在确认自己有没有听错。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "speechless",
+        "display_name": "无语",
+        "description": "平眉、半睁眼，显得淡漠又无奈；用于克制的吐槽或一时不知如何评价。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语速放慢，声音放平，句尾下沉，带一点无奈的停顿。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "embarrassed",
+        "display_name": "尴尬",
+        "description": "眉尾略垂、眼神略弯并泛起红晕；用于出糗、被拆穿或社交窘迫。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "声音变小发虚，语速略快，句间有短促的吸气。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "expectant",
+        "display_name": "期待",
+        "description": "眉眼扬起、眼睛亮晶晶，小嘴微张；用于兴奋地期待答案、礼物或下一步互动。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "语速轻快，句尾上扬，声音里有压不住的小兴奋。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "smug",
+        "display_name": "得意",
+        "description": "眉毛扬起、眼睛略眯，嘴呈猫式微笑；用于小小炫耀或受到夸奖后的得意。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "尾音上挑、拖长半拍，带一点自得的气声。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "skeptical",
+        "display_name": "怀疑",
+        "description": "略皱眉、略眯眼，嘴呈小三角；用于听懂了却不太相信、质疑真实性或动机。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语速偏慢，重音落在质疑的词上，尾音收平。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "displeased",
+        "display_name": "不满",
+        "description": "眉头压低、眼睛略眯，抿嘴鼓气般闹别扭；用于抗议、责怪或表达不满。",
+        "enabled": true,
+        "tone_keys": [
+          "angry"
+        ],
+        "behaviors": [],
+        "style_instruction": "声音压低，语速稍快，尾音带一小口憋气。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "disgusted",
+        "display_name": "嫌弃",
+        "description": "皱眉眯眼，面部带压暗的阴影；用于嫌弃、排斥某个对象或行为。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语速偏慢，声音从鼻腔里出来一点，尾音带轻蔑的下压。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "worried",
+        "display_name": "担忧",
+        "description": "眉尾下垂、双眼略睁大；用于关切对方、犹豫或预感不妙。",
+        "enabled": true,
+        "tone_keys": [
+          "sad"
+        ],
+        "behaviors": [],
+        "style_instruction": "语气放软放缓，气息轻，句尾略沉，像在确认对方的状态。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "fearful",
+        "display_name": "害怕",
+        "description": "眉毛高挑又下垂，眼睛明显睁大、嘴角下弯；用于直接受惊或害怕。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "气息浅而急，句子变短，尾音发抖，音量略收。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "aggrieved",
+        "display_name": "委屈",
+        "description": "眉尾低垂、眼神带委屈，小嘴向下撇；用于被误解、冷落或想得到安慰。",
+        "enabled": true,
+        "tone_keys": [
+          "sad"
+        ],
+        "behaviors": [],
+        "style_instruction": "鼻音偏重，带一点抽气声，尾音发颤，句子断断续续。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "shy",
+        "display_name": "害羞",
+        "description": "眉眼柔和，眼睛微弯并显露羞涩；用于亲近或夸奖后的正向害羞。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "声音渐弱，吞吞吐吐，句尾收小，气息不稳。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "tender",
+        "display_name": "温柔",
+        "description": "眉眼轻柔、眼睛微弯，嘴角带温和笑意；用于安慰、关爱或亲昵回应。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "语气放轻放软，语速慢，句尾柔和下沉。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "relieved",
+        "display_name": "释然",
+        "description": "眉头舒展、眼睛半睁，显得放松；用于解除担忧、确认安全或松一口气。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "先轻轻吐一口气再开口，语速放缓，尾音放松下沉。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "playful",
+        "display_name": "俏皮",
+        "description": "眉毛轻扬，双眼明显弯成笑眼；用于善意逗弄、调侃或小小使坏。",
+        "enabled": true,
+        "tone_keys": [
+          "happy"
+        ],
+        "behaviors": [],
+        "style_instruction": "带笑朗读，尾音轻巧上扬，节奏跳一点。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "tired",
+        "display_name": "疲惫",
+        "description": "眉尾略垂、眼皮明显低垂；用于困倦、疲劳或勉强打起精神。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "气息弱，语速慢，句尾下沉，像强撑着说话。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "bored",
+        "display_name": "无聊",
+        "description": "平眉、半睁眼并略微眯起，显得兴致缺缺；用于敷衍或等待得无聊。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语调平，语速拖，字与字之间有点松，尾音不上扬。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "thinking",
+        "display_name": "思考",
+        "description": "眉头轻微一高一低、眼睛略收拢，显得在斟酌；用于回忆或权衡。",
+        "enabled": true,
+        "tone_keys": [
+          "neutral"
+        ],
+        "behaviors": [],
+        "style_instruction": "语速偏慢，中间有停顿，像边想边说，尾音轻收。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "laugh_shy",
+        "display_name": "笑 · 羞涩",
+        "description": "笑声与表情的整体请求（variant=0）；仅在确实适合笑时使用。",
+        "enabled": true,
+        "tone_keys": [],
+        "behaviors": [
+          {
+            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
+            "trigger": "media_started",
+            "arguments": {
+              "variant": 0
+            }
+          }
+        ],
+        "style_instruction": "先轻轻笑一声再说话，气息收着，尾音软。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "laugh_open",
+        "display_name": "笑 · 开怀",
+        "description": "笑声与表情的整体请求（variant=1）；仅在确实适合笑时使用。",
+        "enabled": true,
+        "tone_keys": [],
+        "behaviors": [
+          {
+            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
+            "trigger": "media_started",
+            "arguments": {
+              "variant": 1
+            }
+          }
+        ],
+        "style_instruction": "开口带一段爽朗的笑，声音放开，句子跟着笑抖动。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "laugh_wry",
+        "display_name": "笑 · 坏笑",
+        "description": "笑声与表情的整体请求（variant=2）；仅在确实适合笑时使用。",
+        "enabled": true,
+        "tone_keys": [],
+        "behaviors": [
+          {
+            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
+            "trigger": "media_started",
+            "arguments": {
+              "variant": 2
+            }
+          }
+        ],
+        "style_instruction": "低声笑一下，带一点鼻音，语气里有点调侃的坏。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "laugh_proud",
+        "display_name": "笑 · 张扬",
+        "description": "笑声与表情的整体请求（variant=3）；仅在确实适合笑时使用。",
+        "enabled": true,
+        "tone_keys": [],
+        "behaviors": [
+          {
+            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
+            "trigger": "media_started",
+            "arguments": {
+              "variant": 3
+            }
+          }
+        ],
+        "style_instruction": "仰头笑一声，尾音上扬，带着张扬的得意。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
+      },
+      {
+        "key": "ojou_laugh",
+        "display_name": "大小姐笑",
+        "description": "高傲、自信、得意的\"哦呵呵\"式笑；完整身体姿态，不用于普通笑。",
+        "enabled": true,
+        "tone_keys": [],
+        "behaviors": [
+          {
+            "action_id": "1f556c06179a5cd493947dda570e5b42",
+            "trigger": "media_started",
+            "arguments": {
+              "laugh_once": true
+            }
+          }
+        ],
+        "style_instruction": "带一点高傲的\"哦呵呵\"式笑，尾音拖长，笑完再开口。",
+        "voice_key": "",
+        "emotion_route": "auto",
+        "priority": 0.0
       }
     ],
+    "voices": [
+      {
+        "key": "voice_1",
+        "display_name": "Ram_平稳",
+        "enabled": true,
+        "source": {
+          "mode": "mimo",
+          "voice_name": "Ram_平稳"
+        }
+      },
+      {
+        "key": "voice_2",
+        "display_name": "Ram_小声",
+        "enabled": true,
+        "source": {
+          "mode": "mimo",
+          "voice_name": "Ram_小声"
+        }
+      },
+      {
+        "key": "voice_3",
+        "display_name": "Ram_紧绷",
+        "enabled": true,
+        "source": {
+          "mode": "mimo",
+          "voice_name": "Ram_紧绷"
+        }
+      },
+      {
+        "key": "voice_4",
+        "display_name": "Ram_贴声",
+        "enabled": true,
+        "source": {
+          "mode": "mimo",
+          "voice_name": "Ram_贴声"
+        }
+      },
+      {
+        "key": "voice_5",
+        "display_name": "Ram_大声",
+        "enabled": true,
+        "source": {
+          "mode": "mimo",
+          "voice_name": "Ram_大声"
+        }
+      }
+    ],
+    "voice_default": "",
     "actions": [
       {
         "id": "38aee0c914a5d985d6bd25ee6d161111",
         "name": "挥手",
         "enabled": true,
         "api_key": "performance.wave",
-        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；按count指定次数，以各样式单次挥手估算时长×次数计时，不附带表情。 count必填；通常填0沿用本地默认次数，需要时明确指定1–20轮。不对每轮重复发起行为。\n搭配参考：轻松招呼可配expression.tender，兴奋示意可配expression.expectant；礼貌告别也可保持已有表情。",
+        "director_description": "挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；按count指定次数，以各样式单次挥手估算时长×次数计时，不附带表情。 count必填；通常填0沿用本地默认次数，需要时明确指定1–20轮。不对每轮重复发起行为。\n搭配参考：轻松招呼可配manner=tender，兴奋示意可配manner=expectant；礼貌告别也可保持已有表情。",
         "field_descriptions": {
           "variant": "挥手差分：0举臂、1双手、2单手；仅接受0、1、2。不自动改变表情。",
           "count": "挥手次数：1–20；0使用Wave的DefaultWaveCount（默认3）。字段必填。按各样式单次挥手估算时长计时：双手按素材长度/3换算，其他按一个素材周期。含淡入，帧边界与淡出存在误差；单手原速较快。"
@@ -1128,7 +1519,8 @@
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "c38473f592feecba798eded5fcc77e4a",
@@ -1151,273 +1543,8 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
-      },
-      {
-        "id": "e675dd42cab357929268fca0c569fe08",
-        "name": "惊讶",
-        "enabled": true,
-        "api_key": "expression.surprised",
-        "director_description": "眉毛明显抬起、双眼睁大；用于意外、惊喜或突然的转折。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "dd50717a7a845431bfa2e1a5fd8a49b9",
-        "name": "疑惑",
-        "enabled": true,
-        "api_key": "expression.confused",
-        "director_description": "眉头一高一低，眼神变成困惑的漫画式样，嘴呈小三角；用于没听懂或需要解释。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "1f7729dc97885c8f894a88bd3b2345b1",
-        "name": "无语",
-        "enabled": true,
-        "api_key": "expression.speechless",
-        "director_description": "平眉、半睁眼，显得淡漠又无奈；用于克制的吐槽或一时不知如何评价。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "50bc019114395689b811df49b91e03e4",
-        "name": "尴尬",
-        "enabled": true,
-        "api_key": "expression.embarrassed",
-        "director_description": "眉尾略垂、眼神略弯并泛起红晕；用于出糗、被拆穿或社交窘迫。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "e4f49c41172d51b699d051be49eb3c81",
-        "name": "期待",
-        "enabled": true,
-        "api_key": "expression.expectant",
-        "director_description": "眉眼扬起、眼睛亮晶晶，小嘴微张；用于兴奋地期待答案、礼物或下一步互动。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "0b531411d22c543a92fafa74524af764",
-        "name": "得意",
-        "enabled": true,
-        "api_key": "expression.smug",
-        "director_description": "眉毛扬起、眼睛略眯，嘴呈猫式微笑；用于小小炫耀或受到夸奖后的得意。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "cd3b35d82b2a5603990f72edec5d373a",
-        "name": "怀疑",
-        "enabled": true,
-        "api_key": "expression.skeptical",
-        "director_description": "略皱眉、略眯眼，嘴呈小三角；用于听懂了却不太相信、质疑真实性或动机。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "f02cbeffe64355379472329cf32b35a9",
-        "name": "不满",
-        "enabled": true,
-        "api_key": "expression.displeased",
-        "director_description": "眉头压低、眼睛略眯，抿嘴鼓气般闹别扭；用于抗议、责怪或表达不满。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "6a2bcb6808235920881df7a4b5050217",
-        "name": "嫌弃",
-        "enabled": true,
-        "api_key": "expression.disgusted",
-        "director_description": "皱眉眯眼，面部带压暗的阴影；用于嫌弃、排斥某个对象或行为。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "98f8c71114885e4fbe772ce5f6c64eb4",
-        "name": "担忧",
-        "enabled": true,
-        "api_key": "expression.worried",
-        "director_description": "眉尾下垂、双眼略睁大；用于关切对方、犹豫或预感不妙。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "9561a1fc04115cd6aef6899fda0511ba",
-        "name": "害怕",
-        "enabled": true,
-        "api_key": "expression.fearful",
-        "director_description": "眉毛高挑又下垂，眼睛明显睁大、嘴角下弯；用于直接受惊或害怕。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "b229557ce39d52349e88a1f191e0ae71",
-        "name": "委屈",
-        "enabled": true,
-        "api_key": "expression.aggrieved",
-        "director_description": "眉尾低垂、眼神带委屈，小嘴向下撇；用于被误解、冷落或想得到安慰。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "b0cae53e85f751c7a9051b00e8323bb2",
-        "name": "害羞",
-        "enabled": true,
-        "api_key": "expression.shy",
-        "director_description": "眉眼柔和，眼睛微弯并显露羞涩；用于亲近或夸奖后的正向害羞。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "d16eda31910a51e7a1e1c15dc3dc6af9",
-        "name": "温柔",
-        "enabled": true,
-        "api_key": "expression.tender",
-        "director_description": "眉眼轻柔、眼睛微弯，嘴角带温和笑意；用于安慰、关爱或亲昵回应。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "e2e1738e8b285e009bfb1a94f58fced7",
-        "name": "释然",
-        "enabled": true,
-        "api_key": "expression.relieved",
-        "director_description": "眉头舒展、眼睛半睁，显得放松；用于解除担忧、确认安全或松一口气。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "587b52ff98c2513ea92ab4dda011be73",
-        "name": "俏皮",
-        "enabled": true,
-        "api_key": "expression.playful",
-        "director_description": "眉毛轻扬，双眼明显弯成笑眼；用于善意逗弄、调侃或小小使坏。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "10da83f223b45491b6d448fb188819e1",
-        "name": "疲惫",
-        "enabled": true,
-        "api_key": "expression.tired",
-        "director_description": "眉尾略垂、眼皮明显低垂；用于困倦、疲劳或勉强打起精神。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "9a3170ab878a568f87ba25aeff8abfd4",
-        "name": "无聊",
-        "enabled": true,
-        "api_key": "expression.bored",
-        "director_description": "平眉、半睁眼并略微眯起，显得兴致缺缺；用于敷衍或等待得无聊。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
-      },
-      {
-        "id": "9b1f6bf623a351bf8a6a133a0eca9846",
-        "name": "思考",
-        "enabled": true,
-        "api_key": "expression.thinking",
-        "director_description": "眉头轻微一高一低、眼睛略收拢，显得在斟酌；用于回忆或权衡。",
-        "field_descriptions": {},
-        "schema": {
-          "request_fields": []
-        },
-        "allowed_triggers": [
-          "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "0bc0750aad4d5f59a5e7892c2f070716",
@@ -1438,98 +1565,105 @@
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "9ba75e8d2e225206b4cd605055cf4329",
         "name": "双手叉腰",
         "enabled": true,
         "api_key": "performance.hands_on_hips",
-        "director_description": "身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由expression.*按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。\n搭配参考：认真抗议可配expression.displeased，熟稔打趣可配expression.playful；不因叉腰就强制生气。",
+        "director_description": "身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由语气（manner）按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。\n搭配参考：认真抗议可配manner=displeased，熟稔打趣可配manner=playful；不因叉腰就强制生气。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "bb737298fc3953ca8c69f21273edadb7",
         "name": "邀请拥抱",
         "enabled": true,
         "api_key": "performance.invite_hug",
-        "director_description": "张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。\n搭配参考：亲昵邀请可配expression.tender，求安慰可配expression.aggrieved。",
+        "director_description": "张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。\n搭配参考：亲昵邀请可配manner=tender，求安慰可配manner=aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "3400ee25ab245eb2b755259313aed682",
         "name": "耸肩",
         "enabled": true,
         "api_key": "performance.shrug",
-        "director_description": "耸肩摊手，表示不知道、无所谓或无奈。\n搭配参考：无奈可配expression.speechless，不解可配expression.confused。",
+        "director_description": "耸肩摊手，表示不知道、无所谓或无奈。\n搭配参考：无奈可配manner=speechless，不解可配manner=confused。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "18be1640d2fc5b4396a01ab537963688",
         "name": "赌气抗议",
         "enabled": true,
         "api_key": "performance.protest",
-        "director_description": "双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。\n搭配参考：赌气可配expression.displeased，委屈抗议可配expression.aggrieved。",
+        "director_description": "双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。\n搭配参考：赌气可配manner=displeased，委屈抗议可配manner=aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "9d62c63313b85f4dba966e64328ddf53",
         "name": "认真表态",
         "enabled": true,
         "api_key": "performance.hand_on_chest",
-        "director_description": "右手放在胸口，适合认真保证、承诺或坚定表态。\n搭配参考：安慰或真诚承诺可配expression.tender；郑重表态也可保持已有表情。",
+        "director_description": "右手放在胸口，适合认真保证、承诺或坚定表态。\n搭配参考：安慰或真诚承诺可配manner=tender；郑重表态也可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "a6ad1755e97056558e04adff513b8707",
         "name": "担心关切",
         "enabled": true,
         "api_key": "performance.concern",
-        "director_description": "右手放在身前，身体略显关切，适合担心、询问或安慰。\n搭配参考：担心可配expression.worried，确认安全后的安慰可配expression.tender。",
+        "director_description": "右手放在身前，身体略显关切，适合担心、询问或安慰。\n搭配参考：担心可配manner=worried，确认安全后的安慰可配manner=tender。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "5f833a2840e057fdb8563a4317ce2a0d",
         "name": "卖萌",
         "enabled": true,
         "api_key": "performance.cute",
-        "director_description": "以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。\n搭配参考：撒娇可配expression.shy，善意逗弄可配expression.playful。",
+        "director_description": "以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。\n搭配参考：撒娇可配manner=shy，善意逗弄可配manner=playful。",
         "field_descriptions": {
           "variant": "姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。"
         },
@@ -1543,14 +1677,15 @@
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "04eb74932191512191442705568b0fda",
         "name": "拒绝",
         "enabled": true,
         "api_key": "performance.refuse",
-        "director_description": "身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。\n搭配参考：明确抗议可配expression.displeased，害羞婉拒可配expression.shy；按拒绝缘由选择。",
+        "director_description": "身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。\n搭配参考：明确抗议可配manner=displeased，害羞婉拒可配manner=shy；按拒绝缘由选择。",
         "field_descriptions": {
           "variant": "姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。"
         },
@@ -1564,210 +1699,225 @@
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "3229c9b1bb8758c9a4871ffaa9001111",
         "name": "展示力量",
         "enabled": true,
         "api_key": "performance.flex",
-        "director_description": "展示肌肉，以肢体表达炫耀力量、得意或搞怪。\n搭配参考：炫耀可配expression.smug，搞怪可配expression.playful。",
+        "director_description": "展示肌肉，以肢体表达炫耀力量、得意或搞怪。\n搭配参考：炫耀可配manner=smug，搞怪可配manner=playful。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "54556ae883145526b336e65271a4761b",
         "name": "垂头丧气",
         "enabled": true,
         "api_key": "performance.slouch",
-        "director_description": "垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。\n搭配参考：失望可配expression.aggrieved，困乏可配expression.tired；不把失落一律当作疲劳。",
+        "director_description": "垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。\n搭配参考：失望可配manner=aggrieved，困乏可配manner=tired；不把失落一律当作疲劳。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "b3a735d21c99568dae9e91425cd70178",
         "name": "扶脸懊恼",
         "enabled": true,
         "api_key": "performance.facepalm",
-        "director_description": "右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。\n搭配参考：吐槽可配expression.speechless，出糗可配expression.embarrassed。",
+        "director_description": "右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。\n搭配参考：吐槽可配manner=speechless，出糗可配manner=embarrassed。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "9c8ef824f736525c91d4dfd87afb158c",
         "name": "扶后脑勺",
         "enabled": true,
         "api_key": "performance.hand_behind_head",
-        "director_description": "右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。\n搭配参考：不好意思可配expression.embarrassed，不解可配expression.confused。",
+        "director_description": "右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。\n搭配参考：不好意思可配manner=embarrassed，不解可配manner=confused。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "89162ec793c857a39cd54d6aa0e865a7",
         "name": "拘谨",
         "enabled": true,
         "api_key": "performance.reserved",
-        "director_description": "双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。\n搭配参考：正向羞怯可配expression.shy，不安可配expression.worried。",
+        "director_description": "双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。\n搭配参考：正向羞怯可配manner=shy，不安可配manner=worried。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "57eec08bed335dbf8d2b8976593ac994",
         "name": "说话 · 解释型说明",
         "enabled": true,
         "api_key": "speak.explaining",
-        "director_description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。\n搭配参考：耐心说明可配expression.tender，疑问分析可配expression.thinking；普通讲解可保持已有表情。",
+        "director_description": "以手势解释、说明或梳理一件事，适合有一定长度的讲解。\n搭配参考：耐心说明可配manner=tender，疑问分析可配manner=thinking；普通讲解可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "c3f5f9ad31395eb182ee4e71c68c2a30",
         "name": "说话 · 激动地说",
         "enabled": true,
         "api_key": "speak.excited",
-        "director_description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。\n搭配参考：热切分享可配expression.expectant，带点炫耀可配expression.smug。",
+        "director_description": "以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。\n搭配参考：热切分享可配manner=expectant，带点炫耀可配manner=smug。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "f6a273bf52c65641a91787a170442a81",
         "name": "说话 · 冷静分析",
         "enabled": true,
         "api_key": "speak.calm",
-        "director_description": "以克制、沉稳的手势分析或说明，适合认真讨论。\n搭配参考：权衡可配expression.thinking，关切讨论可配expression.worried；平稳陈述可保持已有表情。",
+        "director_description": "以克制、沉稳的手势分析或说明，适合认真讨论。\n搭配参考：权衡可配manner=thinking，关切讨论可配manner=worried；平稳陈述可保持已有表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "2f07b26071a852679a4855f9a016dc55",
         "name": "说话 · 指向并强调",
         "enabled": true,
         "api_key": "speak.scolding",
-        "director_description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。\n搭配参考：责怪可配expression.displeased，质疑可配expression.skeptical。",
+        "director_description": "手指朝向屏幕，带有强调、责备或告诫的身体态度。\n搭配参考：责怪可配manner=displeased，质疑可配manner=skeptical。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "75d7e3b9ab9d5f629a328c3119ea5e58",
         "name": "说话 · 轻松指向",
         "enabled": true,
         "api_key": "speak.pointing",
-        "director_description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。\n搭配参考：善意打趣可配expression.playful，轻松得意可配expression.smug。",
+        "director_description": "以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。\n搭配参考：善意打趣可配manner=playful，轻松得意可配manner=smug。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "9470975ab96d5f6cb72d80bccf682313",
         "name": "说话 · 丰富手势交谈",
         "enabled": true,
         "api_key": "speak.chatty",
-        "director_description": "说话时手部动作丰富，适合较活泼的叙述和聊天。\n搭配参考：亲切聊天可配expression.tender，热切叙述可配expression.expectant。",
+        "director_description": "说话时手部动作丰富，适合较活泼的叙述和聊天。\n搭配参考：亲切聊天可配manner=tender，热切叙述可配manner=expectant。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "27d940ef894553b2869930f422c07579",
         "name": "说话 · 抱臂赌气地说",
         "enabled": true,
         "api_key": "speak.pouting",
-        "director_description": "抱臂并带有赌气、抗议或不满的身体态度说话。\n搭配参考：闹别扭可配expression.displeased，受委屈可配expression.aggrieved。",
+        "director_description": "抱臂并带有赌气、抗议或不满的身体态度说话。\n搭配参考：闹别扭可配manner=displeased，受委屈可配manner=aggrieved。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "faf248b8c2be52e99ed58136f05c68df",
         "name": "说话 · 抱臂冷静地说",
         "enabled": true,
         "api_key": "speak.composed",
-        "director_description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。\n搭配参考：保留意见可配expression.skeptical，冷静思量可配expression.thinking。",
+        "director_description": "抱臂、克制而冷静地说话，适合保留意见或从容分析。\n搭配参考：保留意见可配manner=skeptical，冷静思量可配manner=thinking。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "d747f1662c1e59f99650b5c4660f2ad7",
         "name": "说话 · 害羞地说",
         "enabled": true,
         "api_key": "speak.shy",
-        "director_description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。\n搭配参考：正向含蓄可配expression.shy，社交出糗可配expression.embarrassed。",
+        "director_description": "以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。\n搭配参考：正向含蓄可配manner=shy，社交出糗可配manner=embarrassed。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
         },
         "allowed_triggers": [
           "media_started"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "e91b35e03675553ab6203389385375e3",
         "name": "点头",
         "enabled": true,
         "api_key": "performance.nod",
-        "director_description": "点头表达确认、认可或理解。count必填：1为轻点一次，2为较积极的连续两次；仅接受1或2。一次调用播放对应完整素材，不通过反复请求拼次数。原生附加动作，与Idle/Speak及表情并存；自然结束，不放入cleanup_cues。同片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：安慰式认同可配expression.tender，松口气后的确认可配expression.relieved；普通确认不必新增表情。",
+        "director_description": "点头表达确认、认可或理解。count必填：1为轻点一次，2为较积极的连续两次；仅接受1或2。一次调用播放对应完整素材，不通过反复请求拼次数。原生附加动作，与Idle/Speak及表情并存；自然结束，不放入cleanup_cues。同片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：安慰式认同可配manner=tender，松口气后的确认可配manner=relieved；普通确认不必新增表情。",
         "field_descriptions": {
           "count": "点头次数，仅接受1或2；1为轻点一次，2为较积极的连续两次。字段必填，手动入口初值1；不通过重复播放拼接次数。"
         },
@@ -1783,14 +1933,15 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "cf0a8e1be6e05af0854b49dc23033641",
         "name": "摇头",
         "enabled": true,
         "api_key": "performance.shake_head",
-        "director_description": "摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，可与当前Idle/Speak及表情并存。一次调用播完整素材，自动自然结束，不放入cleanup_cues。每片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：无奈否认可配expression.speechless，抗议可配expression.displeased；普通纠正不必新增表情。",
+        "director_description": "摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，可与当前Idle/Speak及表情并存。一次调用播完整素材，自动自然结束，不放入cleanup_cues。每片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。\n搭配参考：无奈否认可配manner=speechless，抗议可配manner=displeased；普通纠正不必新增表情。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1799,14 +1950,15 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "96b84dab07305811933187332cf162f6",
         "name": "惊讶身体反应",
         "enabled": true,
         "api_key": "performance.surprise",
-        "director_description": "身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：意外可配expression.surprised，明确受惊害怕才选expression.fearful。",
+        "director_description": "身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：意外可配manner=surprised，明确受惊害怕才选manner=fearful。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1815,14 +1967,15 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "c1a0efc9b8a25580861bb6cdf99f9969",
         "name": "摇摆身体",
         "enabled": true,
         "api_key": "performance.swing_body",
-        "director_description": "身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：轻松撒娇可配expression.shy，俏皮逗弄可配expression.playful。",
+        "director_description": "身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。\n搭配参考：轻松撒娇可配manner=shy，俏皮逗弄可配manner=playful。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1831,7 +1984,8 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "614c5220cd4a5ce099d4114abe93ff9b",
@@ -1854,7 +2008,8 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "1f556c06179a5cd493947dda570e5b42",
@@ -1877,14 +2032,15 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": true
       },
       {
         "id": "6f427181ae5557c6829841b1f8032bb4",
         "name": "歪头",
         "enabled": true,
         "api_key": "performance.tilt_neck",
-        "director_description": "持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配expression.confused或expression.shy，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "director_description": "持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配manner=confused或manner=shy，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1892,14 +2048,15 @@
         "allowed_triggers": [
           "immediate",
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "05cea9f0235853e0b4ed0336d2e3f5e6",
         "name": "低头望向一边",
         "enabled": true,
         "api_key": "performance.look_away",
-        "director_description": "持续低头望向一边，适合害羞回避、尴尬或低落克制。可配expression.shy、expression.embarrassed或expression.aggrieved，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "director_description": "持续低头望向一边，适合害羞回避、尴尬或低落克制。可配manner=shy、manner=embarrassed或manner=aggrieved，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1907,14 +2064,15 @@
         "allowed_triggers": [
           "immediate",
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "78ecff1a856e5ae197e9250e4f52f082",
         "name": "持续颤抖",
         "enabled": true,
         "api_key": "performance.tremble",
-        "director_description": "持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配expression.fearful或expression.worried，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
+        "director_description": "持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配manner=fearful或manner=worried，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。",
         "field_descriptions": {},
         "schema": {
           "request_fields": []
@@ -1922,7 +2080,8 @@
         "allowed_triggers": [
           "immediate",
           "media_started"
-        ]
+        ],
+        "hidden_from_director": false
       },
       {
         "id": "0e04917ff7d05bb8af17f2280e5253f2",
@@ -1938,12 +2097,13 @@
           "immediate",
           "media_started",
           "media_completed"
-        ]
+        ],
+        "hidden_from_director": false
       }
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【持续附加表现】\n- 歪头、低头望向一边、持续颤抖是同一个持续附加槽，不替换身体底姿或Speak，不自动切表情；同类互换，重复同项不刷新。已有同项可跨片段保持，不必逐段重发。\n- 同一片段不要同时编排多个持续附加，也不要把持续附加与点头、摇头、惊讶身体反应、摇摆身体、Laugh或大小姐抬头笑堆叠；短附加成功获准会结束当前持续附加。已结束不会自动恢复。\n- 交互、保护移动或拖拽会撤销持续附加；本地是否准入由Controller决定，前文编排不等于已执行。虽然可与普通姿势／Speak混合，组合仍需符合语义，避免颤抖配兴奋手势等不自然搭配。\n- performance.sustained.clear只结束执行时当前持续附加，不停身体／Speak、不清表情，不是原请求专属撤销。只在确需结束辅助表现时选用，可用于cleanup_cues；若片段结束后还要保持或已有新附加接管，就不要机械加入清理。\n\n【当前场景肢体与表情搭配】\n- 行为目录不是单选菜单。肢体与表情分别判断：当前片段需要身体表现、也需要新的面部表现时，可在cues中组合一个肢体行为与一个expression.*；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换表情，也不因语调改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表情与动作，优先在双方允许的media_started时机先列表情、再列动作。只输出目录中的action_id与完整参数，不把推荐名称或API Key当成action_id。\n- 自带表情的performance.thinking、performance.laugh，以及laugh_once=true的performance.ojou_laugh，只选组合行为，不再同片段另选expression.*争抢同一层。ojou_laugh(false)仅切身体姿态，可独立搭配表情。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak和原生附加动作仍遵守各自互斥／保护规则；允许配表情不等于允许堆叠多个互斥肢体动作。不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不自动改变表情，可另配 expression.*。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经idle.return_normal_pose选择：variant=-1沿用当前，0一般、1双手前放、2双手后放、3单手撑腰、4侧站抱臂。普通收尾／cleanup使用-1；只有明确换站姿时指定0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选 expression.* 与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带variant、count或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n【当前场景表情通用规则】\n- expression.* 是 REQUESTED 层的表情表现，不改写角色基础 Emotion、真实生理状态或模型内部推理；语调与表情分别选择。\n- 目录描述的是该表情层的外观，最终由场景与基础、交互表情合成。选择符合当前片段语境的外观，不必每段都发起表情。\n- 表情的持有和期限由场景管理：DurationSeconds=0 保持到替换或释放，正数按秒到期。参考前文动作，同一表情不必逐段重发，出现明确变化时再切换。\n- 不因片段结束机械清理表情；确需恢复时仅选目录中已注册的释放行为，不臆造清理 API。肢体动作仍按各自目录说明使用 cleanup_cues。\n- 最初语调奠定整段基调，无明确语义转折不要切换；拿不准时继承（tone 输出 null）。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择一个语调，并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文语调】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用语调目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【持续附加表现】\n- 歪头、低头望向一边、持续颤抖是同一个持续附加槽，不替换身体底姿或Speak，也不单独改变表情；同类互换，重复同项不刷新。已有同项可跨片段保持，不必逐段重发。\n- 同一片段不要同时编排多个持续附加，也不要把持续附加与点头、摇头、惊讶身体反应、摇摆身体、Laugh或大小姐抬头笑堆叠；短附加成功获准会结束当前持续附加。已结束不会自动恢复。\n- 交互、保护移动或拖拽会撤销持续附加；本地是否准入由Controller决定，前文编排不等于已执行。虽然可与普通姿势／Speak混合，组合仍需符合语义，避免颤抖配兴奋手势等不自然搭配。\n- performance.sustained.clear只结束执行时当前持续附加，不停身体／Speak、不清表情，不是原请求专属撤销。只在确需结束辅助表现时选用，可用于cleanup_cues；若片段结束后还要保持或已有新附加接管，就不要机械加入清理。\n\n【表现三维：情绪、语气、行为】\n- 情绪（tone）：本段表现底色，进入场景 BASE 层；从启用且语义相符的情绪中选择，可留空继承前段。\n- 语气（manner）：本段面部表情与 TTS 风格／音色的唯一入口。每个语气绑定固定表情、风格指令和音色，场景按 manner_key 映射到 REQUESTED 层；表情不再以独立行为出现在目录里。\n- 行为（cues）：肢体、Speak、持续附加等额外表现，与语气互不替代；已选语气时不要再重复它绑定的行为。\n- 语气需与所选情绪兼容（见目录 tone_keys）；找不到合适语气时 manner=null，只选情绪与必要行为。表情的持有与释放由场景管理，不需要额外的表情清理行为。\n\n【语气选择规则】\n- 同一片段至多选一个语气；参考前文语气，不要逐段机械更换，语境确实变化（如从担忧转为调侃）时再切换。\n- 一旦选择语气，cues 只补充额外肢体／Speak／持续附加；不要把语气已经携带的表情再写成行为。\n- 首段可由开场预设直接指定情绪与语气；后续片段按上述规则选择。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不改变表情；需要面部表现时选择对应语气。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景肢体与语气搭配】\n- 行为目录不是单选菜单。需要身体表现与新的面部表现时，可同时选择一个肢体行为与一个语气；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换语气，也不因情绪改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表现与动作，优先在双方允许的 media_started 时机编排；只输出目录中的 action_id 与完整参数，不把推荐名称或 API Key 当成 action_id。\n- 自带表情的 performance.thinking、performance.laugh，以及 laugh_once=true 的 performance.ojou_laugh，只选组合行为，不再同片段另选语气争抢同一层。ojou_laugh(false) 仅切身体姿态，可独立搭配语气。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak 和原生附加动作仍遵守各自互斥／保护规则；不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经 idle.return_normal_pose 选择：variant=-1 沿用当前，0 一般、1 双手前放、2 双手后放、3 单手撑腰、4 侧站抱臂。普通收尾／cleanup 使用 -1；只有明确换站姿时指定 0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选语气与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供 start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入 cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant、count 或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择表现情绪与语气（语气可留空），并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文情绪与语气】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用情绪与语气目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,
@@ -1956,10 +2116,11 @@
           "is_default": true,
           "marker": "🎭😐",
           "description": "平稳、自然地开始回复。",
-          "tone_key": "neutral",
           "intensity": 0.5,
           "cues": [],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": ""
         },
         {
           "id": "first.speak.explaining",
@@ -1968,7 +2129,6 @@
           "is_default": false,
           "marker": "🎭📖",
           "description": "开场即以解释型手势介绍、说明或梳理一件事，适合有一定长度的讲解；不用于普通短答或仅表示没听懂。",
-          "tone_key": "neutral",
           "intensity": 0.5,
           "cues": [
             {
@@ -1977,7 +2137,9 @@
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": ""
         },
         {
           "id": "first.speak.calm",
@@ -1986,7 +2148,6 @@
           "is_default": false,
           "marker": "🎭🧐",
           "description": "开场即以冷静、克制的手势认真分析、权衡或提出判断；不同于困惑追问，也不必带有不信任。",
-          "tone_key": "neutral",
           "intensity": 0.5,
           "cues": [
             {
@@ -1995,7 +2156,9 @@
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": ""
         },
         {
           "id": "first.happy",
@@ -2004,7 +2167,6 @@
           "is_default": false,
           "marker": "🎭✨",
           "description": "以轻快、积极的状态开始回复。\n肢体表现：以丰富手势活泼地交谈，适合分享和叙述；普通简短肯定不必选择。",
-          "tone_key": "happy",
           "intensity": 0.7,
           "cues": [
             {
@@ -2013,7 +2175,9 @@
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": ""
         },
         {
           "id": "first.sad",
@@ -2022,10 +2186,11 @@
           "is_default": false,
           "marker": "🎭😢",
           "description": "以低落、克制的状态开始回复。",
-          "tone_key": "sad",
           "intensity": 0.6,
           "cues": [],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "sad",
+          "manner_key": ""
         },
         {
           "id": "first.angry",
@@ -2034,7 +2199,6 @@
           "is_default": false,
           "marker": "🎭💢",
           "description": "以坚定、有张力的状态开始回复。\n肢体表现：手指朝向对方，适合明确责备、告诫或强调边界；不因语气略显生气就选择。",
-          "tone_key": "angry",
           "intensity": 0.7,
           "cues": [
             {
@@ -2043,7 +2207,9 @@
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "angry",
+          "manner_key": ""
         },
         {
           "id": "first.presentation.surprised",
@@ -2052,16 +2218,11 @@
           "is_default": false,
           "marker": "🎭😮",
           "description": "开场即对意外消息或出乎意料的转折表示惊讶，短暂睁大眼睛抬眉；普通强调不选。",
-          "tone_key": "neutral",
           "intensity": 0.65,
-          "cues": [
-            {
-              "action_id": "e675dd42cab357929268fca0c569fe08",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "surprised"
         },
         {
           "id": "first.presentation.confused",
@@ -2070,16 +2231,11 @@
           "is_default": false,
           "marker": "🎭🤔",
           "description": "开场即表示不理解、不确定或准备追问，短暂露出疑惑表情。",
-          "tone_key": "neutral",
           "intensity": 0.5,
-          "cues": [
-            {
-              "action_id": "dd50717a7a845431bfa2e1a5fd8a49b9",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "confused"
         },
         {
           "id": "first.presentation.speechless",
@@ -2088,16 +2244,11 @@
           "is_default": false,
           "marker": "🎭😑",
           "description": "开场即表示克制的无奈、冷场或轻微吐槽，短暂露出无语表情；不是愤怒或悲伤。",
-          "tone_key": "neutral",
           "intensity": 0.4,
-          "cues": [
-            {
-              "action_id": "1f7729dc97885c8f894a88bd3b2345b1",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "speechless"
         },
         {
           "id": "first.presentation.embarrassed",
@@ -2106,21 +2257,17 @@
           "is_default": false,
           "marker": "🎭😳",
           "description": "开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。\n肢体表现：以不好意思、拘谨的说话姿态面对出糗或社交窘迫，仍保留尴尬表情。",
-          "tone_key": "happy",
           "intensity": 0.55,
           "cues": [
-            {
-              "action_id": "50bc019114395689b811df49b91e03e4",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "embarrassed"
         },
         {
           "id": "first.presentation.wave",
@@ -2129,7 +2276,6 @@
           "is_default": false,
           "marker": "🎭👋",
           "description": "愉快地打招呼、告别或主动示意时，开场挥手一次；普通回答不必挥手。",
-          "tone_key": "happy",
           "intensity": 0.75,
           "cues": [
             {
@@ -2141,7 +2287,9 @@
               }
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": ""
         },
         {
           "id": "first.presentation.expectant",
@@ -2150,21 +2298,17 @@
           "is_default": false,
           "marker": "🎭🤩",
           "description": "开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。\n肢体表现：以激动的肢体姿态谈论期待的事情，适合热切分享；仅安静等待时不选。",
-          "tone_key": "happy",
           "intensity": 0.7,
           "cues": [
-            {
-              "action_id": "e4f49c41172d51b699d051be49eb3c81",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "c3f5f9ad31395eb182ee4e71c68c2a30",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "expectant"
         },
         {
           "id": "first.presentation.smug",
@@ -2173,21 +2317,17 @@
           "is_default": false,
           "marker": "🎭😏",
           "description": "开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。\n肢体表现：以轻松指向的手势自信地打趣或小小炫耀，不是责备对方。",
-          "tone_key": "happy",
           "intensity": 0.65,
           "cues": [
-            {
-              "action_id": "0b531411d22c543a92fafa74524af764",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "75d7e3b9ab9d5f629a328c3119ea5e58",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "smug"
         },
         {
           "id": "first.presentation.skeptical",
@@ -2196,21 +2336,17 @@
           "is_default": false,
           "marker": "🎭🤨",
           "description": "开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。\n肢体表现：抱臂、冷静地质疑或保留意见，带一点距离感；不是没听懂。",
-          "tone_key": "neutral",
           "intensity": 0.55,
           "cues": [
-            {
-              "action_id": "cd3b35d82b2a5603990f72edec5d373a",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "faf248b8c2be52e99ed58136f05c68df",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "skeptical"
         },
         {
           "id": "first.presentation.displeased",
@@ -2219,21 +2355,17 @@
           "is_default": false,
           "marker": "🎭😒",
           "description": "开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。\n肢体表现：抱臂赌气地抗议、闹别扭或表达不愿接受；不是强烈威胁或恐惧。",
-          "tone_key": "angry",
           "intensity": 0.55,
           "cues": [
-            {
-              "action_id": "f02cbeffe64355379472329cf32b35a9",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "27d940ef894553b2869930f422c07579",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "angry",
+          "manner_key": "displeased"
         },
         {
           "id": "first.presentation.disgusted",
@@ -2242,16 +2374,11 @@
           "is_default": false,
           "marker": "🎭🤢",
           "description": "开场即表现嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。",
-          "tone_key": "neutral",
           "intensity": 0.65,
-          "cues": [
-            {
-              "action_id": "6a2bcb6808235920881df7a4b5050217",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "disgusted"
         },
         {
           "id": "first.presentation.worried",
@@ -2260,16 +2387,11 @@
           "is_default": false,
           "marker": "🎭😟",
           "description": "开场即表现担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。",
-          "tone_key": "sad",
           "intensity": 0.55,
-          "cues": [
-            {
-              "action_id": "98f8c71114885e4fbe772ce5f6c64eb4",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "sad",
+          "manner_key": "worried"
         },
         {
           "id": "first.presentation.fearful",
@@ -2278,16 +2400,11 @@
           "is_default": false,
           "marker": "🎭😨",
           "description": "开场即表现害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。",
-          "tone_key": "neutral",
           "intensity": 0.75,
-          "cues": [
-            {
-              "action_id": "9561a1fc04115cd6aef6899fda0511ba",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "fearful"
         },
         {
           "id": "first.presentation.aggrieved",
@@ -2296,16 +2413,11 @@
           "is_default": false,
           "marker": "🎭🥺",
           "description": "开场即表现委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。",
-          "tone_key": "sad",
           "intensity": 0.65,
-          "cues": [
-            {
-              "action_id": "b229557ce39d52349e88a1f191e0ae71",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "sad",
+          "manner_key": "aggrieved"
         },
         {
           "id": "first.presentation.shy",
@@ -2314,21 +2426,17 @@
           "is_default": false,
           "marker": "🎭🙈",
           "description": "开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。\n肢体表现：以拘谨、含蓄的说话姿态回应亲近或夸奖。",
-          "tone_key": "happy",
           "intensity": 0.55,
           "cues": [
-            {
-              "action_id": "b0cae53e85f751c7a9051b00e8323bb2",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "shy"
         },
         {
           "id": "first.presentation.tender",
@@ -2337,16 +2445,11 @@
           "is_default": false,
           "marker": "🎭🥰",
           "description": "开场即表现温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。",
-          "tone_key": "happy",
           "intensity": 0.5,
-          "cues": [
-            {
-              "action_id": "d16eda31910a51e7a1e1c15dc3dc6af9",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "tender"
         },
         {
           "id": "first.presentation.relieved",
@@ -2355,16 +2458,11 @@
           "is_default": false,
           "marker": "🎭😌",
           "description": "开场即表现释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。",
-          "tone_key": "neutral",
           "intensity": 0.4,
-          "cues": [
-            {
-              "action_id": "e2e1738e8b285e009bfb1a94f58fced7",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "relieved"
         },
         {
           "id": "first.presentation.playful",
@@ -2373,21 +2471,17 @@
           "is_default": false,
           "marker": "🎭😜",
           "description": "开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。\n肢体表现：以轻松指向的手势善意逗弄或调侃，不是告诫或指责。",
-          "tone_key": "happy",
           "intensity": 0.7,
           "cues": [
-            {
-              "action_id": "587b52ff98c2513ea92ab4dda011be73",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "75d7e3b9ab9d5f629a328c3119ea5e58",
               "trigger": "media_started",
               "arguments": {}
             }
           ],
-          "cleanup_cues": []
+          "cleanup_cues": [],
+          "emotion_key": "happy",
+          "manner_key": "playful"
         },
         {
           "id": "first.presentation.tired",
@@ -2396,16 +2490,11 @@
           "is_default": false,
           "marker": "🎭😪",
           "description": "开场即表现疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。",
-          "tone_key": "neutral",
           "intensity": 0.35,
-          "cues": [
-            {
-              "action_id": "10da83f223b45491b6d448fb188819e1",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "tired"
         },
         {
           "id": "first.presentation.bored",
@@ -2414,16 +2503,11 @@
           "is_default": false,
           "marker": "🎭🥱",
           "description": "开场即表现无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。",
-          "tone_key": "neutral",
           "intensity": 0.35,
-          "cues": [
-            {
-              "action_id": "9a3170ab878a568f87ba25aeff8abfd4",
-              "trigger": "media_started",
-              "arguments": {}
-            }
-          ],
-          "cleanup_cues": []
+          "cues": [],
+          "cleanup_cues": [],
+          "emotion_key": "neutral",
+          "manner_key": "bored"
         },
         {
           "id": "first.presentation.thinking",
@@ -2432,14 +2516,8 @@
           "is_default": false,
           "marker": "🎭💭",
           "description": "开场即表现思考：斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。",
-          "tone_key": "neutral",
           "intensity": 0.5,
           "cues": [
-            {
-              "action_id": "9b1f6bf623a351bf8a6a133a0eca9846",
-              "trigger": "media_started",
-              "arguments": {}
-            },
             {
               "action_id": "0bc0750aad4d5f59a5e7892c2f070716",
               "trigger": "media_started",
@@ -2455,7 +2533,9 @@
                 "variant": -1
               }
             }
-          ]
+          ],
+          "emotion_key": "neutral",
+          "manner_key": "thinking"
         }
       ]
     }
@@ -2551,158 +2631,6 @@
             "description": "世界水平朝向（度），限制 [0,360]。"
           }
         ]
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.aggrieved",
-        "enabled": true,
-        "description": "请求显示委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.bored",
-        "enabled": true,
-        "description": "请求显示无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.confused",
-        "enabled": true,
-        "description": "请求显示疑惑表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.disgusted",
-        "enabled": true,
-        "description": "请求显示嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.displeased",
-        "enabled": true,
-        "description": "请求显示不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.embarrassed",
-        "enabled": true,
-        "description": "请求显示尴尬：出糗、被拆穿或社交窘迫；正向亲昵和夸奖后的羞涩使用expression.shy。仅提交REQUESTED，按当前场景规则合成并自动恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.expectant",
-        "enabled": true,
-        "description": "请求显示期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.fearful",
-        "enabled": true,
-        "description": "请求显示害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.playful",
-        "enabled": true,
-        "description": "请求显示俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.relieved",
-        "enabled": true,
-        "description": "请求显示释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.shy",
-        "enabled": true,
-        "description": "请求显示害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.skeptical",
-        "enabled": true,
-        "description": "请求显示怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.smug",
-        "enabled": true,
-        "description": "请求显示得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.speechless",
-        "enabled": true,
-        "description": "请求显示无语表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.surprised",
-        "enabled": true,
-        "description": "请求显示惊讶表情；按当前情绪选择本地图内差分，自动恢复到届时有效表情，不抢占交互表情。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.tender",
-        "enabled": true,
-        "description": "请求显示温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.thinking",
-        "enabled": true,
-        "description": "请求思考表情；场景DurationSeconds=0持续到替换/释放，正数限时；不代表模型内部推理。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.tired",
-        "enabled": true,
-        "description": "请求显示疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
-      },
-      {
-        "route": "adapter_to_link",
-        "key": "expression.worried",
-        "enabled": true,
-        "description": "请求显示担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 仅提交REQUESTED，由场景控制合成按本地持续/限时设置恢复。",
-        "ack_timeout_ms": 30000,
-        "fields": []
       },
       {
         "route": "adapter_to_link",

@@ -9,7 +9,7 @@
 | [Desktop_Butler_VMC.json](Desktop_Butler_VMC.json) | Warudo 场景：资源、角色配置、蓝图和接线 |
 | [warudodc-adapter-config.json](warudodc-adapter-config.json) | AstrBot 侧 Adapter 业务配置：API、上下文规则、钩子、工具、剧本与首段预设 |
 
-**阅读基线：2026-11-02。** 场景保存版本为 Warudo **0.15.1**，记录的 Link／Runtime 版本为 **0.2.41／0.10.6**。共 112 张蓝图、39 项资源、4298 个节点、3124 条数据线、2226 条流程线和49个原生表情键。配套配置有99项API、33个LLM钩子、9个工具注册（8个启用）、2条上下文规则、54个导演行为和26个首段预设。
+**阅读基线：2026-11-20（表现三维：情绪／语气／音色）。** 场景保存版本为 Warudo **0.15.1**，记录的 Link／Runtime 版本为 **0.2.41／0.10.6**。共 113 张蓝图、39 项资源、4342 个节点、3162 条数据线、2249 条流程线和49个原生表情键。配套配置有80项API、33个LLM钩子、9个工具注册（8个启用）、2条上下文规则、35个导演行为和26个首段预设；表现层由4个内建情绪、29个语气（其中19个表情语气由场景按 MannerKey 映射）与5个音色组成。
 
 这些数量用来识别这份文件，不代表每项行为的全部组合都已实机验收。本文讲当前文件怎样工作，也保留影响后续维护的设计理由与失败经验；早期日志和图内注释若与当前接线冲突，以实际资源配置、节点和连线为准。
 
@@ -24,7 +24,7 @@
 - [表情、注视、注意力与精力](#表情注视注意力与精力)
 - [身体表现、待机与说话动画](#身体表现待机与说话动画)
 - [配套 Adapter 配置怎样参与场景](#配套-adapter-配置怎样参与场景)
-- [99项API完整目录](#99项api完整目录)
+- [80项API完整目录](#80项api完整目录)
 - [全部蓝图索引](#全部蓝图索引)
 - [如何修改和扩展这份场景](#如何修改和扩展这份场景)
 - [已知边界与当前文件中的说明差异](#已知边界与当前文件中的说明差异)
@@ -41,7 +41,7 @@
 - **来源与代次**：某一轮表现属于谁、是否仍是当前这一轮。用于避免旧定时结束、旧回执或晚到流程清掉新状态。
 - **API／控制事件**：有名字、带类型化字段的一次通知。对端受理只说明接纳投递，动作完成要通过独立结果事件说明。
 - **Timeline**：Link内部的回复调度设施，维护一轮回复的片段、语音及表现提示。它不是场景里的另一张控制器图。
-- **Director（导演）**：Adapter侧为回复片段选择语调和行为的处理阶段。选择了动作不等于本地一定允许执行。
+- **Director（导演）**：Adapter侧为回复片段选择表现情绪、语气与额外行为的处理阶段。选择了动作不等于本地一定允许执行。
 - **REQUESTED／INTERACTION／BASE**：外部请求表情、本地交互表情、基础表情三个贡献层；本场景采用原生分层合成，而不是整张脸只选一个赢家。
 
 ### 谁决定什么
@@ -109,7 +109,7 @@ Link全局设置不包含在这份场景中，需另行配置。默认分工为�
 
 在Adapter的Pages中选定目标WarudoDC平台，进入“JSON配置转换”，读取同层的`warudodc-adapter-config.json`，勾选需要导入的上下文规则、钩子、工具和剧本，再导入编辑区。先核对并保存API与上下文规则，再保存依赖它们的其他模块。
 
-这个文件是 **`warudodc.adapter-config.experimental` v1业务包**，里面嵌套v2共用API表；不能整包粘进Link的“共用API JSON”框。场景已经带有匹配的API注册表。两端99项API的方向、名字、字段和类型在本次文档核对中一致。
+这个文件是 **`warudodc.adapter-config.experimental` v1业务包**，里面嵌套v2共用API表；不能整包粘进Link的“共用API JSON”框。场景已经带有匹配的API注册表。两端80项API的方向、名字、字段和类型在本次文档核对中一致；19个 expression 表情 API 已移除，表情改由语气（manner）承载。
 
 导入合并API／钩子／工具／规则，不自动删除目标平台额外旧条目；剧本则整体替换所选平台的剧本草稿。导入不等于保存，也不会顺便执行模型请求。已有个人配置应先导出备份，再确认差异。
 
@@ -843,6 +843,7 @@ Touch Feelings 位于 Debug，当前禁用；它不是正式交互入口，也�
 | --- | --- | --- |
 | Timeline Tone | 这一段回复以什么语调表现 | Adapter 提供，Link 按 Timeline 时机释放 |
 | Emotion | 当前基础表情选哪个本地编号 | Emotion Controller |
+| Manner(语气) | 这一段用什么语气、TTS 风格与音色 | Director 选择，Adapter 随 tone 事件发送 `manner_key`；场景映射 REQUESTED 表情 |
 | REQUESTED | 当前外部请求或特定动作希望叠哪张脸 | Expression Request Controller 管生命周期 |
 | INTERACTION | 本地交互当下该显示哪张脸 | Interaction Controller 与具体交互图 |
 | Attention／Energy | 当前关注什么、活动后还剩多少精力 | 各自 Runtime 场景资源 |
@@ -1016,38 +1017,38 @@ ExpressionOverrideEnabled=false，OverrideExpressionName 为空，整图 Enabled
 不能保留空目标，把它解释成“抑制某一层”；旧 ReplaceBase／ReplaceRequested 等语义已废除。
 按某个 BlendShape 抑制其他贡献应使用原生表情约束，不能让规则图直接争写网格或口型。
 
-### 十九张 REQUESTED 入口的共同用法
+### 十九张 REQUESTED 入口：由 MannerKey 触发
 
-下列十九图都已启用，每张 9 节点，保留独立图是为了分别编辑意图和本地差分。
-每张用 Link 的请求观察节点订阅自己一个 expression.* Key，不解析 WebSocket 或 Timeline 消息正文。
-收到请求后，读取 DurationSeconds、五项 EmotionVariants 及 Constants 来源，调用公共 Submit。
+下列十九图都已启用，每张 11 节点，保留独立图是为了分别编辑意图和本地差分。
+每张由「Timeline 语调已释放」节点的 MannerKey 输出触发：MannerKey 与图对应的 manner key 字符串相等时执行；不解析 WebSocket 或 Timeline 消息正文。
+触发后，读取 DurationSeconds、五项 EmotionVariants 及 Constants 来源，调用公共 Submit。
 图启用／停用走 Release，只清理仍属于自己的当前请求，不扫描和清空整个 REQUESTED 层。
 真正选中原生键、处理到期和恢复三层组合的工作由公共控制器完成。
-Adapter 里十九项行为都无业务字段，当前允许的 Director 时机为 media_started。
+Adapter 侧已移除这十九项 expression 表情 API／行为；表情只由语气（manner）携带，首段预设也改为 manner_key。
 接口没有“传一个任意原生表情名”的字段，默认时长是在场景图里调整。
 多数请求现在是持续表情；不能照早期 Adapter 描述把它们全部理解成几秒后自动恢复。
 
-| 蓝图 | 中文用途 | API | 代码／来源 | 当前时长 |
+| 蓝图 | 中文用途 | Manner Key | 代码／来源 | 当前时长 |
 | --- | --- | --- | ---: | ---: |
-| Surprised | 惊讶 | expression.surprised | 12 | 1.5 秒 |
-| Confused | 困惑 | expression.confused | 13 | 0，持续 |
-| Speechless | 无语 | expression.speechless | 14 | 0，持续 |
-| Embarrassed | 尴尬 | expression.embarrassed | 15 | 0，持续 |
-| Expectant | 期待 | expression.expectant | 16 | 2.5 秒 |
-| Smug | 得意 | expression.smug | 17 | 0，持续 |
-| Skeptical | 怀疑 | expression.skeptical | 18 | 0，持续 |
-| Displeased | 不满 | expression.displeased | 19 | 0，持续 |
-| Disgusted | 嫌弃 | expression.disgusted | 20 | 0，持续 |
-| Worried | 担忧 | expression.worried | 21 | 0，持续 |
-| Fearful | 害怕 | expression.fearful | 22 | 1.8 秒 |
-| Aggrieved | 委屈 | expression.aggrieved | 23 | 0，持续 |
-| Shy | 害羞 | expression.shy | 24 | 0，持续 |
-| Tender | 温柔 | expression.tender | 25 | 0，持续 |
-| Relieved | 释然 | expression.relieved | 26 | 0，持续 |
-| Playful | 俏皮 | expression.playful | 27 | 0，持续 |
-| Tired | 疲惫 | expression.tired | 28 | 0，持续 |
-| Bored | 无聊 | expression.bored | 29 | 0，持续 |
-| Thinking | 思考 | expression.thinking | 30 | 0，持续 |
+| Surprised | 惊讶 | surprised | 12 | 1.5 秒 |
+| Confused | 困惑 | confused | 13 | 0，持续 |
+| Speechless | 无语 | speechless | 14 | 0，持续 |
+| Embarrassed | 尴尬 | embarrassed | 15 | 0，持续 |
+| Expectant | 期待 | expectant | 16 | 2.5 秒 |
+| Smug | 得意 | smug | 17 | 0，持续 |
+| Skeptical | 怀疑 | skeptical | 18 | 0，持续 |
+| Displeased | 不满 | displeased | 19 | 0，持续 |
+| Disgusted | 嫌弃 | disgusted | 20 | 0，持续 |
+| Worried | 担忧 | worried | 21 | 0，持续 |
+| Fearful | 害怕 | fearful | 22 | 1.8 秒 |
+| Aggrieved | 委屈 | aggrieved | 23 | 0，持续 |
+| Shy | 害羞 | shy | 24 | 0，持续 |
+| Tender | 温柔 | tender | 25 | 0，持续 |
+| Relieved | 释然 | relieved | 26 | 0，持续 |
+| Playful | 俏皮 | playful | 27 | 0，持续 |
+| Tired | 疲惫 | tired | 28 | 0，持续 |
+| Bored | 无聊 | bored | 29 | 0，持续 |
+| Thinking | 思考 | thinking | 30 | 0，持续 |
 
 当前各图 EmotionVariants 都是自身代码重复五次，因此不同 Emotion 暂时选择同一张请求脸。
 要做情绪差分，可按 0 中性、1 高兴、2 生气、3 悲伤、4 本地尴尬身份配置五项；保留完整列表。
@@ -1058,7 +1059,7 @@ Adapter 里十九项行为都无业务字段，当前允许的 Director 时机�
 
 #### Surprised：惊讶
 
-入口 expression.surprised，提交代码 12，映射 EXPRESSION_SURPRISED。
+由 Timeline 语调已释放节点的 MannerKey == "surprised" 触发，提交代码 12，映射 EXPRESSION_SURPRISED。
 用途是突然意外、惊喜或转折；当前形变以抬眉、睁大眼为主。
 DurationSeconds=1.5，是少数明确限时的请求之一。
 重复触发刷新这段本地期限，最终是否仍显示同时受三层与组合规则影响。
@@ -1068,7 +1069,7 @@ DurationSeconds=1.5，是少数明确限时的请求之一。
 
 #### Confused：困惑
 
-入口 expression.confused，提交代码 13，映射 EXPRESSION_CONFUSED。
+由 Timeline 语调已释放节点的 MannerKey == "confused" 触发，提交代码 13，映射 EXPRESSION_CONFUSED。
 用于没听懂、需要解释；当前脸含漫画式眼神与小三角嘴的用户配置。
 DurationSeconds=0，持续至替换／释放，不会因一段音频播放完自动消失。
 与 Skeptical 的区别是理解尚未完成，而非已经听懂但不相信。
@@ -1078,7 +1079,7 @@ DurationSeconds=0，持续至替换／释放，不会因一段音频播放完自
 
 #### Speechless：无语
 
-入口 expression.speechless，提交代码 14，映射 EXPRESSION_SPEECHLESS。
+由 Timeline 语调已释放节点的 MannerKey == "speechless" 触发，提交代码 14，映射 EXPRESSION_SPEECHLESS。
 用于克制吐槽、无奈、暂时难以评价，当前以平眉与半睁眼表现。
 DurationSeconds=0；它是一张持续的请求脸，不是停止回复或切断声音。
 本图不改变嘴部跟踪开关，也不控制正文是否继续生成。
@@ -1088,7 +1089,7 @@ DurationSeconds=0；它是一张持续的请求脸，不是停止回复或切断
 
 #### Embarrassed：尴尬
 
-入口 expression.embarrassed，提交代码 15，映射 EXPRESSION_EMBARRASSED。
+由 Timeline 语调已释放节点的 MannerKey == "embarrassed" 触发，提交代码 15，映射 EXPRESSION_EMBARRASSED。
 用于出糗、被拆穿或社交窘迫，当前脸带眉眼收敛与红晕。
 DurationSeconds=0；旧记录曾把这个入口称为害羞，当前与 Shy 已明确区分。
 EMOTION_EMBARRASSED=4 是另一份本地基础状态编号，不等于此请求代码 15。
@@ -1098,7 +1099,7 @@ EMOTION_EMBARRASSED=4 是另一份本地基础状态编号，不等于此请求�
 
 #### Expectant：期待
 
-入口 expression.expectant，提交代码 16，映射 EXPRESSION_EXPECTANT。
+由 Timeline 语调已释放节点的 MannerKey == "expectant" 触发，提交代码 16，映射 EXPRESSION_EXPECTANT。
 用于期待答案、礼物或下一步互动，当前有扬起眉眼、亮眼装饰与微张嘴。
 DurationSeconds=2.5，到期释放后按届时仍有效的其他层呈现。
 它不是“等待 LLM 中”的系统状态，也不会自动跟踪请求是否返回。
@@ -1108,7 +1109,7 @@ DurationSeconds=2.5，到期释放后按届时仍有效的其他层呈现。
 
 #### Smug：得意
 
-入口 expression.smug，提交代码 17，映射 EXPRESSION_SMUG。
+由 Timeline 语调已释放节点的 MannerKey == "smug" 触发，提交代码 17，映射 EXPRESSION_SMUG。
 用于小小炫耀、受到夸奖后的得意，当前有扬眉、略眯眼与猫式微笑。
 DurationSeconds=0，只改变 REQUESTED，不改基础 Emotion。
 普通得意脸与 Laugh 的坏笑脸是不同键，后者有自己的动作来源与结束守卫。
@@ -1118,7 +1119,7 @@ DurationSeconds=0，只改变 REQUESTED，不改基础 Emotion。
 
 #### Skeptical：怀疑
 
-入口 expression.skeptical，提交代码 18，映射 EXPRESSION_SKEPTICAL。
+由 Timeline 语调已释放节点的 MannerKey == "skeptical" 触发，提交代码 18，映射 EXPRESSION_SKEPTICAL。
 用于听懂后仍质疑真实性或动机，当前是略皱眉、收眼与偏侧嘴形。
 DurationSeconds=0；当前用户已调过形变，不按初始目录重新生成覆盖。
 它不触发对方输入重新解释，也不是协议错误或拒绝执行的状态。
@@ -1128,7 +1129,7 @@ DurationSeconds=0；当前用户已调过形变，不按初始目录重新生成
 
 #### Displeased：不满
 
-入口 expression.displeased，提交代码 19，映射 EXPRESSION_DISPLEASED。
+由 Timeline 语调已释放节点的 MannerKey == "displeased" 触发，提交代码 19，映射 EXPRESSION_DISPLEASED。
 用于抗议、责怪或闹别扭；当前是压眉、略眯眼与抿嘴鼓气的样式。
 DurationSeconds=0，与 angry Tone 所选 BASE 生气不是同一来源。
 两者可能同时叠加，过强时应检查原生表情和约束，而非偷改外部消息。
@@ -1138,7 +1139,7 @@ DurationSeconds=0，与 angry Tone 所选 BASE 生气不是同一来源。
 
 #### Disgusted：嫌弃
 
-入口 expression.disgusted，提交代码 20，映射 EXPRESSION_DISGUSTED。
+由 Timeline 语调已释放节点的 MannerKey == "disgusted" 触发，提交代码 20，映射 EXPRESSION_DISGUSTED。
 用于排斥某个对象或行为，当前有皱眉、眯眼与面部压暗装饰。
 DurationSeconds=0；装饰来自角色现有原生表情配置。
 图里不新增材质切换、网格写入或身体撤退动作。
@@ -1148,7 +1149,7 @@ DurationSeconds=0；装饰来自角色现有原生表情配置。
 
 #### Worried：担忧
 
-入口 expression.worried，提交代码 21，映射 EXPRESSION_WORRIED。
+由 Timeline 语调已释放节点的 MannerKey == "worried" 触发，提交代码 21，映射 EXPRESSION_WORRIED。
 用于关切、犹豫或预感不妙，当前以眉尾下垂、双眼略睁大表现。
 DurationSeconds=0，适合一段关心语境持续保持。
 这只是表现意图，不代表 Runtime 已检测到危险或生理异常。
@@ -1158,7 +1159,7 @@ DurationSeconds=0，适合一段关心语境持续保持。
 
 #### Fearful：害怕
 
-入口 expression.fearful，提交代码 22，映射 EXPRESSION_FEARFUL。
+由 Timeline 语调已释放节点的 MannerKey == "fearful" 触发，提交代码 22，映射 EXPRESSION_FEARFUL。
 用于明确受惊或恐惧，当前为高挑而下垂的眉、睁大眼与下弯嘴角。
 DurationSeconds=1.8，是当前第三个正时长表情入口。
 只请求脸，不自动播放颤抖、移动或取消动作；这些需要独立行为准入。
@@ -1168,7 +1169,7 @@ DurationSeconds=1.8，是当前第三个正时长表情入口。
 
 #### Aggrieved：委屈
 
-入口 expression.aggrieved，提交代码 23，映射 EXPRESSION_AGGRIEVED。
+由 Timeline 语调已释放节点的 MannerKey == "aggrieved" 触发，提交代码 23，映射 EXPRESSION_AGGRIEVED。
 用于被误解、冷落或想得到安慰，当前是低垂眉尾与委屈的眼嘴。
 DurationSeconds=0；它不写感受模型，也不累计“好感度”。
 要调脸直接在角色对应原生键中改，保持代码与层号不变。
@@ -1178,7 +1179,7 @@ DurationSeconds=0；它不写感受模型，也不累计“好感度”。
 
 #### Shy：害羞
 
-入口 expression.shy，提交代码 24，映射 EXPRESSION_SHY。
+由 Timeline 语调已释放节点的 MannerKey == "shy" 触发，提交代码 24，映射 EXPRESSION_SHY。
 用于亲近、夸奖后的正向羞涩，当前眉眼柔和并带羞涩装饰。
 DurationSeconds=0，与 Embarrassed 的社交窘迫分别表达。
 低头羞涩笑也有独立 Laugh 键，本图不额外压低头部或播放笑声。
@@ -1188,7 +1189,7 @@ DurationSeconds=0，与 Embarrassed 的社交窘迫分别表达。
 
 #### Tender：温柔
 
-入口 expression.tender，提交代码 25，映射 EXPRESSION_TENDER。
+由 Timeline 语调已释放节点的 MannerKey == "tender" 触发，提交代码 25，映射 EXPRESSION_TENDER。
 用于安慰、关爱或亲昵回应，当前有轻柔眉眼和温和嘴角。
 DurationSeconds=0，适合保持一段平缓关心语境。
 它可以与解释型说话等独立动作搭配，不自动把所有礼貌回答都切成温柔。
@@ -1198,7 +1199,7 @@ DurationSeconds=0，适合保持一段平缓关心语境。
 
 #### Relieved：释然
 
-入口 expression.relieved，提交代码 26，映射 EXPRESSION_RELIEVED。
+由 Timeline 语调已释放节点的 MannerKey == "relieved" 触发，提交代码 26，映射 EXPRESSION_RELIEVED。
 用于担忧解除、确认安全或松一口气，当前为舒展眉头与放松眼神。
 DurationSeconds=0，释然不是一段固定自动恢复计时。
 它是担忧之后可选择的表演转折，不根据精力恢复量自动触发。
@@ -1208,7 +1209,7 @@ REQUESTED 替换后旧 Worried 的释放不能再清除这张新脸。
 
 #### Playful：俏皮
 
-入口 expression.playful，提交代码 27，映射 EXPRESSION_PLAYFUL。
+由 Timeline 语调已释放节点的 MannerKey == "playful" 触发，提交代码 27，映射 EXPRESSION_PLAYFUL。
 用于善意调侃、逗弄或小小使坏，当前有扬眉和明显笑眼。
 DurationSeconds=0；与坏笑肢体组合并非同一来源。
 严肃、道歉或对方不适时不宜因“笑脸”标签机械选用，语境选择仍在 Adapter／LLM。
@@ -1218,7 +1219,7 @@ DurationSeconds=0；与坏笑肢体组合并非同一来源。
 
 #### Tired：疲惫
 
-入口 expression.tired，提交代码 28，映射 EXPRESSION_TIRED。
+由 Timeline 语调已释放节点的 MannerKey == "tired" 触发，提交代码 28，映射 EXPRESSION_TIRED。
 用于困倦、疲劳或勉强打精神，当前眼皮明显降低。
 DurationSeconds=0；这个请求不证明精力模型已经 low。
 Energy and Rest 的读数也不会反向直接触发本图。
@@ -1228,7 +1229,7 @@ Energy and Rest 的读数也不会反向直接触发本图。
 
 #### Bored：无聊
 
-入口 expression.bored，提交代码 29，映射 EXPRESSION_BORED。
+由 Timeline 语调已释放节点的 MannerKey == "bored" 触发，提交代码 29，映射 EXPRESSION_BORED。
 用于兴致不足、敷衍或等待太久，当前是平眉、半睁眼并略眯起。
 DurationSeconds=0，与 Tired 的低精力外观虽相近，语义分别保留。
 没有“等了多少秒就无聊”的自动计时，也没有新增自主意愿模型。
@@ -1238,7 +1239,7 @@ DurationSeconds=0，与 Tired 的低精力外观虽相近，语义分别保留�
 
 #### Thinking：思考
 
-入口 expression.thinking，提交代码 30，映射 EXPRESSION_THINKING。
+由 Timeline 语调已释放节点的 MannerKey == "thinking" 触发，提交代码 30，映射 EXPRESSION_THINKING。
 用于回忆、斟酌、权衡时的轻微眉眼表现，不表示展示模型内部推理过程。
 DurationSeconds=0；单独调用只请求脸，不自动进入 Thinking Pose。
 直接表情来源与 Performance 的思考状态来源分开，不能用同一个旧结束流程互相清除。
@@ -2197,11 +2198,11 @@ API只是双方能识别的事件与字段目录。钩子、工具和导演可�
 
 **当前一项值得注意的配置：** `performance_return_idle`工具注册还在，但已禁用。思考／展示背部的用途说明仍推荐调用它，因此主LLM不能仅凭说明就真的获得这个工具。对应API和导演行为仍可用；是否重新启用工具，应由使用者在Adapter配置中明确决定，而不是手册悄悄改动。
 
-### 四种语调与54个导演行为
+### 四种情绪、29个语气与35个导演行为
 
-Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四项都声明支持强度，默认0.5。本场景Emotion Controller只消费标签映射，未消费强度。支持某一TTS后端按语调变声也不意味着每个Provider都理解强度参数。
+Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；四项都声明支持强度，默认0.5。本场景Emotion Controller只消费标签映射，未消费强度。表现时语气（29个，其中19个表情语气）由 Adapter 按 `manner_key` 下发，场景用 MannerKey 映射到 REQUESTED 层；支持某一TTS后端按情绪变声也不意味着每个Provider都理解强度参数。
 
-导演模板先放本场景的动作、Speak、表情和持续附加规则，再注入七块固定信息：有限前文、前文语调、前文动作、当前片段正文、可用语调目录、有效行为目录、结构化输出合同。
+导演模板先放本场景的动作、Speak、语气和持续附加规则，再注入七块固定信息：有限前文、前文情绪／语气、前文动作、当前片段正文、可用情绪与语气目录、有效行为目录、结构化输出合同。
 
 固定信息由Adapter填写，用户可以重新包装、调整位置和增加说明；不应该手写一个假的前文执行回执。Director串行保持决策链，TTS可以并发；音频生产并发不意味着动作导演也可以互不知情地同时给相邻片段定调。
 
@@ -2215,59 +2216,40 @@ Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四�
 
 | 导演行为 | 入站API | 允许时机 | 参数约束与搭配 |
 | --- | --- | --- | --- |
-| 挥手 | performance.wave | media_started | 挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；按count指定次数，以各样式单次挥手估算时长×次数计时，不附带表情。 count必填；通常填0沿用本地默认次数，需要时明确指定1–20轮。不对每轮重复发起行为。<br>搭配参考：轻松招呼可配expression.tender，兴奋示意可配expression.expectant；礼貌告别也可保持已有表情。<br>参数：variant=挥手差分：0举臂、1双手、2单手；仅接受0、1、2。不自动改变表情。；count=挥手次数：1–20；0使用Wave的DefaultWaveCount（默认3）。字段必填。按各样式单次挥手估算时长计时：双手按素材长度/3换算，其他按一个素材周期。含淡入，帧边界与淡出存在误差；单手原速较快。 |
+| 挥手 | performance.wave | media_started | 挥动手臂向对方示意。适用于打招呼、告别、主动吸引注意力，以及兴奋地赞同或庆祝的片段。普通陈述、严肃或低落语境，以及相邻片段已经使用过相同动作时不要选择。 姿势差分必须指定variant：0举臂挥动（原动作）、1双手挥动、2单手挥动；按count指定次数，以各样式单次挥手估算时长×次数计时，不附带表情。 count必填；通常填0沿用本地默认次数，需要时明确指定1–20轮。不对每轮重复发起行为。<br>搭配参考：轻松招呼可配manner=tender，兴奋示意可配manner=expectant；礼貌告别也可保持已有表情。<br>参数：variant=挥手差分：0举臂、1双手、2单手；仅接受0、1、2。不自动改变表情。；count=挥手次数：1–20；0使用Wave的DefaultWaveCount（默认3）。字段必填。按各样式单次挥手估算时长计时：双手按素材长度/3换算，其他按一个素材周期。含淡入，帧边界与淡出存在误差；单手原速较快。 |
 | 回归平时待命动作 | idle.return_normal_pose | immediate、media_started、media_completed | 根据当前语境、心境和与对方的亲近程度选择待命姿势。姿势只表达身体态度，不替代表情；同一种情绪可以搭配不同姿势。<br>- 0·一般：自然、中性的放松站姿。适合日常聊天和不紧张的情境；没有明显的表现意图时优先选择；<br>- 1·双手前放：端正、礼貌，带有正式待命或认真倾听的感觉。适合接待、等待指示、认真回应；<br>- 2·双手后放：略显拘谨、含蓄，像是在收敛自己的情绪。既适合高兴时的羞涩与期待，也适合难过时的低落与克制；<br>- 3·单手撑腰：放松而有主见，带有熟稔、自信或轻微俏皮的感觉。适合自在聊天、打趣或从容表态，不等同于生气；<br>- 4·侧站抱臂：带有距离感和自我保护意味。适合保留、怀疑、不满或暂时不愿亲近的情境，不必表现为强烈愤怒。（从容或有距离感）；站姿不等于固定情绪。选择0..4后该站姿继续作为待机基础，不必每段重发。不切活动模式、不打断移动或背部拖拽，不清理独立表情；仍按执行时当前普通表现处理，不是旧来源的专属撤销。<br>- 仅结束当前动作、没有明确换姿势意图时，使用 variant=-1 沿用当前选择。不要因为每段措辞或语调略有变化就频繁切换站姿。<br>参数：variant=待机姿势差分：-1=沿用当前所选；0=一般，1=双手前放，2=双手后放，3=单手撑腰，4=侧站抱臂。0..4仅在本地受理后更新所选姿势，之后回归待机继续使用；不自动随机切换。 |
-| 惊讶 | expression.surprised | media_started | 眉毛明显抬起、双眼睁大；用于意外、惊喜或突然的转折。 |
-| 疑惑 | expression.confused | media_started | 眉头一高一低，眼神变成困惑的漫画式样，嘴呈小三角；用于没听懂或需要解释。 |
-| 无语 | expression.speechless | media_started | 平眉、半睁眼，显得淡漠又无奈；用于克制的吐槽或一时不知如何评价。 |
-| 尴尬 | expression.embarrassed | media_started | 眉尾略垂、眼神略弯并泛起红晕；用于出糗、被拆穿或社交窘迫。 |
-| 期待 | expression.expectant | media_started | 眉眼扬起、眼睛亮晶晶，小嘴微张；用于兴奋地期待答案、礼物或下一步互动。 |
-| 得意 | expression.smug | media_started | 眉毛扬起、眼睛略眯，嘴呈猫式微笑；用于小小炫耀或受到夸奖后的得意。 |
-| 怀疑 | expression.skeptical | media_started | 略皱眉、略眯眼，嘴呈小三角；用于听懂了却不太相信、质疑真实性或动机。 |
-| 不满 | expression.displeased | media_started | 眉头压低、眼睛略眯，抿嘴鼓气般闹别扭；用于抗议、责怪或表达不满。 |
-| 嫌弃 | expression.disgusted | media_started | 皱眉眯眼，面部带压暗的阴影；用于嫌弃、排斥某个对象或行为。 |
-| 担忧 | expression.worried | media_started | 眉尾下垂、双眼略睁大；用于关切对方、犹豫或预感不妙。 |
-| 害怕 | expression.fearful | media_started | 眉毛高挑又下垂，眼睛明显睁大、嘴角下弯；用于直接受惊或害怕。 |
-| 委屈 | expression.aggrieved | media_started | 眉尾低垂、眼神带委屈，小嘴向下撇；用于被误解、冷落或想得到安慰。 |
-| 害羞 | expression.shy | media_started | 眉眼柔和，眼睛微弯并显露羞涩；用于亲近或夸奖后的正向害羞。 |
-| 温柔 | expression.tender | media_started | 眉眼轻柔、眼睛微弯，嘴角带温和笑意；用于安慰、关爱或亲昵回应。 |
-| 释然 | expression.relieved | media_started | 眉头舒展、眼睛半睁，显得放松；用于解除担忧、确认安全或松一口气。 |
-| 俏皮 | expression.playful | media_started | 眉毛轻扬，双眼明显弯成笑眼；用于善意逗弄、调侃或小小使坏。 |
-| 疲惫 | expression.tired | media_started | 眉尾略垂、眼皮明显低垂；用于困倦、疲劳或勉强打起精神。 |
-| 无聊 | expression.bored | media_started | 平眉、半睁眼并略微眯起，显得兴致缺缺；用于敷衍或等待得无聊。 |
-| 思考 | expression.thinking | media_started | 眉头轻微一高一低、眼睛略收拢，显得在斟酌；用于回忆或权衡。 |
 | 进入思考状态 | performance.thinking | media_started | 请求思考表情和姿态，本地占用可能拒绝；场景保持时长0时持续，正数限时。需要结束时统一选择“回归平时待命动作”；不要相邻每段重复。 姿势差分必须指定variant：0原思考姿势、1双腿交叉；两者均保留原思考表情组合，不表示模型内部推理。<br>参数：variant=姿势差分：0=原思考姿势，1=双腿交叉思考；仅接受0或1。仍为持续思考姿态及所属思考表情组合，统一回归待机结束。 |
-| 双手叉腰 | performance.hands_on_hips | media_started | 身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由expression.*按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。<br>搭配参考：认真抗议可配expression.displeased，熟稔打趣可配expression.playful；不因叉腰就强制生气。 |
-| 邀请拥抱 | performance.invite_hug | media_started | 张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。<br>搭配参考：亲昵邀请可配expression.tender，求安慰可配expression.aggrieved。 |
-| 耸肩 | performance.shrug | media_started | 耸肩摊手，表示不知道、无所谓或无奈。<br>搭配参考：无奈可配expression.speechless，不解可配expression.confused。 |
-| 赌气抗议 | performance.protest | media_started | 双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。<br>搭配参考：赌气可配expression.displeased，委屈抗议可配expression.aggrieved。 |
-| 认真表态 | performance.hand_on_chest | media_started | 右手放在胸口，适合认真保证、承诺或坚定表态。<br>搭配参考：安慰或真诚承诺可配expression.tender；郑重表态也可保持已有表情。 |
-| 担心关切 | performance.concern | media_started | 右手放在身前，身体略显关切，适合担心、询问或安慰。<br>搭配参考：担心可配expression.worried，确认安全后的安慰可配expression.tender。 |
-| 卖萌 | performance.cute | media_started | 以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。<br>搭配参考：撒娇可配expression.shy，善意逗弄可配expression.playful。<br>参数：variant=姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。 |
-| 拒绝 | performance.refuse | media_started | 身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。<br>搭配参考：明确抗议可配expression.displeased，害羞婉拒可配expression.shy；按拒绝缘由选择。<br>参数：variant=姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。 |
-| 展示力量 | performance.flex | media_started | 展示肌肉，以肢体表达炫耀力量、得意或搞怪。<br>搭配参考：炫耀可配expression.smug，搞怪可配expression.playful。 |
-| 垂头丧气 | performance.slouch | media_started | 垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。<br>搭配参考：失望可配expression.aggrieved，困乏可配expression.tired；不把失落一律当作疲劳。 |
-| 扶脸懊恼 | performance.facepalm | media_started | 右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。<br>搭配参考：吐槽可配expression.speechless，出糗可配expression.embarrassed。 |
-| 扶后脑勺 | performance.hand_behind_head | media_started | 右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。<br>搭配参考：不好意思可配expression.embarrassed，不解可配expression.confused。 |
-| 拘谨 | performance.reserved | media_started | 双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。<br>搭配参考：正向羞怯可配expression.shy，不安可配expression.worried。 |
-| 说话 · 解释型说明 | speak.explaining | media_started | 以手势解释、说明或梳理一件事，适合有一定长度的讲解。<br>搭配参考：耐心说明可配expression.tender，疑问分析可配expression.thinking；普通讲解可保持已有表情。 |
-| 说话 · 激动地说 | speak.excited | media_started | 以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。<br>搭配参考：热切分享可配expression.expectant，带点炫耀可配expression.smug。 |
-| 说话 · 冷静分析 | speak.calm | media_started | 以克制、沉稳的手势分析或说明，适合认真讨论。<br>搭配参考：权衡可配expression.thinking，关切讨论可配expression.worried；平稳陈述可保持已有表情。 |
-| 说话 · 指向并强调 | speak.scolding | media_started | 手指朝向屏幕，带有强调、责备或告诫的身体态度。<br>搭配参考：责怪可配expression.displeased，质疑可配expression.skeptical。 |
-| 说话 · 轻松指向 | speak.pointing | media_started | 以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。<br>搭配参考：善意打趣可配expression.playful，轻松得意可配expression.smug。 |
-| 说话 · 丰富手势交谈 | speak.chatty | media_started | 说话时手部动作丰富，适合较活泼的叙述和聊天。<br>搭配参考：亲切聊天可配expression.tender，热切叙述可配expression.expectant。 |
-| 说话 · 抱臂赌气地说 | speak.pouting | media_started | 抱臂并带有赌气、抗议或不满的身体态度说话。<br>搭配参考：闹别扭可配expression.displeased，受委屈可配expression.aggrieved。 |
-| 说话 · 抱臂冷静地说 | speak.composed | media_started | 抱臂、克制而冷静地说话，适合保留意见或从容分析。<br>搭配参考：保留意见可配expression.skeptical，冷静思量可配expression.thinking。 |
-| 说话 · 害羞地说 | speak.shy | media_started | 以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。<br>搭配参考：正向含蓄可配expression.shy，社交出糗可配expression.embarrassed。 |
-| 点头 | performance.nod | immediate、media_started、media_completed | 点头表达确认、认可或理解。count必填：1为轻点一次，2为较积极的连续两次；仅接受1或2。一次调用播放对应完整素材，不通过反复请求拼次数。原生附加动作，与Idle/Speak及表情并存；自然结束，不放入cleanup_cues。同片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。<br>搭配参考：安慰式认同可配expression.tender，松口气后的确认可配expression.relieved；普通确认不必新增表情。<br>参数：count=点头次数，仅接受1或2；1为轻点一次，2为较积极的连续两次。字段必填，手动入口初值1；不通过重复播放拼接次数。 |
-| 摇头 | performance.shake_head | immediate、media_started、media_completed | 摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，可与当前Idle/Speak及表情并存。一次调用播完整素材，自动自然结束，不放入cleanup_cues。每片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。<br>搭配参考：无奈否认可配expression.speechless，抗议可配expression.displeased；普通纠正不必新增表情。 |
-| 惊讶身体反应 | performance.surprise | immediate、media_started、media_completed | 身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。<br>搭配参考：意外可配expression.surprised，明确受惊害怕才选expression.fearful。 |
-| 摇摆身体 | performance.swing_body | immediate、media_started、media_completed | 身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。<br>搭配参考：轻松撒娇可配expression.shy，俏皮逗弄可配expression.playful。 |
+| 双手叉腰 | performance.hands_on_hips | media_started | 身体明显前倾并双手叉腰，是较强烈的肢体表现，适合刻意强调、抗议、质问或催促。平时稳定的单手撑腰站姿选择idle.return_normal_pose的variant=3。本行为默认持续，表情由manner按语境独立搭配；不要相邻片段重复触发。需要回归所选待机时使用回归API的variant=-1。明确新表现获准后可替换，无新肢体要求的交互保持当前姿势。<br>搭配参考：认真抗议可配manner=displeased，熟稔打趣可配manner=playful；不因叉腰就强制生气。 |
+| 邀请拥抱 | performance.invite_hug | media_started | 张开双臂朝向对方，表达邀请拥抱、求安慰或希望靠近；只是姿态，不代表已发生接触。<br>搭配参考：亲昵邀请可配manner=tender，求安慰可配manner=aggrieved。 |
+| 耸肩 | performance.shrug | media_started | 耸肩摊手，表示不知道、无所谓或无奈。<br>搭配参考：无奈可配manner=speechless，不解可配manner=confused。 |
+| 赌气抗议 | performance.protest | media_started | 双拳置于身前，以身体姿态表达赌气、不满或抗议，不自动设置生气表情。<br>搭配参考：赌气可配manner=displeased，委屈抗议可配manner=aggrieved。 |
+| 认真表态 | performance.hand_on_chest | media_started | 右手放在胸口，适合认真保证、承诺或坚定表态。<br>搭配参考：安慰或真诚承诺可配manner=tender；郑重表态也可保持已有表情。 |
+| 担心关切 | performance.concern | media_started | 右手放在身前，身体略显关切，适合担心、询问或安慰。<br>搭配参考：担心可配manner=worried，确认安全后的安慰可配manner=tender。 |
+| 卖萌 | performance.cute | media_started | 以双手前放或身体向前倾的可爱姿态表达撒娇、卖萌或主动关注。<br>搭配参考：撒娇可配manner=shy，善意逗弄可配manner=playful。<br>参数：variant=姿势差分：0=双手置于身前，1=身体向前倾；选择一种，不移动角色根位置。 |
+| 拒绝 | performance.refuse | media_started | 身体表达拒绝；普通姿势较含蓄，双臂比叉更明确，可配严肃、羞怯或玩笑表情。<br>搭配参考：明确抗议可配manner=displeased，害羞婉拒可配manner=shy；按拒绝缘由选择。<br>参数：variant=姿势差分：0=普通拒绝姿态，1=双臂比叉的明确拒绝；仅接受0或1。 |
+| 展示力量 | performance.flex | media_started | 展示肌肉，以肢体表达炫耀力量、得意或搞怪。<br>搭配参考：炫耀可配manner=smug，搞怪可配manner=playful。 |
+| 垂头丧气 | performance.slouch | media_started | 垂头、身体松垮的低落姿态，适合沮丧、失望或泄气。<br>搭配参考：失望可配manner=aggrieved，困乏可配manner=tired；不把失落一律当作疲劳。 |
+| 扶脸懊恼 | performance.facepalm | media_started | 右手扶住脸，表达无奈、懊恼或对眼前情况难以评价。<br>搭配参考：吐槽可配manner=speechless，出糗可配manner=embarrassed。 |
+| 扶后脑勺 | performance.hand_behind_head | media_started | 右手放在后脑勺，适合尴尬、不好意思或有些困惑；不是持续挠头动作。<br>搭配参考：不好意思可配manner=embarrassed，不解可配manner=confused。 |
+| 拘谨 | performance.reserved | media_started | 双手握拳收在胸前，呈现拘谨、紧张或羞怯的身体姿态。<br>搭配参考：正向羞怯可配manner=shy，不安可配manner=worried。 |
+| 说话 · 解释型说明 | speak.explaining | media_started | 以手势解释、说明或梳理一件事，适合有一定长度的讲解。<br>搭配参考：耐心说明可配manner=tender，疑问分析可配manner=thinking；普通讲解可保持已有表情。 |
+| 说话 · 激动地说 | speak.excited | media_started | 以较活跃的肢体姿态兴奋地讲述，适合热切分享或激动回应。<br>搭配参考：热切分享可配manner=expectant，带点炫耀可配manner=smug。 |
+| 说话 · 冷静分析 | speak.calm | media_started | 以克制、沉稳的手势分析或说明，适合认真讨论。<br>搭配参考：权衡可配manner=thinking，关切讨论可配manner=worried；平稳陈述可保持已有表情。 |
+| 说话 · 指向并强调 | speak.scolding | media_started | 手指朝向屏幕，带有强调、责备或告诫的身体态度。<br>搭配参考：责怪可配manner=displeased，质疑可配manner=skeptical。 |
+| 说话 · 轻松指向 | speak.pointing | media_started | 以较轻松的指向手势说话，适合打趣或轻佻地强调；不是指责动作。<br>搭配参考：善意打趣可配manner=playful，轻松得意可配manner=smug。 |
+| 说话 · 丰富手势交谈 | speak.chatty | media_started | 说话时手部动作丰富，适合较活泼的叙述和聊天。<br>搭配参考：亲切聊天可配manner=tender，热切叙述可配manner=expectant。 |
+| 说话 · 抱臂赌气地说 | speak.pouting | media_started | 抱臂并带有赌气、抗议或不满的身体态度说话。<br>搭配参考：闹别扭可配manner=displeased，受委屈可配manner=aggrieved。 |
+| 说话 · 抱臂冷静地说 | speak.composed | media_started | 抱臂、克制而冷静地说话，适合保留意见或从容分析。<br>搭配参考：保留意见可配manner=skeptical，冷静思量可配manner=thinking。 |
+| 说话 · 害羞地说 | speak.shy | media_started | 以拘谨、羞怯的身体姿态交谈，适合不好意思或含蓄回应。<br>搭配参考：正向含蓄可配manner=shy，社交出糗可配manner=embarrassed。 |
+| 点头 | performance.nod | immediate、media_started、media_completed | 点头表达确认、认可或理解。count必填：1为轻点一次，2为较积极的连续两次；仅接受1或2。一次调用播放对应完整素材，不通过反复请求拼次数。原生附加动作，与Idle/Speak及表情并存；自然结束，不放入cleanup_cues。同片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。<br>搭配参考：安慰式认同可配manner=tender，松口气后的确认可配manner=relieved；普通确认不必新增表情。<br>参数：count=点头次数，仅接受1或2；1为轻点一次，2为较积极的连续两次。字段必填，手动入口初值1；不通过重复播放拼接次数。 |
+| 摇头 | performance.shake_head | immediate、media_started、media_completed | 摇头表达否定、不赞同、不愿意或对某个判断的纠正；不等同全身拒绝姿态，不自动决定角色表情。 原生附加短动作，可与当前Idle/Speak及表情并存。一次调用播完整素材，自动自然结束，不放入cleanup_cues。每片段至多选择一种点头/摇头，避免相邻片段反复使用；本地忙或受保护状态可能拒绝。<br>搭配参考：无奈否认可配manner=speechless，抗议可配manner=displeased；普通纠正不必新增表情。 |
+| 惊讶身体反应 | performance.surprise | immediate、media_started、media_completed | 身体短促颤动一下，表达突然惊讶、被吓一跳或出乎意料的反应；不是持续颤抖。仅控制身体，不自动切换惊讶表情，表情可由独立行为搭配。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。<br>搭配参考：意外可配manner=surprised，明确受惊害怕才选manner=fearful。 |
+| 摇摆身体 | performance.swing_body | immediate、media_started、media_completed | 身体轻轻摇摆一段，适合轻松、愉快、俏皮或略带撒娇的表达；不是移动、转向或持续站姿。不用于严肃或受惊的语境，不自动改变表情。 原生附加动作，与当前Idle/Speak及表情并存，一次播完整素材后自然结束，不放入cleanup_cues。同片段至多选择一个原生附加动作，不与点头/摇头同时请求；避免相邻片段反复触发。本地槽忙或受保护占用时可能拒绝。<br>搭配参考：轻松撒娇可配manner=shy，俏皮逗弄可配manner=playful。 |
 | 笑（四种组合） | performance.laugh | immediate、media_started、media_completed | 结合语境选择笑的表情和肢体动作：variant=0低头羞涩笑（害羞、被夸或含蓄地笑），1仰头大笑（开怀、有趣、明显的喜悦），2低头坏笑（低头调皮、打趣或暗自得意），3仰头坏笑（较张扬地调皮或得意）。这是笑容与原生附加动作的整体请求，无需额外请求相同笑容。一次完整素材自然结束，不放入cleanup_cues，不需要结束请求。仅在确实适合笑时选择；同片段不与其他原生附加动作堆叠，不在相邻片段反复笑。共享附加槽忙或保护占用时可能拒绝；角色Emotion仍由主对话决定，本行为不改其Emotion。<br>参数：variant=笑的组合：0=低头羞涩笑；1=仰头大笑；2=低头坏笑；3=仰头坏笑。必填Integer，仅接受0–3。无需另发笑容请求或结束请求。 |
 | 大小姐笑 | performance.ojou_laugh | immediate、media_started、media_completed | 切换为大小姐式持续站姿，适合高傲、自信、得意地调侃或“哦呵呵”式笑。laugh_once=false仅进入/保持肢体站姿，完全不请求或刷新表情；true临时切专属笑容并仰头笑一次，头部动作结束只释放本次仍持有的笑容，肢体站姿继续保持。重复请求不重播已持有的底姿。它是完整身体姿态，不是普通laugh的附加差分。不要仅因片段音频结束就自动恢复站姿；明确需要恢复时使用idle.return_normal_pose或其他身体姿势接管。无需额外请求同一笑容，表情不改变Character Emotion。附加槽忙时带true的本次请求可能被拒绝，不排队。移动、拖拽及交互保护保持，不可强制越过本地权限。<br>参数：laugh_once=是否抬头笑一次：true临时请求专属笑容并播放一次附加抬头笑，结束只释放本次仍持有的表情，肢体姿态继续；false只进入／保持肢体姿态，不碰当前表情。必填Boolean。 |
-| 歪头 | performance.tilt_neck | immediate、media_started | 持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配expression.confused或expression.shy，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
-| 低头望向一边 | performance.look_away | immediate、media_started | 持续低头望向一边，适合害羞回避、尴尬或低落克制。可配expression.shy、expression.embarrassed或expression.aggrieved，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
-| 持续颤抖 | performance.tremble | immediate、media_started | 持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配expression.fearful或expression.worried，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
+| 歪头 | performance.tilt_neck | immediate、media_started | 持续轻轻歪头，适合疑惑、好奇或亲昵倾听。不是反复点头。可配manner=confused或manner=shy，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
+| 低头望向一边 | performance.look_away | immediate、media_started | 持续低头望向一边，适合害羞回避、尴尬或低落克制。可配manner=shy、manner=embarrassed或manner=aggrieved，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
+| 持续颤抖 | performance.tremble | immediate、media_started | 持续颤抖，适合害怕、紧张或明显不安；不用于普通开心或一般叙述。可配manner=fearful或manner=worried，不自动切表情。 持续附加，与其他持续附加互相替换，重复同项不刷新。仅在有明确语义时选择；通过performance.sustained.clear结束，不用idle.return_normal_pose收尾。短附加成功接管或交互／保护移动会撤销，恢复后不自动补播。 |
 | 结束持续附加 | performance.sustained.clear | immediate、media_started、media_completed | 明确结束执行时当前持续附加，不结束身体姿势或Speak、不清表情。不是按原请求身份的专属撤销。确需在片段末尾结束辅助表现时可作为cleanup_cues；若要跨片段保持或已经编排新持续附加，不要机械清理。 |
 
 ### 26个首段预设：跳过首段导演的可选捷径
@@ -2276,9 +2258,9 @@ Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四�
 
 它不是让主LLM随便输出emoji当动作，也不是将emoji原样展示在字幕中。预设标记、动作ID、参数和允许时机需要保持有效。未命中时走既有兜底/导演流程，不能把解析失败当成某个随机表情。
 
-当前neutral预设是默认，中性开场没有强行加动作。其他预设按语义选择Speak、表情、挥手等。下表中的行为名已经由配置ID解析为实际API，修改名称时仍应通过Pages保存对应注册，不要直接把API Key冒充`action_id`。
+当前neutral预设是默认，中性开场没有强行加动作。其他预设按语义选择 Speak、语气、挥手等。下表中的行为名已经由配置ID解析为实际API，修改名称时仍应通过Pages保存对应注册，不要直接把API Key冒充`action_id`。
 
-| 名称 / 标记 | 语调 / 强度 | 普通cues | cleanup_cues | 选用语境 |
+| 名称 / 标记 | 情绪 / 强度 | 普通cues | cleanup_cues | 选用语境 |
 | --- | --- | --- | --- | --- |
 | 中性开场（默认） 🎭😐 | neutral / 0.5 | 无 | 无 | 平稳、自然地开始回复。 |
 | 讲解开场 🎭📖 | neutral / 0.5 | speak.explaining@media_started | 无 | 开场即以解释型手势介绍、说明或梳理一件事，适合有一定长度的讲解；不用于普通短答或仅表示没听懂。 |
@@ -2286,30 +2268,30 @@ Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四�
 | 愉快交谈开场 🎭✨ | happy / 0.7 | speak.chatty@media_started | 无 | 以轻快、积极的状态开始回复。<br>肢体表现：以丰富手势活泼地交谈，适合分享和叙述；普通简短肯定不必选择。 |
 | 悲伤开场 🎭😢 | sad / 0.6 | 无 | 无 | 以低落、克制的状态开始回复。 |
 | 生气强调开场 🎭💢 | angry / 0.7 | speak.scolding@media_started | 无 | 以坚定、有张力的状态开始回复。<br>肢体表现：手指朝向对方，适合明确责备、告诫或强调边界；不因语气略显生气就选择。 |
-| 惊讶开场 🎭😮 | neutral / 0.65 | expression.surprised@media_started | 无 | 开场即对意外消息或出乎意料的转折表示惊讶，短暂睁大眼睛抬眉；普通强调不选。 |
-| 疑惑开场 🎭🤔 | neutral / 0.5 | expression.confused@media_started | 无 | 开场即表示不理解、不确定或准备追问，短暂露出疑惑表情。 |
-| 无语开场 🎭😑 | neutral / 0.4 | expression.speechless@media_started | 无 | 开场即表示克制的无奈、冷场或轻微吐槽，短暂露出无语表情；不是愤怒或悲伤。 |
-| 尴尬开场 🎭😳 | happy / 0.55 | expression.embarrassed@media_started；speak.shy@media_started | 无 | 开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。<br>肢体表现：以不好意思、拘谨的说话姿态面对出糗或社交窘迫，仍保留尴尬表情。 |
+| 惊讶开场 🎭😮 | neutral / 0.65 | manner=surprised | 无 | 开场即对意外消息或出乎意料的转折表示惊讶，短暂睁大眼睛抬眉；普通强调不选。 |
+| 疑惑开场 🎭🤔 | neutral / 0.5 | manner=confused | 无 | 开场即表示不理解、不确定或准备追问，短暂露出疑惑表情。 |
+| 无语开场 🎭😑 | neutral / 0.4 | manner=speechless | 无 | 开场即表示克制的无奈、冷场或轻微吐槽，短暂露出无语表情；不是愤怒或悲伤。 |
+| 尴尬开场 🎭😳 | happy / 0.55 | manner=embarrassed；speak.shy@media_started | 无 | 开场即因出糗、被拆穿或社交窘迫而尴尬；亲近和夸奖后的正向羞涩选择害羞开场。<br>肢体表现：以不好意思、拘谨的说话姿态面对出糗或社交窘迫，仍保留尴尬表情。 |
 | 愉快挥手开场 🎭👋 | happy / 0.75 | performance.wave@media_started {"variant":0,"count":0} | 无 | 愉快地打招呼、告别或主动示意时，开场挥手一次；普通回答不必挥手。 |
-| 热切期待开场 🎭🤩 | happy / 0.7 | expression.expectant@media_started；speak.excited@media_started | 无 | 开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。<br>肢体表现：以激动的肢体姿态谈论期待的事情，适合热切分享；仅安静等待时不选。 |
-| 得意开场 🎭😏 | happy / 0.65 | expression.smug@media_started；speak.pointing@media_started | 无 | 开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。<br>肢体表现：以轻松指向的手势自信地打趣或小小炫耀，不是责备对方。 |
-| 怀疑开场 🎭🤨 | neutral / 0.55 | expression.skeptical@media_started；speak.composed@media_started | 无 | 开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。<br>肢体表现：抱臂、冷静地质疑或保留意见，带一点距离感；不是没听懂。 |
-| 不满开场 🎭😒 | angry / 0.55 | expression.displeased@media_started；speak.pouting@media_started | 无 | 开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。<br>肢体表现：抱臂赌气地抗议、闹别扭或表达不愿接受；不是强烈威胁或恐惧。 |
-| 嫌弃开场 🎭🤢 | neutral / 0.65 | expression.disgusted@media_started | 无 | 开场即表现嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 |
-| 担忧开场 🎭😟 | sad / 0.55 | expression.worried@media_started | 无 | 开场即表现担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 |
-| 害怕开场 🎭😨 | neutral / 0.75 | expression.fearful@media_started | 无 | 开场即表现害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 |
-| 委屈开场 🎭🥺 | sad / 0.65 | expression.aggrieved@media_started | 无 | 开场即表现委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 |
-| 害羞开场 🎭🙈 | happy / 0.55 | expression.shy@media_started；speak.shy@media_started | 无 | 开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。<br>肢体表现：以拘谨、含蓄的说话姿态回应亲近或夸奖。 |
-| 温柔开场 🎭🥰 | happy / 0.5 | expression.tender@media_started | 无 | 开场即表现温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 |
-| 释然开场 🎭😌 | neutral / 0.4 | expression.relieved@media_started | 无 | 开场即表现释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 |
-| 俏皮开场 🎭😜 | happy / 0.7 | expression.playful@media_started；speak.pointing@media_started | 无 | 开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。<br>肢体表现：以轻松指向的手势善意逗弄或调侃，不是告诫或指责。 |
-| 疲惫开场 🎭😪 | neutral / 0.35 | expression.tired@media_started | 无 | 开场即表现疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 |
-| 无聊开场 🎭🥱 | neutral / 0.35 | expression.bored@media_started | 无 | 开场即表现无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 |
-| 思考开场 🎭💭 | neutral / 0.5 | expression.thinking@media_started；performance.thinking@media_started {"variant":0} | idle.return_normal_pose@media_completed（收尾） {"variant":-1} | 开场即表现思考：斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。 |
+| 热切期待开场 🎭🤩 | happy / 0.7 | manner=expectant；speak.excited@media_started | 无 | 开场即表现期待：期待答案、礼物或接下来的互动，积极地等待；不是已经得到结果后的得意。<br>肢体表现：以激动的肢体姿态谈论期待的事情，适合热切分享；仅安静等待时不选。 |
+| 得意开场 🎭😏 | happy / 0.65 | manner=smug；speak.pointing@media_started | 无 | 开场即表现得意：被夸奖、完成事情或小小炫耀后的自得；不是所有开心片段都需要得意。<br>肢体表现：以轻松指向的手势自信地打趣或小小炫耀，不是责备对方。 |
+| 怀疑开场 🎭🤨 | neutral / 0.55 | manner=skeptical；speak.composed@media_started | 无 | 开场即表现怀疑：已经听懂但不太相信、质疑真实性或动机；不理解含义时使用困惑。<br>肢体表现：抱臂、冷静地质疑或保留意见，带一点距离感；不是没听懂。 |
+| 不满开场 🎭😒 | angry / 0.55 | manner=displeased；speak.pouting@media_started | 无 | 开场即表现不满：抗议、责怪或表达个人边界的即时反应；不是改变角色长期基础情绪。<br>肢体表现：抱臂赌气地抗议、闹别扭或表达不愿接受；不是强烈威胁或恐惧。 |
+| 嫌弃开场 🎭🤢 | neutral / 0.65 | manner=disgusted | 无 | 开场即表现嫌弃：对具体对象或行为表示排斥、嫌弃或不想靠近；不用于单纯没听懂。 |
+| 担忧开场 🎭😟 | sad / 0.55 | manner=worried | 无 | 开场即表现担忧：担心对方、犹豫或预感不妙；是关切，不等于自己已经受到直接威胁。 |
+| 害怕开场 🎭😨 | neutral / 0.75 | manner=fearful | 无 | 开场即表现害怕：受到威胁、恐惧或受惊；普通意外消息使用惊讶，不要把惊喜解释为恐惧。 |
+| 委屈开场 🎭🥺 | sad / 0.65 | manner=aggrieved | 无 | 开场即表现委屈：被误解、受到冷落或希望得到安慰；区别于一般悲伤、责怪和愤怒。 |
+| 害羞开场 🎭🙈 | happy / 0.55 | manner=shy；speak.shy@media_started | 无 | 开场即表现害羞：被亲近或夸奖后的正向羞涩、欲言又止；出糗和社交窘迫使用尴尬。<br>肢体表现：以拘谨、含蓄的说话姿态回应亲近或夸奖。 |
+| 温柔开场 🎭🥰 | happy / 0.5 | manner=tender | 无 | 开场即表现温柔：安慰、关爱或温柔亲昵地回应；无需每次礼貌回答都添加此表情。 |
+| 释然开场 🎭😌 | neutral / 0.4 | manner=relieved | 无 | 开场即表现释然：放下顾虑、确认安全或松了一口气；关注担忧解除的转折，而非所有普通开心。 |
+| 俏皮开场 🎭😜 | happy / 0.7 | manner=playful；speak.pointing@media_started | 无 | 开场即表现俏皮：调侃、逗弄或善意使坏时的俏皮反应；不要用于严肃关切或对方明显不适时。<br>肢体表现：以轻松指向的手势善意逗弄或调侃，不是告诫或指责。 |
+| 疲惫开场 🎭😪 | neutral / 0.35 | manner=tired | 无 | 开场即表现疲惫：对话中展示疲劳、困倦或勉强打起精神；仅是表现请求，不证明本地生理状态已产生。 |
+| 无聊开场 🎭🥱 | neutral / 0.35 | manner=bored | 无 | 开场即表现无聊：兴致缺缺、敷衍或等待太久；不同于身体疲倦、愤怒或受到冒犯。 |
+| 思考开场 🎭💭 | neutral / 0.5 | manner=thinking；performance.thinking@media_started {"variant":0} | idle.return_normal_pose@media_completed（收尾） {"variant":-1} | 开场即表现思考：斟酌答案、回忆或权衡时的轻微思考表现；只是表演，不表示展示模型内部推理。 |
 
 首段预设只省掉其中一个阶段，不省输入收集、ASR、主LLM首段正文、TTS及设备输出。不能因预设命中，就把“首音仍慢”统归为Link或Director。调优时分别记录请求进入、输入提交、首段稳定、导演/预设完成、TTS/规范化、候选获选、PCM交付及设备消费时间。
 
-## 99项API完整目录
+## 80项API完整目录
 
 以下方向相对于Link：**入站**是Adapter发给场景，**出站**是场景发给Adapter。表内字段只有业务字段，事件ID和关联事件ID在公共信封里，不需要再手工给每项添加`reply_to`字段。
 
@@ -2323,25 +2305,6 @@ Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四�
 | 入站 | autonomy.move_to | target: Vector3 | Move To |
 | 入站 | autonomy.rotate_by | delta_yaw: Float | Rotate By |
 | 入站 | autonomy.rotate_to | yaw: Float | Rotate To |
-| 入站 | expression.aggrieved | 无业务字段 | Aggrieved |
-| 入站 | expression.bored | 无业务字段 | Bored |
-| 入站 | expression.confused | 无业务字段 | Confused |
-| 入站 | expression.disgusted | 无业务字段 | Disgusted |
-| 入站 | expression.displeased | 无业务字段 | Displeased |
-| 入站 | expression.embarrassed | 无业务字段 | Embarrassed |
-| 入站 | expression.expectant | 无业务字段 | Expectant |
-| 入站 | expression.fearful | 无业务字段 | Fearful |
-| 入站 | expression.playful | 无业务字段 | Playful |
-| 入站 | expression.relieved | 无业务字段 | Relieved |
-| 入站 | expression.shy | 无业务字段 | Shy |
-| 入站 | expression.skeptical | 无业务字段 | Skeptical |
-| 入站 | expression.smug | 无业务字段 | Smug |
-| 入站 | expression.speechless | 无业务字段 | Speechless |
-| 入站 | expression.surprised | 无业务字段 | Surprised |
-| 入站 | expression.tender | 无业务字段 | Tender |
-| 入站 | expression.thinking | 无业务字段 | Thinking |
-| 入站 | expression.tired | 无业务字段 | Tired |
-| 入站 | expression.worried | 无业务字段 | Worried |
 | 入站 | idle.return_normal_pose | variant: Integer | Idle Animation |
 | 入站 | performance.concern | 无业务字段 | <a id="graph-concern-pose"></a>Concern Pose |
 | 入站 | performance.cute | variant: Integer | <a id="graph-cute-pose"></a>Cute Pose |
@@ -2695,7 +2658,7 @@ Director开启。语调目录为`neutral/happy/sad/angry`，neutral默认；四�
 | 点击探针模式清理 | 第二模式Switch缺少实时ActMode连线，保存输入0 | 松开直接撤回仍有线；不能保证切Free时该分支按旧注释撤回。交互Controller的许可仍独立存在 |
 | 组合覆写示例 | 两张图的蓝图启用状态都是关闭 | 图内开关/旧“启用”注释不能令停用图生效 |
 | 回归Idle工具 | 工具注册存在但禁用，部分用途说明仍引用它 | API/导演入口可用不等于主LLM拿到了工具；按需显式启用或调整说明 |
-| API注册表的ProfileDescription | 留有已退休样例名称等旧描述 | 以99项实际目录和消费图为准，不按描述恢复旧API |
+| API注册表的ProfileDescription | 留有已退休样例名称等旧描述 | 以80项实际目录和消费图为准，不按描述恢复旧API |
 | 背部摆动 | 有实际表现和多轮调优，仍有残留拖动抖动历史 | 不把诊断撤下或支点正确包装成彻底消除抖动 |
 | 模型与精力 | 暂定角色模拟，当前参数可用 | 不对应真实力/疼痛/生理量，也不独立决定角色意愿 |
 | 多发声器/多智能端 | 当前本场景只有audio.main；Link播放器仍共享 | 不能靠再复制资源就获得并行双角色聊天架构 |
