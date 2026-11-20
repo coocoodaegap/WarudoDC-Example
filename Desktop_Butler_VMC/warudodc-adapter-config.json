@@ -939,8 +939,6 @@
         "description": "平稳、自然，不刻意强化情绪。",
         "enabled": true,
         "is_default": true,
-        "supports_intensity": true,
-        "default_intensity": 0.5,
         "emotion_route": "neutral",
         "voice_key": "voice_1"
       },
@@ -950,8 +948,6 @@
         "description": "轻快、积极，表达明显但不过度夸张的愉悦。",
         "enabled": true,
         "is_default": false,
-        "supports_intensity": true,
-        "default_intensity": 0.7,
         "emotion_route": "neutral",
         "voice_key": "voice_1"
       },
@@ -961,8 +957,6 @@
         "description": "低落、克制，表达悲伤或失落。",
         "enabled": true,
         "is_default": false,
-        "supports_intensity": true,
-        "default_intensity": 0.6,
         "emotion_route": "sad",
         "voice_key": "voice_2"
       },
@@ -972,8 +966,6 @@
         "description": "坚定、有张力，表达不满或愤怒但避免失控。",
         "enabled": true,
         "is_default": false,
-        "supports_intensity": true,
-        "default_intensity": 0.7,
         "emotion_route": "angry",
         "voice_key": "voice_3"
       }
@@ -997,7 +989,9 @@
         "style_instruction": "压低音量、气声、贴近耳边，语速放慢，句尾轻收。",
         "emotion_route": "neutral",
         "voice_key": "voice_4",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "excited_loud",
@@ -1017,7 +1011,9 @@
         "style_instruction": "音量抬高、有投射感，语调上扬，节奏稍快，尾音有弹性。",
         "emotion_route": "happy",
         "voice_key": "voice_5",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "pouty_grumble",
@@ -1037,7 +1033,9 @@
         "style_instruction": "带鼻音、嘟囔感、音量偏低、语速略快，尾音拖一点。",
         "emotion_route": "neutral",
         "voice_key": "voice_2",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "tense_scold",
@@ -1057,7 +1055,9 @@
         "style_instruction": "声带压紧、咬字用力、句子短促，情绪饱满但不破音。",
         "emotion_route": "angry",
         "voice_key": "voice_3",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "composed_calm",
@@ -1077,7 +1077,9 @@
         "style_instruction": "平稳、清晰、克制，节奏均匀，句间留一点停顿。",
         "emotion_route": "neutral",
         "voice_key": "voice_1",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "surprised",
@@ -1091,7 +1093,9 @@
         "style_instruction": "语气短促上扬，带一点没预料到的停顿，句尾轻挑。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "confused",
@@ -1105,7 +1109,9 @@
         "style_instruction": "语调上扬、语速放慢，尾音带问号感，像在确认自己有没有听错。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "speechless",
@@ -1119,7 +1125,9 @@
         "style_instruction": "语速放慢，声音放平，句尾下沉，带一点无奈的停顿。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "embarrassed",
@@ -1133,7 +1141,9 @@
         "style_instruction": "声音变小发虚，语速略快，句间有短促的吸气。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "expectant",
@@ -1147,7 +1157,9 @@
         "style_instruction": "语速轻快，句尾上扬，声音里有压不住的小兴奋。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "smug",
@@ -1161,7 +1173,9 @@
         "style_instruction": "尾音上挑、拖长半拍，带一点自得的气声。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "skeptical",
@@ -1175,7 +1189,9 @@
         "style_instruction": "语速偏慢，重音落在质疑的词上，尾音收平。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "displeased",
@@ -1189,7 +1205,9 @@
         "style_instruction": "声音压低，语速稍快，尾音带一小口憋气。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "disgusted",
@@ -1203,7 +1221,9 @@
         "style_instruction": "语速偏慢，声音从鼻腔里出来一点，尾音带轻蔑的下压。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "worried",
@@ -1217,7 +1237,9 @@
         "style_instruction": "语气放软放缓，气息轻，句尾略沉，像在确认对方的状态。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "fearful",
@@ -1231,7 +1253,9 @@
         "style_instruction": "气息浅而急，句子变短，尾音发抖，音量略收。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "aggrieved",
@@ -1245,7 +1269,9 @@
         "style_instruction": "鼻音偏重，带一点抽气声，尾音发颤，句子断断续续。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "shy",
@@ -1259,7 +1285,9 @@
         "style_instruction": "声音渐弱，吞吞吐吐，句尾收小，气息不稳。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "tender",
@@ -1273,7 +1301,9 @@
         "style_instruction": "语气放轻放软，语速慢，句尾柔和下沉。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "relieved",
@@ -1287,7 +1317,9 @@
         "style_instruction": "先轻轻吐一口气再开口，语速放缓，尾音放松下沉。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "playful",
@@ -1301,7 +1333,9 @@
         "style_instruction": "带笑朗读，尾音轻巧上扬，节奏跳一点。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "tired",
@@ -1315,7 +1349,9 @@
         "style_instruction": "气息弱，语速慢，句尾下沉，像强撑着说话。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "bored",
@@ -1329,7 +1365,9 @@
         "style_instruction": "语调平，语速拖，字与字之间有点松，尾音不上扬。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "thinking",
@@ -1343,7 +1381,9 @@
         "style_instruction": "语速偏慢，中间有停顿，像边想边说，尾音轻收。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "laugh_shy",
@@ -1363,7 +1403,9 @@
         "style_instruction": "先轻轻笑一声再说话，气息收着，尾音软。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "laugh_open",
@@ -1383,7 +1425,9 @@
         "style_instruction": "开口带一段爽朗的笑，声音放开，句子跟着笑抖动。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "laugh_wry",
@@ -1403,7 +1447,9 @@
         "style_instruction": "低声笑一下，带一点鼻音，语气里有点调侃的坏。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "laugh_proud",
@@ -1423,7 +1469,9 @@
         "style_instruction": "仰头笑一声，尾音上扬，带着张扬的得意。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       },
       {
         "key": "ojou_laugh",
@@ -1443,7 +1491,9 @@
         "style_instruction": "带一点高傲的\"哦呵呵\"式笑，尾音拖长，笑完再开口。",
         "voice_key": "",
         "emotion_route": "auto",
-        "priority": 0.0
+        "priority": 0.0,
+        "supports_intensity": true,
+        "default_intensity": 0.5
       }
     ],
     "voices": [
@@ -2103,7 +2153,7 @@
     ],
     "director": {
       "enabled": true,
-      "prompt_template": "【持续附加表现】\n- 歪头、低头望向一边、持续颤抖是同一个持续附加槽，不替换身体底姿或Speak，也不单独改变表情；同类互换，重复同项不刷新。已有同项可跨片段保持，不必逐段重发。\n- 同一片段不要同时编排多个持续附加，也不要把持续附加与点头、摇头、惊讶身体反应、摇摆身体、Laugh或大小姐抬头笑堆叠；短附加成功获准会结束当前持续附加。已结束不会自动恢复。\n- 交互、保护移动或拖拽会撤销持续附加；本地是否准入由Controller决定，前文编排不等于已执行。虽然可与普通姿势／Speak混合，组合仍需符合语义，避免颤抖配兴奋手势等不自然搭配。\n- performance.sustained.clear只结束执行时当前持续附加，不停身体／Speak、不清表情，不是原请求专属撤销。只在确需结束辅助表现时选用，可用于cleanup_cues；若片段结束后还要保持或已有新附加接管，就不要机械加入清理。\n\n【表现三维：情绪、语气、行为】\n- 情绪（tone）：本段表现底色，进入场景 BASE 层；从启用且语义相符的情绪中选择，可留空继承前段。\n- 语气（manner）：本段面部表情与 TTS 风格／音色的唯一入口。每个语气绑定固定表情、风格指令和音色，场景按 manner_key 映射到 REQUESTED 层；表情不再以独立行为出现在目录里。\n- 行为（cues）：肢体、Speak、持续附加等额外表现，与语气互不替代；已选语气时不要再重复它绑定的行为。\n- 语气需与所选情绪兼容（见目录 tone_keys）；找不到合适语气时 manner=null，只选情绪与必要行为。表情的持有与释放由场景管理，不需要额外的表情清理行为。\n\n【语气选择规则】\n- 同一片段至多选一个语气；参考前文语气，不要逐段机械更换，语境确实变化（如从担忧转为调侃）时再切换。\n- 一旦选择语气，cues 只补充额外肢体／Speak／持续附加；不要把语气已经携带的表情再写成行为。\n- 首段可由开场预设直接指定情绪与语气；后续片段按上述规则选择。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不改变表情；需要面部表现时选择对应语气。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景肢体与语气搭配】\n- 行为目录不是单选菜单。需要身体表现与新的面部表现时，可同时选择一个肢体行为与一个语气；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换语气，也不因情绪改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表现与动作，优先在双方允许的 media_started 时机编排；只输出目录中的 action_id 与完整参数，不把推荐名称或 API Key 当成 action_id。\n- 自带表情的 performance.thinking、performance.laugh，以及 laugh_once=true 的 performance.ojou_laugh，只选组合行为，不再同片段另选语气争抢同一层。ojou_laugh(false) 仅切身体姿态，可独立搭配语气。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak 和原生附加动作仍遵守各自互斥／保护规则；不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经 idle.return_normal_pose 选择：variant=-1 沿用当前，0 一般、1 双手前放、2 双手后放、3 单手撑腰、4 侧站抱臂。普通收尾／cleanup 使用 -1；只有明确换站姿时指定 0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选语气与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供 start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入 cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant、count 或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择表现情绪与语气（语气可留空），并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文情绪与语气】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用情绪与语气目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
+      "prompt_template": "【持续附加表现】\n- 歪头、低头望向一边、持续颤抖是同一个持续附加槽，不替换身体底姿或Speak，也不单独改变表情；同类互换，重复同项不刷新。已有同项可跨片段保持，不必逐段重发。\n- 同一片段不要同时编排多个持续附加，也不要把持续附加与点头、摇头、惊讶身体反应、摇摆身体、Laugh或大小姐抬头笑堆叠；短附加成功获准会结束当前持续附加。已结束不会自动恢复。\n- 交互、保护移动或拖拽会撤销持续附加；本地是否准入由Controller决定，前文编排不等于已执行。虽然可与普通姿势／Speak混合，组合仍需符合语义，避免颤抖配兴奋手势等不自然搭配。\n- performance.sustained.clear只结束执行时当前持续附加，不停身体／Speak、不清表情，不是原请求专属撤销。只在确需结束辅助表现时选用，可用于cleanup_cues；若片段结束后还要保持或已有新附加接管，就不要机械加入清理。\n\n【表现三维：情绪、语气、行为】\n- 情绪（tone）：本段表现底色，进入场景 BASE 层；从启用且语义相符的情绪中选择，可留空继承前段。\n- 语气（manner）：本段面部表情与 TTS 风格／音色的唯一入口。每个语气绑定固定表情、风格指令和音色，场景按 manner_key 映射到 REQUESTED 层；表情不再以独立行为出现在目录里。\n- 语气强度（0–1）：只出现在 manner 对象里，表示本段表演的强弱；manner=null 时不要输出强度。\n- 行为（cues）：肢体、Speak、持续附加等额外表现，与语气互不替代；已选语气时不要再重复它绑定的行为。\n- 语气需与所选情绪兼容（见目录 tone_keys）；找不到合适语气时 manner=null，只选情绪与必要行为。表情的持有与释放由场景管理，不需要额外的表情清理行为。\n\n【语气选择规则】\n- 同一片段至多选一个语气；参考前文语气，不要逐段机械更换，语境确实变化（如从担忧转为调侃）时再切换。\n- 一旦选择语气，cues 只补充额外肢体／Speak／持续附加；不要把语气已经携带的表情再写成行为。\n- 首段可由开场预设直接指定情绪与语气；后续片段按上述规则选择。\n\n【当前场景 Speak 规则】\n- speak.* 是同一种说话风格的 Start→Loop→End 连续肢体表现，适合有一定长度的讲述。它不改变表情；需要面部表现时选择对应语气。\n- 在片段音频开始（media_started）选择风格；同一回复内可跨片段保持，不必重复触发。同风格重复选择不重播 Start；明显改变说话方式时才选另一个风格。\n- Speak 与其他普通肢体表现共用互斥所有权；移动、背部拖拽等保护状态可能拒绝开始。不要在同一时刻选择多个互相替换的肢体动作。\n- 整轮音频正常结束后，场景自动播放 End，再回归已选择的 Idle。不要给每个分段机械添加回归待命 cleanup_cues；短回答也不必强行进入 Speak。\n- 明确需要提前收尾时，可选择已有 idle.return_normal_pose（通常 variant=-1）；它受理后先播 Speak End。被新风格、其他动作、批次取消或替换打断时，旧流程不播 End，也不抢回身体。\n\n【当前场景肢体与语气搭配】\n- 行为目录不是单选菜单。需要身体表现与新的面部表现时，可同时选择一个肢体行为与一个语气；已有编排足够时只补缺少的一项，也可以都不新增。\n- 先读片段语义和前文编排，再参考动作末尾的搭配建议；建议不强制绑定，不要求每段换语气，也不因情绪改变就机械换脸。前文是决策记录，不是本地执行成功的回执。\n- 需要同步呈现的独立表现与动作，优先在双方允许的 media_started 时机编排；只输出目录中的 action_id 与完整参数，不把推荐名称或 API Key 当成 action_id。\n- 自带表情的 performance.thinking、performance.laugh，以及 laugh_once=true 的 performance.ojou_laugh，只选组合行为，不再同片段另选语气争抢同一层。ojou_laugh(false) 仅切身体姿态，可独立搭配语气。组合行为自管所属表情结束，不用额外表情清理。\n- 普通肢体、Speak 和原生附加动作仍遵守各自互斥／保护规则；不要为了本次搭配在片段结束机械清理或恢复旧表情。\n\n【当前场景独立肢体表现规则】\n- 待机站姿可经 idle.return_normal_pose 选择：variant=-1 沿用当前，0 一般、1 双手前放、2 双手后放、3 单手撑腰、4 侧站抱臂。普通收尾／cleanup 使用 -1；只有明确换站姿时指定 0..4，受理后持续沿用，不随机或逐段切换。\n- 已获准的普通姿势不因交互开始或结束自动取消；明确的新肢体动作获准后才交接。自身到期、显式结束及场景清理仍然有效。\n- 本次新增的独立姿势不自动改变表情，可另选语气与同一片段组合；既有组合行为（如思考状态）沿用原说明。\n- 同一时刻至多维持一种独立肢体姿势，切换姿势会替换旧姿势；本地交互或移动占用可能拒绝开始，不保证每次选择都能执行。\n- 新增姿势默认持续保持，可跨片段延续；参考前文动作，不必相邻每段重复触发。\n- 公开肢体行为不再成对提供 start/end；恢复普通待机统一选择“回归平时待命动作”（idle.return_normal_pose）。只在确需结束姿势时使用，也可编入 cleanup_cues，不必每段清理；该动作作用于执行时的当前普通表现，不能撤销移动或背部拖拽。\n- 带 variant、count 或其他参数的行为，逐项遵守该行为目录中的范围与字段说明，不套用其他行为的差分编号。\n\n你是回复表现导演。请基于以下固定信息，为当前片段选择表现情绪与语气（语气可留空），并编排有序的表现行为与必要的状态清理。普通行为可以发生在片段获批、音频开始或音频结束时；清理行为仅用于撤销本片段建立的持续状态。\n\n【有限前文】\n{{recent_context}}\n\n【前文情绪与语气】\n{{previous_tone}}\n\n【前文动作】\n{{previous_action}}\n\n【当前片段正文】\n{{segment_text}}\n\n【可用情绪与语气目录】\n{{tone_catalog}}\n\n【有效行为目录】\n{{action_catalog}}\n\n【结构化输出合同】\n{{output_contract}}"
     },
     "first_segment": {
       "enabled": true,

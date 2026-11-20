@@ -843,7 +843,7 @@ Touch Feelings 位于 Debug，当前禁用；它不是正式交互入口，也�
 | --- | --- | --- |
 | Timeline Tone | 这一段回复以什么语调表现 | Adapter 提供，Link 按 Timeline 时机释放 |
 | Emotion | 当前基础表情选哪个本地编号 | Emotion Controller |
-| Manner(语气) | 这一段用什么语气、TTS 风格与音色 | Director 选择，Adapter 随 tone 事件发送 `manner_key`；场景映射 REQUESTED 表情 |
+| Manner(语气) | 这一段用什么语气、强度、TTS 风格与音色 | Director 选择，Adapter 随 tone 事件发送 `manner_key`；场景映射 REQUESTED 表情 |
 | REQUESTED | 当前外部请求或特定动作希望叠哪张脸 | Expression Request Controller 管生命周期 |
 | INTERACTION | 本地交互当下该显示哪张脸 | Interaction Controller 与具体交互图 |
 | Attention／Energy | 当前关注什么、活动后还剩多少精力 | 各自 Runtime 场景资源 |
@@ -870,7 +870,7 @@ Runtime 的感受、注意力、精力是本地模拟与上下文参考，当前
 
 未知或自定义 Tone 保留当前 Emotion，不擅自归零，也不临时创造一张新脸。
 这条入口还递增 EmotionSerial，表示收到更新；Serial 本身不要求表情重播。
-EmotionIntensity 当前保留为字段，分段强度还没有用于调整原生表情权重。
+EmotionIntensity 字段仍由场景保留，但分段强度已从情绪移到语气：Director 在 manner 对象里给出 intensity，场景侧可用它调整 REQUESTED 表情权重（Link 侧旧出口将相应调整）；当前 Emotion Controller 尚未消费强度。
 Constants 里还保留 Emotion=4 的本地身份；BASE 映射会得到 FUN，但当前四 Tone 入口不会产生这个值。
 `WarudoDC.Emotion.ResetPresentation()` 把本地 Emotion 与强度归零，供开场／重载初始化使用。
 它不修改 AstrBot 的角色设定或情绪，也不会把本地数字反向当成 LLM 必须服从的表现命令。
@@ -2200,7 +2200,7 @@ API只是双方能识别的事件与字段目录。钩子、工具和导演可�
 
 ### 四种情绪、29个语气与35个导演行为
 
-Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；四项都声明支持强度，默认0.5。本场景Emotion Controller只消费标签映射，未消费强度。表现时语气（29个，其中19个表情语气）由 Adapter 按 `manner_key` 下发，场景用 MannerKey 映射到 REQUESTED 层；支持某一TTS后端按情绪变声也不意味着每个Provider都理解强度参数。
+Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；情绪不再携带强度；29 个语气各自声明支持强度（默认 0.5），Director 在 manner 对象里选择 0–1 的语气强度。Emotion Controller 仍只消费情绪标签到 BASE 脸的映射；场景侧若使用强度，应读取语气的 intensity（Link 侧两个旧出口将相应调整）。表现时语气（29个，其中19个表情语气）由 Adapter 按 `manner_key` 下发，场景用 MannerKey 映射到 REQUESTED 层；支持某一TTS后端按情绪变声也不意味着每个Provider都理解强度参数。
 
 导演模板先放本场景的动作、Speak、语气和持续附加规则，再注入七块固定信息：有限前文、前文情绪／语气、前文动作、当前片段正文、可用情绪与语气目录、有效行为目录、结构化输出合同。
 
