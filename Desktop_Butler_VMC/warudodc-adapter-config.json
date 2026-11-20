@@ -972,116 +972,6 @@
     ],
     "manners": [
       {
-        "key": "whisper_shy",
-        "display_name": "轻声细语",
-        "description": "害羞、压低声音、吞吞吐吐，或不想被别人听清时使用。",
-        "enabled": true,
-        "tone_keys": [
-          "happy"
-        ],
-        "behaviors": [
-          {
-            "action_id": "d747f1662c1e59f99650b5c4660f2ad7",
-            "trigger": "media_started",
-            "arguments": {}
-          }
-        ],
-        "style_instruction": "压低音量、气声、贴近耳边，语速放慢，句尾轻收。",
-        "emotion_route": "neutral",
-        "voice_key": "voice_4",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "excited_loud",
-        "display_name": "兴奋高声",
-        "description": "兴奋、开心到提高音量、语速变快时使用。",
-        "enabled": true,
-        "tone_keys": [
-          "happy"
-        ],
-        "behaviors": [
-          {
-            "action_id": "c3f5f9ad31395eb182ee4e71c68c2a30",
-            "trigger": "media_started",
-            "arguments": {}
-          }
-        ],
-        "style_instruction": "音量抬高、有投射感，语调上扬，节奏稍快，尾音有弹性。",
-        "emotion_route": "happy",
-        "voice_key": "voice_5",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "pouty_grumble",
-        "display_name": "嘟嘴抱怨",
-        "description": "闹别扭、不情愿、小声嘟囔抗议时使用。",
-        "enabled": true,
-        "tone_keys": [
-          "angry"
-        ],
-        "behaviors": [
-          {
-            "action_id": "27d940ef894553b2869930f422c07579",
-            "trigger": "media_started",
-            "arguments": {}
-          }
-        ],
-        "style_instruction": "带鼻音、嘟囔感、音量偏低、语速略快，尾音拖一点。",
-        "emotion_route": "neutral",
-        "voice_key": "voice_2",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "tense_scold",
-        "display_name": "紧绷斥责",
-        "description": "绷紧情绪、压低声音认真训斥或较真时使用。",
-        "enabled": true,
-        "tone_keys": [
-          "angry"
-        ],
-        "behaviors": [
-          {
-            "action_id": "2f07b26071a852679a4855f9a016dc55",
-            "trigger": "media_started",
-            "arguments": {}
-          }
-        ],
-        "style_instruction": "声带压紧、咬字用力、句子短促，情绪饱满但不破音。",
-        "emotion_route": "angry",
-        "voice_key": "voice_3",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "composed_calm",
-        "display_name": "平静陈述",
-        "description": "需要平稳、克制、条理清楚地把话说完时使用。",
-        "enabled": true,
-        "tone_keys": [
-          "neutral"
-        ],
-        "behaviors": [
-          {
-            "action_id": "faf248b8c2be52e99ed58136f05c68df",
-            "trigger": "media_started",
-            "arguments": {}
-          }
-        ],
-        "style_instruction": "平稳、清晰、克制，节奏均匀，句间留一点停顿。",
-        "emotion_route": "neutral",
-        "voice_key": "voice_1",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
         "key": "surprised",
         "display_name": "惊讶",
         "description": "眉毛明显抬起、双眼睁大；用于意外、惊喜或突然的转折。",
@@ -1386,109 +1276,15 @@
         "default_intensity": 0.5
       },
       {
-        "key": "laugh_shy",
-        "display_name": "笑 · 羞涩",
-        "description": "笑声与表情的整体请求（variant=0）；仅在确实适合笑时使用。",
+        "key": "even",
+        "display_name": "平稳",
+        "description": "平稳、不带明显情绪色彩地说话，作为没有其它语气覆盖时的基准表达。",
         "enabled": true,
-        "tone_keys": [],
-        "behaviors": [
-          {
-            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
-            "trigger": "media_started",
-            "arguments": {
-              "variant": 0
-            }
-          }
+        "tone_keys": [
+          "neutral"
         ],
-        "style_instruction": "先轻轻笑一声再说话，气息收着，尾音软。",
-        "voice_key": "",
-        "emotion_route": "auto",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "laugh_open",
-        "display_name": "笑 · 开怀",
-        "description": "笑声与表情的整体请求（variant=1）；仅在确实适合笑时使用。",
-        "enabled": true,
-        "tone_keys": [],
-        "behaviors": [
-          {
-            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
-            "trigger": "media_started",
-            "arguments": {
-              "variant": 1
-            }
-          }
-        ],
-        "style_instruction": "开口带一段爽朗的笑，声音放开，句子跟着笑抖动。",
-        "voice_key": "",
-        "emotion_route": "auto",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "laugh_wry",
-        "display_name": "笑 · 坏笑",
-        "description": "笑声与表情的整体请求（variant=2）；仅在确实适合笑时使用。",
-        "enabled": true,
-        "tone_keys": [],
-        "behaviors": [
-          {
-            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
-            "trigger": "media_started",
-            "arguments": {
-              "variant": 2
-            }
-          }
-        ],
-        "style_instruction": "低声笑一下，带一点鼻音，语气里有点调侃的坏。",
-        "voice_key": "",
-        "emotion_route": "auto",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "laugh_proud",
-        "display_name": "笑 · 张扬",
-        "description": "笑声与表情的整体请求（variant=3）；仅在确实适合笑时使用。",
-        "enabled": true,
-        "tone_keys": [],
-        "behaviors": [
-          {
-            "action_id": "614c5220cd4a5ce099d4114abe93ff9b",
-            "trigger": "media_started",
-            "arguments": {
-              "variant": 3
-            }
-          }
-        ],
-        "style_instruction": "仰头笑一声，尾音上扬，带着张扬的得意。",
-        "voice_key": "",
-        "emotion_route": "auto",
-        "priority": 0.0,
-        "supports_intensity": true,
-        "default_intensity": 0.5
-      },
-      {
-        "key": "ojou_laugh",
-        "display_name": "大小姐笑",
-        "description": "高傲、自信、得意的\"哦呵呵\"式笑；完整身体姿态，不用于普通笑。",
-        "enabled": true,
-        "tone_keys": [],
-        "behaviors": [
-          {
-            "action_id": "1f556c06179a5cd493947dda570e5b42",
-            "trigger": "media_started",
-            "arguments": {
-              "laugh_once": true
-            }
-          }
-        ],
-        "style_instruction": "带一点高傲的\"哦呵呵\"式笑，尾音拖长，笑完再开口。",
+        "behaviors": [],
+        "style_instruction": "平稳、自然的语调，不做夸张处理。",
         "voice_key": "",
         "emotion_route": "auto",
         "priority": 0.0,
@@ -2170,7 +1966,7 @@
           "cues": [],
           "cleanup_cues": [],
           "emotion_key": "neutral",
-          "manner_key": ""
+          "manner_key": "even"
         },
         {
           "id": "first.speak.explaining",
@@ -2189,7 +1985,7 @@
           ],
           "cleanup_cues": [],
           "emotion_key": "neutral",
-          "manner_key": ""
+          "manner_key": "even"
         },
         {
           "id": "first.speak.calm",
@@ -2208,7 +2004,7 @@
           ],
           "cleanup_cues": [],
           "emotion_key": "neutral",
-          "manner_key": ""
+          "manner_key": "thinking"
         },
         {
           "id": "first.happy",
@@ -2227,7 +2023,7 @@
           ],
           "cleanup_cues": [],
           "emotion_key": "happy",
-          "manner_key": ""
+          "manner_key": "playful"
         },
         {
           "id": "first.sad",
@@ -2259,7 +2055,7 @@
           ],
           "cleanup_cues": [],
           "emotion_key": "angry",
-          "manner_key": ""
+          "manner_key": "displeased"
         },
         {
           "id": "first.presentation.surprised",

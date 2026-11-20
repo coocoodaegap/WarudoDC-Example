@@ -933,6 +933,7 @@ BASE、REQUESTED、INTERACTION 各有索引列表和 Allowed 名称列表；未�
 | --- | --- | --- |
 | BASE | 1–4 | JOY、ANGRY、SORROW、FUN |
 | REQUESTED | 12–30 | 十九种独立表情入口 |
+| REQUESTED | 31 | Even 的基准表情，复用 REQUESTED 空槽键 |
 | REQUESTED | 42–45 | Laugh 的四种独立笑脸 |
 | REQUESTED | 46 | Ojou Laugh 的临时专属笑脸 |
 | INTERACTION | 5–11 | 额头、鼻子、胸、腹、大腿、小腿、臀部持续接触 |
@@ -1049,6 +1050,7 @@ Adapter 侧已移除这十九项 expression 表情 API／行为；表情只由�
 | Tired | 疲惫 | tired | 28 | 0，持续 |
 | Bored | 无聊 | bored | 29 | 0，持续 |
 | Thinking | 思考 | thinking | 30 | 0，持续 |
+| Even | 平稳 | even | 31 | 0，持续 |
 
 当前各图 EmotionVariants 都是自身代码重复五次，因此不同 Emotion 暂时选择同一张请求脸。
 要做情绪差分，可按 0 中性、1 高兴、2 生气、3 悲伤、4 本地尴尬身份配置五项；保留完整列表。
@@ -1245,6 +1247,16 @@ DurationSeconds=0；单独调用只请求脸，不自动进入 Thinking Pose。
 直接表情来源与 Performance 的思考状态来源分开，不能用同一个旧结束流程互相清除。
 要同时改变姿态应走对应表现入口；统一回归普通姿势也不能随意释放其他来源的脸。
 
+<a id="graph-even"></a>
+
+#### Even：平稳（14 节点，启用）
+
+由 Timeline 语调已释放节点的 MannerKey == "even" 触发，提交代码 31，映射 EXPRESSION_REQUESTED_NEUTRAL。
+用途是没有更具体语气覆盖时的基准表达：情绪仍由 Emotion Controller 决定 BASE 层，本图只把 REQUESTED 层交给中性脸，避免上一段的请求脸继续残留。
+槽位 31 复用 REQUESTED 层的空槽键，不新增原生表情；AllowedRequestedNames 已收录该名称，RequestedExpressionMap[31] 指向它，Constants 中 EXPRESSION_REQUESTED_NEUTRAL 的整数身份也是 31。
+DurationSeconds=0，持续到被其他请求替换或图退出时释放。
+微表情设施在每段语调释放时另行提交语气与强度；本图只负责请求脸，不写 BlendShape，也不消费微表情通道。
+
 ### 当前 49 个原生表情键怎么维护
 
 角色的原生 Expressions 中共有 49 项：BASE 5、REQUESTED 25、INTERACTION 17、OVERRIDE 2。
@@ -1260,6 +1272,7 @@ DurationSeconds=0；单独调用只请求脸，不自动进入 Thinking Pose。
 | REQUESTED 20–23 | EXPRESSION_DISGUSTED、EXPRESSION_WORRIED、EXPRESSION_FEARFUL、EXPRESSION_AGGRIEVED |
 | REQUESTED 24–27 | EXPRESSION_SHY、EXPRESSION_TENDER、EXPRESSION_RELIEVED、EXPRESSION_PLAYFUL |
 | REQUESTED 28–30 | EXPRESSION_TIRED、EXPRESSION_BORED、EXPRESSION_THINKING |
+| REQUESTED 31 | EXPRESSION_REQUESTED_NEUTRAL（复用空槽键，作为 Even 的请求脸） |
 | REQUESTED 四种笑 | EXPRESSION_LAUGH_SHY_DOWN、EXPRESSION_LAUGH_JOY_UP、EXPRESSION_LAUGH_SMUG_DOWN、EXPRESSION_LAUGH_SMUG_UP |
 | REQUESTED 大小姐笑 | EXPRESSION_OJOU_LAUGH |
 | INTERACTION 空槽 | EXPRESSION_INTERACTION_NEUTRAL |
@@ -2538,11 +2551,11 @@ Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；�
 | WarudoDC.Expression.Override.Evaluate | Expression Combination Override - 2 | Base: int，Requested: int，Interaction: int → 仅流程通知 | Expression Controller |
 | WarudoDC.Expression.Override.Propose | Expression Controller | RuleId: int，Priority: int，ExpressionName: string → 仅流程通知 | Expression Combination Override - 1、Expression Combination Override - 2 |
 | WarudoDC.Expression.Presentation.Switch | Expression Controller | Next: string，Neutral: string → 仅流程通知 | Expression Controller |
-| WarudoDC.Expression.Release | Expression Request Controller | SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
+| WarudoDC.Expression.Release | Expression Request Controller | SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
 | WarudoDC.Expression.ResetAftereffect | Expression Aftereffect Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
 | WarudoDC.Expression.ResetPresentation | Expression Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
 | WarudoDC.Expression.ResetRequested | Expression Request Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
-| WarudoDC.Expression.Submit | Expression Request Controller | EmotionVariants: int[]，DurationSeconds: float，SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
+| WarudoDC.Expression.Submit | Expression Request Controller | EmotionVariants: int[]，DurationSeconds: float，SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
 | WarudoDC.Gaze.Click.Clock | Gaze Pointer Gesture | PositionX: float，Seconds: float → 仅流程通知 | Gaze Pointer Gesture |
 | WarudoDC.Gaze.Click.Commit | Gaze Pointer Gesture | 无参数 → 仅流程通知 | Gaze Pointer Gesture |
 | WarudoDC.Gaze.Click.Reset | Gaze Pointer Gesture | 无参数 → 仅流程通知 | Gaze Controller、Gaze Pointer Gesture |
