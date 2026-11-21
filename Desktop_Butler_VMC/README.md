@@ -558,6 +558,9 @@ ClearApplied 先清 active 与来源，再提交新的 serial；ClearSource 只�
 普通交互表情仍属于 INTERACTION 槽；短触后效由各 Touch Reaction 图通过表情体系请求。
 可调内容是表情代码映射及资源体系中的表情配置，不应绕过来源检查直接调用内部 Apply 取得权限。
 
+来源身份（`Source`）与交互表情名是两种不同的东西，寻址方式也不同：`Expression` 是原生表情键字符串，`Source` 是 `InteractionOwner` 的占用者身份，仍是整数。它只在控制器内部与当前 Owner 做相等比较，用户不手写、不进入 Adapter 配置，也不出现在对外文档里，所以保持整数比全链字符串化更简单。
+若要把它改成字符串，必须同时改 `WarudoDC.Interaction.TryBegin` 的 `Source` 参数、`InteractionOwner` 变量、八张接触图与拖动图的实参，以及控制器中与 `4`／`5` 等字面量比较的十余处 `INTEGER_EQUAL`；只改末端会让比较两侧类型不同、条件恒假，交互表情因此完全不触发。
+
 ### Contact 公共流程：短触、长触与取消
 
 本场景有八张 Contact 图，当前全部启用，均为 `ContactSlotVersion=4` 的同类流程。
@@ -2513,12 +2516,12 @@ Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；�
 | WarudoDC.Energy.LocomotionChanged | Energy and Rest | Active: bool → 仅流程通知 | Energy and Rest |
 | WarudoDC.Expression.Compose.Apply | Expression Controller | 无参数 → 仅流程通知 | Expression Controller |
 | WarudoDC.Expression.ContactAftereffect.Release | Expression Aftereffect Controller | Source: int → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
-| WarudoDC.Expression.ContactAftereffect.Submit | Expression Aftereffect Controller | Source: int，Expression: int，DurationSeconds: float → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
-| WarudoDC.Expression.Interaction.Apply | Interaction Expression Bridge | Source: int，Expression: int → 仅流程通知 | Interaction Controller |
+| WarudoDC.Expression.ContactAftereffect.Submit | Expression Aftereffect Controller | Source: int，Expression: string，DurationSeconds: float → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
+| WarudoDC.Expression.Interaction.Apply | Interaction Expression Bridge | Source: int，Expression: string → 仅流程通知 | Interaction Controller |
 | WarudoDC.Expression.Interaction.Clear | Interaction Controller | 无参数 → 仅流程通知 | Interaction Controller |
 | WarudoDC.Expression.Interaction.ClearApplied | Interaction Expression Bridge | 无参数 → 仅流程通知 | Interaction Controller |
 | WarudoDC.Expression.Interaction.ClearSource | Interaction Expression Bridge | 无参数 → 仅流程通知 | Interaction Controller |
-| WarudoDC.Expression.Interaction.Submit | Interaction Controller | Source: int，Expression: int → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
+| WarudoDC.Expression.Interaction.Submit | Interaction Controller | Source: int，Expression: string → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
 | WarudoDC.Expression.Override.Evaluate | Expression Combination Override - 2 | Base: int，Requested: int，Interaction: int → 仅流程通知 | Expression Controller |
 | WarudoDC.Expression.Override.Propose | Expression Controller | RuleId: int，Priority: int，ExpressionName: string → 仅流程通知 | Expression Combination Override - 1、Expression Combination Override - 2 |
 | WarudoDC.Expression.Presentation.Switch | Expression Controller | Next: string，Neutral: string → 仅流程通知 | Expression Controller |
