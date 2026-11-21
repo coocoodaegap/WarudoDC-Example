@@ -899,7 +899,7 @@ Constants 里还保留 Emotion=4 的本地身份；BASE 映射会得到 FUN，�
 
 职责：唯一决定这四个呈现槽最终进入哪一个原生表情键。
 入口包括每帧更新、图启停、组合规则候选，以及 `WarudoDC.Expression.ResetPresentation()`。
-它先快照 Emotion、有效 REQUESTED、有效交互／后效，再调用 Expression Mapping 解析原生名称。
+它先快照 Emotion、有效 REQUESTED、有效交互／后效，再按名字启用对应原生表情。
 InteractionExpressionActive 为真时采用实际交互；否则才考虑 ContactAftereffectActive。
 因此新交互可以遮住旧短触后效，短触后效不需要继续占着交互锁来维持脸部反馈。
 三个来源的 payload、Active、Source 与提交 Serial 由各自控制者维护，本图不解析网络请求。
@@ -918,33 +918,6 @@ Priority 较大者优先；相同 Priority 取较小的正 RuleId，不能靠广
 当前 AllowedOverrideNames 只有 EXPRESSION_COMBINATION_JOY_FOREHEAD_CONTACT。
 本图可观察 ResolvedBaseName、ResolvedRequestedName、ResolvedInteractionName、ResolvedOverrideName 与 SelectedOverrideRuleId。
 这些是诊断值；不要把它们当作外部 API，或绕过来源控制直接写入。
-
-<a id="graph-expression-mapping"></a>
-
-#### Expression Mapping（27 节点，启用）
-
-职责：把本地逻辑代码转换成原生资源键，并按层检查允许目录。
-唯一函数入口是 `WarudoDC.Expression.Mapping.Resolve(Layer, Expression)`，输出字符串结果。
-BASE、REQUESTED、INTERACTION 各有索引列表和 Allowed 名称列表；未知或不允许的值归空。
-中央 Controller 在每次调用前先清函数返回槽，避免缺失定义等情况下沿用上一轮结果。
-这里不计时、不受理请求、不启用表情，也不会根据名称猜测某张脸应该在哪一层。
-
-| 映射位置 | 当前有效逻辑代码 | 用途 |
-| --- | --- | --- |
-| BASE | 1–4 | JOY、ANGRY、SORROW、FUN |
-| REQUESTED | 12–30 | 十九种独立表情入口 |
-| REQUESTED | 31 | Even 的基准表情，复用 REQUESTED 空槽键 |
-| REQUESTED | 42–45 | Laugh 的四种独立笑脸 |
-| REQUESTED | 46 | Ojou Laugh 的临时专属笑脸 |
-| INTERACTION | 5–11 | 额头、鼻子、胸、腹、大腿、小腿、臀部持续接触 |
-| INTERACTION | 33–39 | 上述七部位短触表情 |
-| INTERACTION | 40／41 | 头顶持续／短触表情 |
-
-代码只属于本场景内部映射，Adapter 使用具名 API，不发送原生键或这些整数身份。
-新增一张原生脸时，要同时检查角色目录、对应索引、Allowed 列表和真实原生层号。
-空索引槽有意保留，不能压缩数组，否则后续代码会整体错位。
-
-<a id="graph-expression-request-controller"></a>
 
 #### Expression Request Controller（68 节点，启用）
 
@@ -1018,39 +991,39 @@ ExpressionOverrideEnabled=false，OverrideExpressionName 为空，整图 Enabled
 不能保留空目标，把它解释成“抑制某一层”；旧 ReplaceBase／ReplaceRequested 等语义已废除。
 按某个 BlendShape 抑制其他贡献应使用原生表情约束，不能让规则图直接争写网格或口型。
 
-### 十九张 REQUESTED 入口：由 MannerKey 触发
+### 二十张 REQUESTED 入口：由 MannerKey 触发
 
-下列十九图都已启用，每张 11 节点，保留独立图是为了分别编辑意图和本地差分。
+下列二十图都已启用，保留独立图是为了分别编辑意图和本地差分。
 每张由「Timeline 语调已释放」节点的 MannerKey 输出触发：MannerKey 与图对应的 manner key 字符串相等时执行；不解析 WebSocket 或 Timeline 消息正文。
 触发后，读取 DurationSeconds、五项 EmotionVariants 及 Constants 来源，调用公共 Submit。
 图启用／停用走 Release，只清理仍属于自己的当前请求，不扫描和清空整个 REQUESTED 层。
 真正选中原生键、处理到期和恢复三层组合的工作由公共控制器完成。
-Adapter 侧已移除这十九项 expression 表情 API／行为；表情只由语气（manner）携带，首段预设也改为 manner_key。
+Adapter 侧已移除这二十项 expression 表情 API／行为；表情只由语气（manner）携带，首段预设也改为 manner_key。
 接口没有“传一个任意原生表情名”的字段，默认时长是在场景图里调整。
 多数请求现在是持续表情；不能照早期 Adapter 描述把它们全部理解成几秒后自动恢复。
 
-| 蓝图 | 中文用途 | Manner Key | 代码／来源 | 当前时长 |
+| 蓝图 | 中文用途 | Manner Key | 原生表情键 | 当前时长 |
 | --- | --- | --- | ---: | ---: |
-| Surprised | 惊讶 | surprised | 12 | 1.5 秒 |
-| Confused | 困惑 | confused | 13 | 0，持续 |
-| Speechless | 无语 | speechless | 14 | 0，持续 |
-| Embarrassed | 尴尬 | embarrassed | 15 | 0，持续 |
-| Expectant | 期待 | expectant | 16 | 2.5 秒 |
-| Smug | 得意 | smug | 17 | 0，持续 |
-| Skeptical | 怀疑 | skeptical | 18 | 0，持续 |
-| Displeased | 不满 | displeased | 19 | 0，持续 |
-| Disgusted | 嫌弃 | disgusted | 20 | 0，持续 |
-| Worried | 担忧 | worried | 21 | 0，持续 |
-| Fearful | 害怕 | fearful | 22 | 1.8 秒 |
-| Aggrieved | 委屈 | aggrieved | 23 | 0，持续 |
-| Shy | 害羞 | shy | 24 | 0，持续 |
-| Tender | 温柔 | tender | 25 | 0，持续 |
-| Relieved | 释然 | relieved | 26 | 0，持续 |
-| Playful | 俏皮 | playful | 27 | 0，持续 |
-| Tired | 疲惫 | tired | 28 | 0，持续 |
-| Bored | 无聊 | bored | 29 | 0，持续 |
-| Thinking | 思考 | thinking | 30 | 0，持续 |
-| Even | 平稳 | even | 31 | 0，持续 |
+| Surprised | 惊讶 | surprised | EXPRESSION_SURPRISED | 1.5 秒 |
+| Confused | 困惑 | confused | EXPRESSION_CONFUSED | 0，持续 |
+| Speechless | 无语 | speechless | EXPRESSION_SPEECHLESS | 0，持续 |
+| Embarrassed | 尴尬 | embarrassed | EXPRESSION_EMBARRASSED | 0，持续 |
+| Expectant | 期待 | expectant | EXPRESSION_EXPECTANT | 2.5 秒 |
+| Smug | 得意 | smug | EXPRESSION_SMUG | 0，持续 |
+| Skeptical | 怀疑 | skeptical | EXPRESSION_SKEPTICAL | 0，持续 |
+| Displeased | 不满 | displeased | EXPRESSION_DISPLEASED | 0，持续 |
+| Disgusted | 嫌弃 | disgusted | EXPRESSION_DISGUSTED | 0，持续 |
+| Worried | 担忧 | worried | EXPRESSION_WORRIED | 0，持续 |
+| Fearful | 害怕 | fearful | EXPRESSION_FEARFUL | 1.8 秒 |
+| Aggrieved | 委屈 | aggrieved | EXPRESSION_AGGRIEVED | 0，持续 |
+| Shy | 害羞 | shy | EXPRESSION_SHY | 0，持续 |
+| Tender | 温柔 | tender | EXPRESSION_TENDER | 0，持续 |
+| Relieved | 释然 | relieved | EXPRESSION_RELIEVED | 0，持续 |
+| Playful | 俏皮 | playful | EXPRESSION_PLAYFUL | 0，持续 |
+| Tired | 疲惫 | tired | EXPRESSION_TIRED | 0，持续 |
+| Bored | 无聊 | bored | EXPRESSION_BORED | 0，持续 |
+| Thinking | 思考 | thinking | EXPRESSION_THINKING | 0，持续 |
+| Even | 平稳 | even | EXPRESSION_REQUESTED_NEUTRAL | 0，持续 |
 
 当前各图 EmotionVariants 都是自身代码重复五次，因此不同 Emotion 暂时选择同一张请求脸。
 要做情绪差分，可按 0 中性、1 高兴、2 生气、3 悲伤、4 本地尴尬身份配置五项；保留完整列表。
@@ -1253,7 +1226,7 @@ DurationSeconds=0；单独调用只请求脸，不自动进入 Thinking Pose。
 
 由 Timeline 语调已释放节点的 MannerKey == "even" 触发，提交代码 31，映射 EXPRESSION_REQUESTED_NEUTRAL。
 用途是没有更具体语气覆盖时的基准表达：情绪仍由 Emotion Controller 决定 BASE 层，本图只把 REQUESTED 层交给中性脸，避免上一段的请求脸继续残留。
-槽位 31 复用 REQUESTED 层的空槽键，不新增原生表情；AllowedRequestedNames 已收录该名称，RequestedExpressionMap[31] 指向它，Constants 中 EXPRESSION_REQUESTED_NEUTRAL 的整数身份也是 31。
+直接提交 REQUESTED 层的空槽键 EXPRESSION_REQUESTED_NEUTRAL，不新增原生表情，也不需要索引表或整数身份。
 DurationSeconds=0，持续到被其他请求替换或图退出时释放。
 微表情设施在每段语调释放时另行提交语气与强度；本图只负责请求脸，不写 BlendShape，也不消费微表情通道。
 
@@ -1523,7 +1496,7 @@ Runtime Locomotion 的根运动例外仍要求明确绑定唯一执行者；不�
 | 某张脸的外观 | 角色 Expressions 对应键 | 原生层号、约束、口型跟踪与现有用户调配 |
 | 某类请求保持多久 | 对应九节点表情图的 DurationSeconds | 0 持续、正数限时；Adapter 说明不能覆盖实际场景值 |
 | Tone 对应基础脸 | Emotion Controller 与 BASE 映射 | 四 Tone 范围、未知保留、强度尚未消费 |
-| 新增逻辑表情 | Constants、Expression Mapping、角色目录与入口 | 索引空槽、Allowed 目录、来源身份、API／Adapter 同步 |
+| 新增逻辑表情 | 角色目录与入口 | 原生表情键、API／Adapter 同步 |
 | 戳后脸保留时间 | 对应 Touch … Reaction 的后效配置 | 独立后效计时、锁立即释放、真实交互优先 |
 | 转头／回正快慢 | Runtime 注视资源 TurnSeconds／ReturnSeconds | 不再叠位置 Tween，独立眼睛求解速度分别看 |
 | 按住／松开停留 | Gaze Pointer Gesture | 交互 Serial、0.08 秒确认、抢占不恢复 |
@@ -2406,7 +2379,6 @@ Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；�
 | Affect | [Emotion Controller](#graph-emotion-controller) | 是 | 25 / 14 / 15 |
 | Expression | [Expression Controller](#graph-expression-controller) | 是 | 149 / 76 / 101 |
 | Performance | [Performance Controller](#graph-performance-controller) | 是 | 344 / 251 / 168 |
-| Expression | [Expression Mapping](#graph-expression-mapping) | 是 | 27 / 24 / 10 |
 | Idle | [Idle Animation](#graph-idle-animation) | 是 | 84 / 64 / 48 |
 | Expression | [Expression Request Controller](#graph-expression-request-controller) | 是 | 68 / 39 / 42 |
 | Performance | [Presentation Lifecycle](#graph-presentation-lifecycle) | 是 | 87 / 56 / 58 |
@@ -2547,15 +2519,14 @@ Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；�
 | WarudoDC.Expression.Interaction.ClearApplied | Interaction Expression Bridge | 无参数 → 仅流程通知 | Interaction Controller |
 | WarudoDC.Expression.Interaction.ClearSource | Interaction Expression Bridge | 无参数 → 仅流程通知 | Interaction Controller |
 | WarudoDC.Expression.Interaction.Submit | Interaction Controller | Source: int，Expression: int → 仅流程通知 | Touch Belly Reaction、Touch Breast Reaction、Touch Butt Reaction、Touch Forehead Reaction、Touch Head Top Reaction、Touch Leg Reaction、Touch Nose Reaction、Touch Thigh Reaction |
-| WarudoDC.Expression.Mapping.Resolve | Expression Mapping | Layer: int，Expression: int → string | Expression Controller |
 | WarudoDC.Expression.Override.Evaluate | Expression Combination Override - 2 | Base: int，Requested: int，Interaction: int → 仅流程通知 | Expression Controller |
 | WarudoDC.Expression.Override.Propose | Expression Controller | RuleId: int，Priority: int，ExpressionName: string → 仅流程通知 | Expression Combination Override - 1、Expression Combination Override - 2 |
 | WarudoDC.Expression.Presentation.Switch | Expression Controller | Next: string，Neutral: string → 仅流程通知 | Expression Controller |
-| WarudoDC.Expression.Release | Expression Request Controller | SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
+| WarudoDC.Expression.Release | Expression Request Controller | SourceId: string → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
 | WarudoDC.Expression.ResetAftereffect | Expression Aftereffect Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
 | WarudoDC.Expression.ResetPresentation | Expression Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
 | WarudoDC.Expression.ResetRequested | Expression Request Controller | 无参数 → 仅流程通知 | Presentation Lifecycle |
-| WarudoDC.Expression.Submit | Expression Request Controller | EmotionVariants: int[]，DurationSeconds: float，SourceId: int → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
+| WarudoDC.Expression.Submit | Expression Request Controller | Variants: string[]，DurationSeconds: float，SourceId: string → 仅流程通知 | Aggrieved、Bored、Confused、Disgusted、Displeased、Embarrassed、Even、Expectant、Fearful、Laugh、Ojou Laugh、Playful、Relieved、Shy、Skeptical、Smug、Speechless、Surprised、Tender、Thinking、Thinking Pose、Tired、Worried |
 | WarudoDC.Gaze.Click.Clock | Gaze Pointer Gesture | PositionX: float，Seconds: float → 仅流程通知 | Gaze Pointer Gesture |
 | WarudoDC.Gaze.Click.Commit | Gaze Pointer Gesture | 无参数 → 仅流程通知 | Gaze Pointer Gesture |
 | WarudoDC.Gaze.Click.Reset | Gaze Pointer Gesture | 无参数 → 仅流程通知 | Gaze Controller、Gaze Pointer Gesture |
@@ -2639,7 +2610,7 @@ Director开启。表现时情绪为`neutral/happy/sad/angry`，neutral默认；�
 
 ### 新增一个表情请求
 
-按现有REQUESTED模板新增原生键、Constants标识、API与小图；申请进入Expression Request Controller，传入时长和来源。0表示持续，正数表示期限。再在Adapter剧本/首段预设选择开放方式，补外观说明与搭配建议。
+按现有 REQUESTED 模板新增原生键、API 与小图；直接向 Expression Request Controller 提交表情键、时长和来源名。0表示持续，正数表示期限。再在Adapter剧本/首段预设选择开放方式，补外观说明与搭配建议。
 
 不能只新增一个原生键就假定Director可用了，也不能为省小图让网络直接写`InteractionExpression`。若使用组合覆写，规则通过提案函数申请；Controller不依赖具体规则图。当前两个示例默认停用，先按自己角色验证再启用。
 
