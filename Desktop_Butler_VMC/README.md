@@ -1932,7 +1932,8 @@ BASE层的原FUN仍保持自己的身份，旧版借用SHY／PLAYFUL／SMUG的�
 本轮删除了 `OwnedExpressionSerial`／`PriorExpressionSerial` 那套守卫：它们在图里静默失败，而来源校验本来已由
 `Expression Request Controller` 的 `Release` 完成——来源不匹配或已被接管时它自己拒绝，不会清掉新脸。
 不恢复旧REQUESTED快照，BASE／INTERACTION及组合覆盖仍由Expression Controller决定；
-笑属于短效表情，结束后由交互后效恢复进入前的表情。
+笑属于短效表情，释放后 REQUESTED 层回到自己的中性键 EXPRESSION_REQUESTED_NEUTRAL（Even），
+不回到进入笑之前的表情；这是原设计，已确认符合预期，不要按"恢复前一张脸"去改。
 清脸之后按原短附加的待释放／下一Update路径放开槽位，不重播底姿。
 停图（图禁用）同样直接释放自己仍持有的脸，不伪造原生结束；少见丢回调和异步加载边界仍待观察。
 
