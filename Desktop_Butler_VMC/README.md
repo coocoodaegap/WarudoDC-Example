@@ -1268,7 +1268,7 @@ DurationSeconds=0，持续到被其他请求替换或图退出时释放。
 现有脸中保留用户自己制作的嘴部造型；这不授权蓝图另写口型、下巴或音素系统。
 当前 49 项 DisableMouthTracking 均为 false，原生 Lip Sync 的职责保持。
 四种 Laugh 独立脸最初从 FUN 复制初值，现已由用户分别调配，不再与 BASE 的 FUN 自动同步。
-Ojou Laugh 只有 laugh_once=true 时临时申请专属脸，头部动作结束后按来源／代次释放；持续肢体仍可保留。
+Ojou Laugh 只有 laugh_once=true 时临时申请专属脸，头部动作结束后按来源释放；持续肢体仍可保留。
 laugh_once=false 不请求或刷新表情；不要按较早记录把这张脸绑定整段持续姿态。
 
 ### Character：注视链先选目标，再执行
@@ -1928,11 +1928,13 @@ BASE层的原FUN仍保持自己的身份，旧版借用SHY／PLAYFUL／SMUG的�
 低头和抬头各用一份完整非循环素材，不通过重复拼接增加次数。
 当前原生设置仍为附加开启、无遮罩、速度／权重1、过渡0.1秒。
 
-动画自然结束时仅在表情来源和捕获代次仍匹配时撤销自己这次笑脸。
-中途被新表情接管，甚至同来源有更新代次，旧回调也不能清掉新脸。
-不恢复旧REQUESTED快照，BASE／INTERACTION及组合覆盖仍由Expression Controller决定。
+动画自然结束时直接调用 `Release(来源名)`，图内不再比较代次。
+本轮删除了 `OwnedExpressionSerial`／`PriorExpressionSerial` 那套守卫：它们在图里静默失败，而来源校验本来已由
+`Expression Request Controller` 的 `Release` 完成——来源不匹配或已被接管时它自己拒绝，不会清掉新脸。
+不恢复旧REQUESTED快照，BASE／INTERACTION及组合覆盖仍由Expression Controller决定；
+笑属于短效表情，结束后由交互后效恢复进入前的表情。
 清脸之后按原短附加的待释放／下一Update路径放开槽位，不重播底姿。
-停图也只清理自己仍持有的脸，不伪造原生结束；少见丢回调和异步加载边界仍待观察。
+停图（图禁用）同样直接释放自己仍持有的脸，不伪造原生结束；少见丢回调和异步加载边界仍待观察。
 
 <a id="graph-ojou-laugh"></a>
 
